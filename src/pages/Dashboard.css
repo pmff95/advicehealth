@@ -1,3 +1,18 @@
+.dashboard {
+  min-height: 100vh;
+  background: #f3f5f7;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+}
+
+.dashboard-content {
+  flex: 1;
+  margin: 0 4rem;
+  display: flex;
+  gap: 2rem;
+}
+
 .guides {
   flex: 1;
   background: #fff;

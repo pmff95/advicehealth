@@ -1,5 +1,7 @@
 import { useState } from "react";
 import DetailsModal from "../components/DetailsModal";
+import Header from "../components/Header";
+import BeneficiaryCard from "../components/BeneficiaryCard";
 import Button from "../components/Button";
 import "./Dashboard.css";
 import Tag from "../components/Tag";
@@ -103,7 +105,7 @@ const guides: Guide[] = [
 export default function Dashboard() {
   const [selected, setSelected] = useState<Guide | null>(null);
 
-  return ( 
+  return (
     <div className="dashboard">
       <Header userName="Ana Paula" cardNumber="123456789" operator="FESUL" />
       <div className="dashboard-content">
