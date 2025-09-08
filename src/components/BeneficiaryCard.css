@@ -32,23 +32,12 @@
   display: flex;
   justify-content: end;
 }
-.button-group button {
-  display: flex;
-  justify-content: end;
-  background: #f5f5f5;
-  color: #1e5d96;
-}
-
-.beneficiary-card button {
+.beneficiary-card .btn {
   margin-top: 1rem;
   font-weight: 600;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
-.body_card_dashboard > button:last-child {
+.body_card_dashboard > .btn:last-child {
   margin-top: auto;
   width: 100%;
   font-weight: bold;

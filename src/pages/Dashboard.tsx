@@ -2,6 +2,7 @@ import { useState } from "react";
 import DetailsModal from "../components/DetailsModal";
 import Header from "../components/Header";
 import BeneficiaryCard from "../components/BeneficiaryCard";
+import Button from "../components/Button";
 import "./Dashboard.css";
 import Tag from "../components/Tag";
 
@@ -130,7 +131,7 @@ export default function Dashboard() {
               <span>{g.hospital}</span>
               <div className="guide-actions">
                 <span className="status">{g.status}</span>
-                <button>teste</button>
+                  <Button variant="tertiary">teste</Button>
               </div>
             </div>
           ))}
