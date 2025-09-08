@@ -26,9 +26,25 @@
   border-radius: 8px;
   padding: 1rem;
   margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
   cursor: pointer;
 }
+.guide span:not(.status) {
+  font-size: 0.8rem;
+}
 
+.guide-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.guide h4 {
+  margin-top: 1rem;
+  color: #1e5d96;
+  font-weight: bold;
+}
 .guide-header {
   display: flex;
   justify-content: space-between;

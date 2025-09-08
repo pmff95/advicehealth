@@ -1,18 +1,22 @@
 import "./BeneficiaryCard.css";
 
 interface BeneficiaryCardProps {
-  title: string;
   name: string;
   birthDate: string;
   phone: string;
   email: string;
 }
 
-export default function BeneficiaryCard({ title, name, birthDate, phone, email }: BeneficiaryCardProps) {
+export default function BeneficiaryCard({
+  name,
+  birthDate,
+  phone,
+  email,
+}: BeneficiaryCardProps) {
   return (
     <aside className="beneficiary-card">
       <div className="header">
-        <h3>{title}</h3>
+        <h3>Dados do Beneficiário</h3>
       </div>
       <div className="body_card_dashboard">
         <div className="input-group" style={{ marginBottom: "1.5rem" }}>
@@ -37,9 +41,8 @@ export default function BeneficiaryCard({ title, name, birthDate, phone, email }
         <div className="button-group">
           <button>E-mail adicional</button>
         </div>
-        <button>Atualizar dados do titular</button>
+        <button className="button-secondary">Atualizar dados do titular</button>
       </div>
     </aside>
   );
 }
-

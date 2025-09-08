@@ -1,16 +1,19 @@
-import "./DashboardHeader.css";
+import "./Header.css";
 
-interface DashboardHeaderProps {
-  title: string;
+interface HeaderProps {
   userName: string;
   cardNumber: string;
   operator: string;
 }
 
-export default function DashboardHeader({ title, userName, cardNumber, operator }: DashboardHeaderProps) {
+export default function Header({
+  userName,
+  cardNumber,
+  operator,
+}: HeaderProps) {
   return (
     <header className="dashboard-header">
-      <h2>{title}</h2>
+      <h2>Portal do Beneficiário</h2>
       <div className="user-info">
         Olá, {userName}!
         <br />
@@ -21,4 +24,3 @@ export default function DashboardHeader({ title, userName, cardNumber, operator 
     </header>
   );
 }
-

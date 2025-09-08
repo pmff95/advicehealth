@@ -1,8 +1,9 @@
 import { useState } from "react";
 import DetailsModal from "../components/DetailsModal";
-import DashboardHeader from "../components/DashboardHeader";
+import Header from "../components/Header";
 import BeneficiaryCard from "../components/BeneficiaryCard";
 import "./Dashboard.css";
+import Tag from "../components/Tag";
 
 interface Step {
   title: string;
@@ -105,19 +106,13 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <DashboardHeader
-        title="Portal do Beneficiário"
-        userName="Ana Paula"
-        cardNumber="123456789"
-        operator="FESUL"
-      />
+      <Header userName="Ana Paula" cardNumber="123456789" operator="FESUL" />
       <div className="dashboard-content">
         <BeneficiaryCard
-          title="Dados do Beneficiário"
           name="Maria Oliveira Santos"
-          birthDate="000.000.000-00"
+          birthDate="01/08/1995"
           phone="(99) 99999-0450"
-          email="email@email.com"
+          email="teste@email.com"
         />
         <main className="guides">
           <h2>
@@ -126,13 +121,17 @@ export default function Dashboard() {
           </h2>
           {guides.map((g) => (
             <div key={g.id} className="guide" onClick={() => setSelected(g)}>
-              <div className="guide-header">
-                <h3>{g.type}</h3>
-                <span className="status">{g.status}</span>
+              <div>
+                <Tag value="Internação" severity="info" />
               </div>
-              <p>Guia {g.number}</p>
-              <p>Data de atendimento: {g.date}</p>
-              <p>{g.hospital}</p>
+              <h4>Guia {g.number}</h4>
+              <span>Data de atendimento: {g.date}</span>
+              <span>{g.doctor}</span>
+              <span>{g.hospital}</span>
+              <div className="guide-actions">
+                <span className="status">{g.status}</span>
+                <button>teste</button>
+              </div>
             </div>
           ))}
         </main>
