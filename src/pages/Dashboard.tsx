@@ -103,27 +103,38 @@ const guides: Guide[] = [
 export default function Dashboard() {
   const [selected, setSelected] = useState<Guide | null>(null);
 
-  return (
-    <div className="guides">
-      <h2>
-        Acompanhe o status de autorização das guias médicas solicitadas para o
-        seu titular.
-      </h2>
-      {guides.map((g) => (
-        <div key={g.id} className="guide" onClick={() => setSelected(g)}>
-          <div>
-            <Tag value="Internação" severity="info" />
-          </div>
-          <h4>Guia {g.number}</h4>
-          <span>Data de atendimento: {g.date}</span>
-          <span>{g.doctor}</span>
-          <span>{g.hospital}</span>
-          <div className="guide-actions">
-            <span className="status">{g.status}</span>
-            <Button variant="tertiary">teste</Button>
-          </div>
-        </div>
-      ))}
+  return ( 
+    <div className="dashboard">
+      <Header userName="Ana Paula" cardNumber="123456789" operator="FESUL" />
+      <div className="dashboard-content">
+        <BeneficiaryCard
+          name="Maria Oliveira Santos"
+          birthDate="01/08/1995"
+          phone="(99) 99999-0450"
+          email="teste@email.com"
+        />
+        <main className="guides">
+          <h2>
+            Acompanhe o status de autorização das guias médicas solicitadas para
+            o seu titular.
+          </h2>
+          {guides.map((g) => (
+            <div key={g.id} className="guide" onClick={() => setSelected(g)}>
+              <div>
+                <Tag value="Internação" severity="info" />
+              </div>
+              <h4>Guia {g.number}</h4>
+              <span>Data de atendimento: {g.date}</span>
+              <span>{g.doctor}</span>
+              <span>{g.hospital}</span>
+              <div className="guide-actions">
+                <span className="status">{g.status}</span>
+                <Button variant="secondary">Ver detalhes</Button>
+              </div>
+            </div>
+          ))}
+        </main>
+      </div>
       {selected && (
         <DetailsModal guide={selected} onClose={() => setSelected(null)} />
       )}

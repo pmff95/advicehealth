@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
   background: #f3f5f7;
   color: #333;
 }
@@ -10,6 +9,7 @@ a {
 }
 
 * {
+  font-family: "Poppins", sans-serif;
   box-sizing: border-box;
 }
 h1,
@@ -20,4 +20,3 @@ h5,
 h6 {
   margin: 0;
 }
-
