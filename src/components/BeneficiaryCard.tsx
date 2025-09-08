@@ -16,7 +16,7 @@ export default function BeneficiaryCard({
 }: BeneficiaryCardProps) {
   return (
     <aside className="beneficiary-card">
-      <div className="header">
+      <div className="header_card">
         <h3>Dados do Beneficiário</h3>
       </div>
       <div className="body_card_dashboard">
@@ -32,20 +32,20 @@ export default function BeneficiaryCard({
           <label>TELEFONE/CELULAR</label>
           <p>{phone}</p>
         </div>
-          <div className="button-group">
-            <Button variant="tertiary" style={{ marginBottom: "1rem" }}>
-              Telefone adicional
-            </Button>
-          </div>
+        <div className="button-group">
+          <Button variant="tertiary" style={{ marginBottom: "1rem" }}>
+            Telefone adicional
+          </Button>
+        </div>
         <div className="input-group">
           <label>E-MAIL</label>
           <p>{email}</p>
         </div>
-          <div className="button-group">
-            <Button variant="tertiary">E-mail adicional</Button>
-          </div>
-          <Button variant="secondary">Atualizar dados do titular</Button>
+        <div className="button-group">
+          <Button variant="tertiary">E-mail adicional</Button>
         </div>
-      </aside>
-    );
-  }
+        <Button variant="secondary">Atualizar dados do titular</Button>
+      </div>
+    </aside>
+  );
+}

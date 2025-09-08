@@ -12,7 +12,7 @@ export default function Login({ onLogin }: LoginProps) {
           <h1>Portal do Beneficiário</h1>
         </div>
         <div className="login-card">
-          <div className="header">
+          <div className="header ">
             <h2>Login</h2>
             <small>
               Entre com seus dados corretamente para acessar nossa plataforma.
@@ -40,9 +40,9 @@ export default function Login({ onLogin }: LoginProps) {
               <a href="#">Esqueci minha senha</a>
             </div>
 
-              <Button variant="primary" onClick={onLogin}>
-                Login
-              </Button>
+            <Button variant="primary" onClick={onLogin}>
+              Login
+            </Button>
 
             <div className="signup">
               Ainda não tem conta? <a href="#">Cadastre-se</a>

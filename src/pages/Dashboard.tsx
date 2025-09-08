@@ -13,8 +13,9 @@ export default function Dashboard() {
           birthDate="01/08/1995"
           phone="(99) 99999-0450"
           email="teste@email.com"
-        />
+        /> 
         <Guides />
+ 
       </div>
     </div>
   );

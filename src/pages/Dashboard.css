@@ -1,7 +1,8 @@
 .dashboard {
   min-height: 100vh;
-  background: #f3f5f7;
+  background: url("/images/background.jpg") no-repeat center center;
   display: flex;
+  background-size: cover;
   padding: 2rem;
   flex-direction: column;
 }
@@ -12,4 +13,4 @@
   display: flex;
   gap: 2rem;
 }
-
+ 
