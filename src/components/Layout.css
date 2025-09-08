@@ -1,0 +1,39 @@
+.dashboard {
+  min-height: 100vh;
+  background: #f3f5f7;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+}
+
+.dashboard-content {
+  flex: 1;
+  margin: 0 4rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.side-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-nav li + li {
+  margin-top: 0.5rem;
+}
+
+.side-nav a {
+  color: #1e5d96;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.main-content {
+  flex: 1;
+}
