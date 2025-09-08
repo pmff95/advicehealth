@@ -1,4 +1,5 @@
 import "./Login.css";
+import Button from "../components/Button";
 
 interface LoginProps {
   onLogin: () => void;
@@ -39,7 +40,9 @@ export default function Login({ onLogin }: LoginProps) {
               <a href="#">Esqueci minha senha</a>
             </div>
 
-            <button onClick={onLogin}>Login</button>
+              <Button variant="primary" onClick={onLogin}>
+                Login
+              </Button>
 
             <div className="signup">
               Ainda não tem conta? <a href="#">Cadastre-se</a>

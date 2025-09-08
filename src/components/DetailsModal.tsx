@@ -1,4 +1,5 @@
-import './DetailsModal.css'
+import "./DetailsModal.css"
+import Button from "./Button"
 
 interface Step {
   title: string
@@ -24,7 +25,9 @@ export default function DetailsModal({ guide, onClose }: DetailsModalProps) {
   return (
     <div className="details-overlay" onClick={onClose}>
       <div className="details-panel" onClick={(e) => e.stopPropagation()}>
-        <button className="close" onClick={onClose}>Fechar</button>
+          <Button variant="tertiary" className="close" onClick={onClose}>
+            Fechar
+          </Button>
         <h2>{guide.type}</h2>
         <p className="guide-number">Guia {guide.number}</p>
         <p>{guide.doctor}<br />{guide.hospital}</p>

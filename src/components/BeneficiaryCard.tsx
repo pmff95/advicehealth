@@ -1,4 +1,5 @@
 import "./BeneficiaryCard.css";
+import Button from "./Button";
 
 interface BeneficiaryCardProps {
   name: string;
@@ -31,18 +32,20 @@ export default function BeneficiaryCard({
           <label>TELEFONE/CELULAR</label>
           <p>{phone}</p>
         </div>
-        <div className="button-group">
-          <button style={{ marginBottom: "1rem" }}>Telefone adicional</button>
-        </div>
+          <div className="button-group">
+            <Button variant="tertiary" style={{ marginBottom: "1rem" }}>
+              Telefone adicional
+            </Button>
+          </div>
         <div className="input-group">
           <label>E-MAIL</label>
           <p>{email}</p>
         </div>
-        <div className="button-group">
-          <button>E-mail adicional</button>
+          <div className="button-group">
+            <Button variant="tertiary">E-mail adicional</Button>
+          </div>
+          <Button variant="secondary">Atualizar dados do titular</Button>
         </div>
-        <button className="button-secondary">Atualizar dados do titular</button>
-      </div>
-    </aside>
-  );
-}
+      </aside>
+    );
+  }

@@ -23,6 +23,7 @@
   color: #0a4a8a;
   cursor: pointer;
   float: right;
+  padding: 0;
 }
 
 .timeline {

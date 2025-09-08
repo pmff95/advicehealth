@@ -80,22 +80,9 @@
   text-decoration: underline;
 }
 
-.login-card button {
+.login-card .btn {
   margin: 0.5rem 0 2rem;
-  color: #1e5d96;
-  background-color: #e8f1fb;
-  border: none;
-  border-radius: 8px;
-  padding: 0.75rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
   width: 50%;
-}
-
-.login-card button:hover {
-  background: #1e5d96;
-  color: #fff;
 }
 
 .signup {
