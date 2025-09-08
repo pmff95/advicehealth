@@ -1,0 +1,11 @@
+.dashboard-header {
+  background-color: #1e5d96;
+  color: #fff;
+  margin: 0rem 4rem 2rem;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import DetailsModal from "../components/DetailsModal";
+import DashboardHeader from "../components/DashboardHeader";
+import BeneficiaryCard from "../components/BeneficiaryCard";
 import "./Dashboard.css";
 
 interface Step {
@@ -103,49 +105,20 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <header className="dashboard-header">
-        <h2>Portal do Beneficiário</h2>
-        <div className="user-info">
-          Olá, Ana Paula!
-          <br />
-          N° da carteirinha: 123456789
-          <br />
-          Operadora: FESUL
-        </div>
-      </header>
+      <DashboardHeader
+        title="Portal do Beneficiário"
+        userName="Ana Paula"
+        cardNumber="123456789"
+        operator="FESUL"
+      />
       <div className="dashboard-content">
-        <aside className="beneficiary-card">
-          <div className="header">
-            <h3>Dados do Beneficiário</h3>
-          </div>
-          <div className="body_card_dashboard">
-            <div className="input-group" style={{ marginBottom: "1.5rem" }}>
-              <label>NOME</label>
-              <p>Maria Oliveira Santos</p>
-            </div>
-            <div className="input-group" style={{ marginBottom: "1.5rem" }}>
-              <label>DATA DE NASCIMENTO</label>
-              <p>000.000.000-00</p>
-            </div>
-            <div className="input-group">
-              <label>TELEFONE/CELULAR</label>
-              <p>(99) 99999-0450</p>
-            </div>
-            <div className="button-group">
-              <button style={{ marginBottom: "1rem" }}>
-                Telefone adicional
-              </button>
-            </div>
-            <div className="input-group">
-              <label>E-MAIL</label>
-              <p>email@email.com</p>
-            </div>
-            <div className="button-group">
-              <button>E-mail adicional</button>
-            </div>
-            <button>Atualizar dados do titular</button>
-          </div>
-        </aside>
+        <BeneficiaryCard
+          title="Dados do Beneficiário"
+          name="Maria Oliveira Santos"
+          birthDate="000.000.000-00"
+          phone="(99) 99999-0450"
+          email="email@email.com"
+        />
         <main className="guides">
           <h2>
             Acompanhe o status de autorização das guias médicas solicitadas para
