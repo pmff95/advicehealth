@@ -121,7 +121,7 @@ export default function Dashboard() {
             o seu titular.
           </h2>
           {guides.map((g) => (
-            <div key={g.id} className="guide" onClick={() => setSelected(g)}>
+            <div key={g.id} className="guide">
               <div>
                 <Tag value="Internação" severity="info" />
               </div>
@@ -131,7 +131,9 @@ export default function Dashboard() {
               <span>{g.hospital}</span>
               <div className="guide-actions">
                 <span className="status">{g.status}</span>
-                <Button variant="secondary">Ver detalhes</Button>
+                <Button variant="secondary" onClick={() => setSelected(g)}>
+                  Ver detalhes
+                </Button>
               </div>
             </div>
           ))}

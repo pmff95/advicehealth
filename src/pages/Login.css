@@ -20,18 +20,20 @@
 }
 .header {
   border-radius: 12px 12px 0 0;
+  padding: 2rem 4rem;
   color: white;
   display: flex;
-  text-align: center;
   flex-direction: column;
   gap: 0.5rem;
   background-color: #1e5d96;
-  padding: 2rem 2rem;
+}
+.login-card small {
+  font-size: 0.8rem;
 }
 .login-card {
   background: #fff;
   color: #333;
-  border-radius: 12px;
+  border-radius: 16px 16px 12px 12px;
   width: 100%;
   max-width: 30vw;
   display: flex;
@@ -39,6 +41,7 @@
   gap: 0.75rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+
 .body-card_login {
   padding: 2rem 4rem;
   display: flex;
