@@ -127,7 +127,9 @@ export default function Dashboard() {
               </div>
               <h4>Guia {g.number}</h4>
               <span>Data de atendimento: {g.date}</span>
-              <span>{g.doctor}</span>
+              <span style={{ marginTop: "1.5rem", fontWeight: "500" }}>
+                {g.doctor}
+              </span>
               <span>{g.hospital}</span>
               <div className="guide-actions">
                 <span className="status">{g.status}</span>
