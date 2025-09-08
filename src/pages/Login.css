@@ -1,78 +1,110 @@
 .login-page {
   display: flex;
   min-height: 100vh;
+  font-family: "Arial", sans-serif;
+  background: url("/images/login.png") no-repeat center center;
+  background-size: cover;
 }
-
-.login-left {
-  flex: 1;
-  max-width: 480px;
-  background: #0a4a8a;
-  color: #fff;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.login-left h1 {
+.portal-header {
+  width: 30vw;
   margin-bottom: 2rem;
 }
-
+.login-teste h1 {
+  color: white;
+}
+.login-teste {
+  width: 50vw;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+.header {
+  border-radius: 12px 12px 0 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #1e5d96;
+  padding: 2rem 3rem;
+}
 .login-card {
   background: #fff;
   color: #333;
-  border-radius: 8px;
-  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 30vw;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.body-card_login {
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .login-card h2 {
   margin: 0;
 }
 
+.login-card p {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
 .login-card input[type="text"],
 .login-card input[type="password"] {
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  width: 100%;
 }
 
 .login-options {
   display: flex;
   justify-content: space-between;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 1rem 0;
 }
 
 .login-options a {
-  color: #0a4a8a;
+  color: #1e5d96;
+  text-decoration: underline;
+}
+
+.login-options a:hover {
+  text-decoration: underline;
 }
 
 .login-card button {
-  margin-top: 0.5rem;
-  background: #0a4a8a;
-  color: #fff;
+  margin: 0.5rem 0 2rem;
+  color: #1e5d96;
+  background-color: #e8f1fb;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 0.75rem;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.2s;
+  width: 50%;
+}
+
+.login-card button:hover {
+  background: #1e5d96;
+  color: #fff;
 }
 
 .signup {
-  text-align: center;
+  text-align: end;
+  color: #1e5d96;
   font-size: 0.875rem;
+  margin-top: 1rem;
 }
 
 .signup a {
-  color: #0a4a8a;
+  color: #1e5d96;
 }
-
-.login-image {
-  flex: 1;
-  background-image: url('/path/to/login-background.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
