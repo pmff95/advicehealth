@@ -105,12 +105,8 @@ export default function Guides() {
 
   return (
     <main className="guides">
-      <h2>
-        Acompanhe o status de autorização das guias médicas solicitadas para o
-        seu titular.
-      </h2>
       {guides.map((g) => (
-        <div key={g.id} className="guide" onClick={() => setSelected(g)}>
+        <div key={g.id} className="guide">
           <div>
             <Tag value={g.type} severity="info" />
           </div>
@@ -122,7 +118,9 @@ export default function Guides() {
           <span>{g.hospital}</span>
           <div className="guide-actions">
             <span className="status">{g.status}</span>
-            <Button variant="secondary">Ver detalhes</Button>
+            <Button variant="secondary" onClick={() => setSelected(g)}>
+              Ver detalhes
+            </Button>
           </div>
         </div>
       ))}
