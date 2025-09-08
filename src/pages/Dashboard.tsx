@@ -131,7 +131,7 @@ export default function Dashboard() {
               <span>{g.hospital}</span>
               <div className="guide-actions">
                 <span className="status">{g.status}</span>
-                  <Button variant="tertiary">teste</Button>
+                <Button variant="secondary">Ver detalhes</Button>
               </div>
             </div>
           ))}

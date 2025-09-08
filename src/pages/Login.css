@@ -1,7 +1,6 @@
 .login-page {
   display: flex;
   min-height: 100vh;
-  font-family: "Arial", sans-serif;
   background: url("/images/login.png") no-repeat center center;
   background-size: cover;
 }
@@ -23,10 +22,11 @@
   border-radius: 12px 12px 0 0;
   color: white;
   display: flex;
+  text-align: center;
   flex-direction: column;
   gap: 0.5rem;
   background-color: #1e5d96;
-  padding: 2rem 3rem;
+  padding: 2rem 2rem;
 }
 .login-card {
   background: #fff;
