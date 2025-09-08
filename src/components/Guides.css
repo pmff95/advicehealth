@@ -13,8 +13,6 @@
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  cursor: pointer;
 }
 
 .guide span:not(.status) {
@@ -23,6 +21,10 @@
 
 .guide-actions {
   display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(238, 238, 238);
   justify-content: space-between;
 }
 
@@ -31,7 +33,6 @@
   color: #1e5d96;
   font-weight: bold;
 }
-
 .guide-header {
   display: flex;
   justify-content: space-between;
@@ -42,4 +43,3 @@
   color: #28a745;
   font-weight: bold;
 }
-
