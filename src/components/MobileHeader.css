@@ -10,7 +10,7 @@
 /* ===== TOPO ===== */
 .mobile-header-top {
   display: flex;
-  justify-content: flex-end; /* botão sempre à direita */
+  justify-content: space-between; /* botão sempre à direita */
   align-items: center;
   position: relative;
 }
@@ -27,6 +27,7 @@
 .menu-button {
   background: #1e5d96;
   border: none;
+  margin-left: auto;
   padding: 0.3rem 1.2rem;
   border-radius: 50px 0 0 50px;
   color: #fff;
