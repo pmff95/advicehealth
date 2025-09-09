@@ -13,7 +13,7 @@ export interface MobileHeaderProps {
 export default function MobileHeader({
   userName,
   cardNumber,
-  operator,
+  // operator,
   open,
   onToggle,
   onSelectDashboard,
@@ -22,19 +22,7 @@ export default function MobileHeader({
   return (
     <header className="mobile-header">
       <div className="mobile-header-top">
-        {!open && (
-          <div
-            className="titulo"
-            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-          >
-            <img
-              src="/svg/coracao.svg"
-              alt="Avatar"
-              style={{ width: "24px", height: "24px" }}
-            />
-            <h3>Portal do Beneficiário</h3>
-          </div>
-        )}
+        {!open && <h3>Portal do Beneficiário</h3>}
 
         <button
           className="menu-button"
@@ -51,7 +39,7 @@ export default function MobileHeader({
           <div className="mobile-user-text">
             <span className="user-greeting">Olá, {userName}!</span>
             <span>N° da carteirinha: {cardNumber}</span>
-            <span>Operadora: {operator}</span>
+            {/* <span>Operadora: {operator}</span> */}
           </div>
         </div>
       )}

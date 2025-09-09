@@ -29,6 +29,11 @@
   color: #721c24;
 }
 
+.tag-neutro {
+  background: #f4f4f4;
+  color: #676767;
+}
+
 /* ===== Rounded option ===== */
 .tag-rounded {
   border-radius: 999px;

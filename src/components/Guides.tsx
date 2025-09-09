@@ -9,6 +9,8 @@ import { STATUS, type Status } from "../enums/status";
 interface Step {
   title: string;
   description: string;
+  date: string;
+  info: string;
   color: string;
 }
 
@@ -34,29 +36,39 @@ const guides: Guide[] = [
     status: STATUS.CONCLUIDO,
     steps: [
       {
+        date: "10/10/2010 às 18:00",
         title: "Finalizado",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Processo finalizado.",
         color: "#28a745",
       },
       {
+        date: "",
         title: "Aguardando profissional desempactador",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description:
           "Aguardando análise do profissional desempactador das últimas solicitações.",
         color: "#6c757d",
       },
       {
+        date: "",
         title: "Encaminhada para junta médica",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Sua solicitação foi encaminhada para junta médica.",
         color: "#0d6efd",
       },
       {
+        date: "",
         title: "Tentativa de consenso",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description:
           "Tentativa de consenso com os profissionais médicos sobre as últimas solicitações.",
         color: "#ffc107",
       },
       {
+        date: "",
         title: "Análise de pertinência dos itens solicitados",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Análise de pertinência dos itens solicitados.",
         color: "#6c757d",
       },
@@ -72,29 +84,39 @@ const guides: Guide[] = [
     status: STATUS.CONCLUIDO,
     steps: [
       {
+        date: "",
         title: "Finalizado",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Processo finalizado.",
         color: "#28a745",
       },
       {
+        date: "",
         title: "Aguardando profissional desempactador",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description:
           "Aguardando análise do profissional desempactador das últimas solicitações.",
         color: "#6c757d",
       },
       {
+        date: "",
         title: "Encaminhada para junta médica",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Sua solicitação foi encaminhada para junta médica.",
         color: "#0d6efd",
       },
       {
+        date: "",
         title: "Tentativa de consenso",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description:
           "Tentativa de consenso com os profissionais médicos sobre as últimas solicitações.",
         color: "#ffc107",
       },
       {
+        date: "",
         title: "Análise de pertinência dos itens solicitados",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Análise de pertinência dos itens solicitados.",
         color: "#6c757d",
       },
@@ -110,29 +132,39 @@ const guides: Guide[] = [
     status: STATUS.CONCLUIDO,
     steps: [
       {
+        date: "",
         title: "Finalizado",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Processo finalizado.",
         color: "#28a745",
       },
       {
+        date: "",
         title: "Aguardando profissional desempactador",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description:
           "Aguardando análise do profissional desempactador das últimas solicitações.",
         color: "#6c757d",
       },
       {
+        date: "",
         title: "Encaminhada para junta médica",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Sua solicitação foi encaminhada para junta médica.",
         color: "#0d6efd",
       },
       {
+        date: "",
         title: "Tentativa de consenso",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description:
           "Tentativa de consenso com os profissionais médicos sobre as últimas solicitações.",
         color: "#ffc107",
       },
       {
+        date: "",
         title: "Análise de pertinência dos itens solicitados",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Análise de pertinência dos itens solicitados.",
         color: "#6c757d",
       },
@@ -148,29 +180,39 @@ const guides: Guide[] = [
     status: STATUS.CONCLUIDO,
     steps: [
       {
+        date: "",
         title: "Finalizado",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Processo finalizado.",
         color: "#28a745",
       },
       {
+        date: "",
         title: "Aguardando profissional desempactador",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description:
           "Aguardando análise do profissional desempactador das últimas solicitações.",
         color: "#6c757d",
       },
       {
+        date: "",
         title: "Encaminhada para junta médica",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Sua solicitação foi encaminhada para junta médica.",
         color: "#0d6efd",
       },
       {
+        date: "",
         title: "Tentativa de consenso",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description:
           "Tentativa de consenso com os profissionais médicos sobre as últimas solicitações.",
         color: "#ffc107",
       },
       {
+        date: "",
         title: "Análise de pertinência dos itens solicitados",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
         description: "Análise de pertinência dos itens solicitados.",
         color: "#6c757d",
       },
@@ -185,10 +227,7 @@ export default function Guides() {
     <main className="guides">
       <div className="header-guide">
         <img src="../../public/svg/guia-medica.svg" alt="" />
-        <span>
-          Acompanhe o status de autorização das guias médicas solicitadas para o
-          seu plano de saúde.
-        </span>
+        <h4>Acompanhe suas solicitações</h4>
       </div>
 
       {/* área rolável */}

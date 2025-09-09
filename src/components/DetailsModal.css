@@ -11,14 +11,13 @@
 }
 
 .details-panel {
-  width: 400px;
+  width: 35vw;
   background: #fff;
+  border-radius: 12px 0 0 12px;
   height: 100%;
   padding: 1.5rem;
   overflow-y: auto;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
-
-  /* animação de entrada */
   animation: slideIn 0.4s ease forwards;
 }
 
@@ -31,33 +30,99 @@
   }
 }
 
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* classe aplicada no fechamento */
+.details-panel.closing {
+  animation: slideOut 0.4s ease forwards;
+}
+
 .close {
   background: none;
   border: none;
   color: #0a4a8a;
   cursor: pointer;
-  float: right;
-  padding: 0;
+  padding: 10px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.header-top {
+  margin-bottom: 0.5rem; /* espaço antes da Tag */
+}
+
+.guide-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .timeline {
+  border-top: 1px solid rgb(208, 208, 208);
   margin-top: 1rem;
+  padding-top: 1.5rem;
 }
 
+/* cada item controla sua própria linha */
 .timeline-item {
+  position: relative;
   display: flex;
   gap: 0.5rem;
-  padding: 0.5rem 0;
-  border-left: 4px solid transparent;
+  text-align: justify;
+  padding: 0.5rem 0 1rem 0;
 }
 
 .timeline-item .dot {
+  position: relative;
+  z-index: 1;
   width: 12px;
   height: 12px;
   border-radius: 50%;
   margin-top: 4px;
+  margin-right: 1rem;
+}
+
+/* linha abaixo do dot até o fim do item */
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  top: 31px; /* começa abaixo do dot */
+  left: 5px; /* centralizado com o dot */
+  width: 2px;
+  height: calc(100% - 31px);
+  background: rgb(212, 212, 212);
 }
 
 .timeline-item strong {
   display: block;
+}
+
+.guide-number {
+  font-weight: 600;
+  color: #0a4a8a;
+  margin: 0.5rem 0;
+}
+
+.info-span {
+  font-size: 0.8rem;
+}
+
+.card-info {
+  background-color: rgb(243, 243, 243);
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+}
+
+.info-timeline {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
 }

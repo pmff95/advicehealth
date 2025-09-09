@@ -38,11 +38,16 @@
   border-radius: 12px 12px 0 0;
   padding: 2rem;
   color: white;
+  justify-content: center;
   display: flex;
-  flex-direction: column;
   gap: 0.5rem;
   background-color: #1e5d96;
 }
+.header_card img {
+  width: 25px;
+  height: 25px;
+}
+
 .input-group {
   display: flex;
   flex-direction: column;

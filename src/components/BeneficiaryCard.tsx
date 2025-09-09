@@ -20,7 +20,8 @@ export default function BeneficiaryCard({
   return (
     <aside className={`beneficiary-card ${className}`} {...rest}>
       <div className="header_card">
-        <h3>Dados do Beneficiário</h3>
+        <img src="/svg/paciente.svg" alt="" />
+        <h4>Dados do Beneficiário</h4>
       </div>
       <div className="body_card_dashboard">
         <div className="input-group with-spacing">

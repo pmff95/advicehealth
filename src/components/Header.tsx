@@ -9,17 +9,13 @@ interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
 export default function Header({
   userName,
   cardNumber,
-  operator,
+  // operator,
   className = "",
   ...rest
 }: HeaderProps) {
   return (
     <header className={`dashboard-header ${className}`} {...rest}>
-      {/* título com ícone */}
-      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-        <img src="/svg/coracao.svg" alt="Coração" />
-        <h2>Portal do Beneficiário</h2>
-      </div>
+      <h2>Portal do Beneficiário</h2>
 
       {/* user info + imagem */}
       <div
@@ -32,7 +28,7 @@ export default function Header({
         <div className="user-info">
           <span className="user-greeting">Olá, {userName}!</span>
           <span>N° da carteirinha: {cardNumber}</span>
-          <span>Operadora: {operator}</span>
+          {/* <span>Operadora: {operator}</span> */}
         </div>
         <div
           style={{

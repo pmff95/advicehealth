@@ -14,7 +14,6 @@ export default function Login({ onLogin }: LoginProps) {
     <div className="login-page">
       <div className="login-teste">
         <div className="portal-header">
-          <img src="../../public/svg/coracao.svg" alt="" />
           <h1>Portal do Beneficiário</h1>
         </div>
         <div className="login-card">
