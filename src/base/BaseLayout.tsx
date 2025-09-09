@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import MobileHeader from "../components/MobileHeader";
 import BeneficiaryCard from "../components/BeneficiaryCard";
 import "./BaseLayout.css";
 import type { ReactNode } from "react";
@@ -15,6 +16,11 @@ export default function BaseLayout({ children }: BaseLayoutProps) {
         cardNumber="123456789"
         operator="FESUL"
         className="layout-header"
+      />
+      <MobileHeader
+        userName="Ana Paula"
+        cardNumber="123456789"
+        operator="FESUL"
       />
       <div className="dashboard-content">
         <BeneficiaryCard
