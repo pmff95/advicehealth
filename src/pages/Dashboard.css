@@ -31,7 +31,7 @@
   flex-direction: column;
 }
 
-.guide span:not(.status) {
+.guide span:not(.tag) {
   font-size: 0.8rem;
 }
 
@@ -52,7 +52,3 @@
   align-items: center;
 }
 
-.status {
-  color: #28a745;
-  font-weight: bold;
-}

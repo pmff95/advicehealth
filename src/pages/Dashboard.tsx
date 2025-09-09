@@ -5,6 +5,9 @@ import BeneficiaryCard from "../components/BeneficiaryCard";
 import Button from "../components/Button";
 import "./Dashboard.css";
 import Tag from "../components/Tag";
+import StatusTag from "../components/StatusTag";
+import { STATUS } from "../enums/status";
+import type { Status } from "../enums/status";
 
 interface Step {
   title: string;
@@ -19,7 +22,7 @@ interface Guide {
   date: string;
   doctor: string;
   hospital: string;
-  status: string;
+  status: Status;
   steps: Step[];
 }
 
@@ -31,7 +34,7 @@ const guides: Guide[] = [
     date: "28/09/2025",
     doctor: "Dr. Carlos Eduardo Silva",
     hospital: "Hospital Albert Einstein",
-    status: "Concluído",
+    status: STATUS.EM_ANDAMENTO,
     steps: [
       {
         title: "Finalizado",
@@ -69,7 +72,7 @@ const guides: Guide[] = [
     date: "28/09/2025",
     doctor: "Dr. Carlos Eduardo Silva",
     hospital: "Hospital Albert Einstein",
-    status: "Concluído",
+    status: STATUS.CONCLUIDO,
     steps: [
       {
         title: "Finalizado",
@@ -132,7 +135,7 @@ export default function Dashboard() {
               </span>
               <span>{g.hospital}</span>
               <div className="guide-actions">
-                <span className="status">{g.status}</span>
+                <StatusTag status={g.status} />
                 <Button variant="secondary" onClick={() => setSelected(g)}>
                   Ver detalhes
                 </Button>
