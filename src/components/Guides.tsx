@@ -107,6 +107,10 @@ export default function Guides() {
 
   return (
     <main className="guides">
+      <div className="header-guide">
+        Acompanhe o status de autorização das guias médicas solicitadas para o
+        seu plano de saúde.
+      </div>
       {guides.map((g) => (
         <div key={g.id} className="guide">
           <div>

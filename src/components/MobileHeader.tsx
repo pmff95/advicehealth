@@ -1,26 +1,27 @@
-import { useState } from "react";
 import "./MobileHeader.css";
 
-interface MobileHeaderProps {
+export interface MobileHeaderProps {
   userName: string;
   cardNumber: string;
   operator: string;
+  open: boolean;
+  onToggle: () => void;
 }
 
 export default function MobileHeader({
   userName,
   cardNumber,
   operator,
+  open,
+  onToggle,
 }: MobileHeaderProps) {
-  const [open, setOpen] = useState(false);
-
   return (
     <header className="mobile-header">
       <div className="mobile-header-top">
         {!open && <h3>Portal do Beneficiário</h3>}
         <button
           className="menu-button"
-          onClick={() => setOpen(!open)}
+          onClick={onToggle}
           aria-label={open ? "Fechar menu" : "Abrir menu"}
         >
           {open ? "✕" : "☰"}

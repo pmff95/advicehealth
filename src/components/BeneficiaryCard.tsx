@@ -6,6 +6,7 @@ interface BeneficiaryCardProps extends React.HTMLAttributes<HTMLElement> {
   birthDate: string;
   phone: string;
   email: string;
+  isMobileMenuOpen?: boolean;
 }
 
 export default function BeneficiaryCard({
@@ -13,11 +14,10 @@ export default function BeneficiaryCard({
   birthDate,
   phone,
   email,
-  className = "",
   ...rest
 }: BeneficiaryCardProps) {
   return (
-    <aside className={`beneficiary-card ${className}`} {...rest}>
+    <aside className="beneficiary-card" {...rest}>
       <div className="header_card">
         <h3>Dados do Beneficiário</h3>
       </div>
