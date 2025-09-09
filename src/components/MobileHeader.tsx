@@ -6,6 +6,8 @@ export interface MobileHeaderProps {
   operator: string;
   open: boolean;
   onToggle: () => void;
+  onSelectDashboard: () => void;
+  onSelectProfile: () => void;
 }
 
 export default function MobileHeader({
@@ -14,6 +16,8 @@ export default function MobileHeader({
   operator,
   open,
   onToggle,
+  onSelectDashboard,
+  onSelectProfile,
 }: MobileHeaderProps) {
   return (
     <header className="mobile-header">
@@ -63,7 +67,7 @@ export default function MobileHeader({
             }}
           >
             <img src="../../public/svg/guia-medica.svg" alt="" />
-            <button>Consultar Guias</button>
+            <button onClick={onSelectDashboard}>Consultar Guias</button>
           </li>
           <li
             style={{
@@ -75,7 +79,7 @@ export default function MobileHeader({
           >
             <img src="../../public/svg/paciente.svg" alt="" />
 
-            <button>Meus Dados</button>
+            <button onClick={onSelectProfile}>Meus Dados</button>
           </li>
           <li
             style={{

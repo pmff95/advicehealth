@@ -37,3 +37,21 @@
     display: none;
   }
 }
+
+.mobile-beneficiary {
+  display: none;
+}
+
+.hidden-on-mobile {
+  display: block;
+}
+
+@media (max-width: 1000px) {
+  .mobile-beneficiary {
+    display: block;
+  }
+
+  .hidden-on-mobile {
+    display: none;
+  }
+}
