@@ -14,6 +14,11 @@
   font-size: 0.7rem;
   flex-direction: column;
 }
+.dashboard-header a {
+  color: white;
+  font-size: 0.8rem;
+  text-align: center;
+}
 .user-greeting {
   font-weight: 600;
   font-size: 0.9rem;
