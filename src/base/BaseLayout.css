@@ -12,3 +12,24 @@
   display: flex;
   gap: 2rem;
 }
+
+.main-content {
+  width: 78%;
+}
+
+/* 🔽 Responsividade: até 768px */
+@media (max-width: 1000px) {
+  .dashboard-content {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .main-content {
+    width: 100%; /* ocupa toda a largura */
+  }
+
+  .layout-header,
+  .layout-beneficiary {
+    display: none;
+  }
+}
