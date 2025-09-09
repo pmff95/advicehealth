@@ -1,7 +1,7 @@
 .mobile-header {
   display: none;
   color: #fff;
-  padding: 1rem 0 2rem 2rem;
+  padding: 2rem 0 2rem 2rem;
   margin-bottom: 2rem;
   border-radius: 8px;
   overflow: hidden;
@@ -13,7 +13,7 @@
   position: relative;
 }
 
-.mobile-header-top h3 {
+.mobile-header-top .titulo {
   margin: 0;
   font-size: 1rem;
   flex: 1; /* ocupa o espaço da esquerda, empurrando o botão pra direita */
@@ -31,6 +31,7 @@
 
 .mobile-user-data {
   display: flex;
+  gap: 1rem;
   margin-top: 1rem;
   transition: opacity 0.3s ease;
 }

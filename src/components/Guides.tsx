@@ -108,28 +108,36 @@ export default function Guides() {
   return (
     <main className="guides">
       <div className="header-guide">
-        Acompanhe o status de autorização das guias médicas solicitadas para o
-        seu plano de saúde.
+        <img src="../../public/svg/guia-medica.svg" alt="" />
+        <span>
+          Acompanhe o status de autorização das guias médicas solicitadas para o
+          seu plano de saúde.
+        </span>
       </div>
-      {guides.map((g) => (
-        <div key={g.id} className="guide">
-          <div>
-            <Tag value={g.type} severity="info" />
+
+      {/* área rolável */}
+      <div className="guides-list">
+        {guides.map((g) => (
+          <div key={g.id} className="guide">
+            <div>
+              <Tag value={g.type} severity="info" />
+            </div>
+            <h4>Guia {g.number}</h4>
+            <span>Data de atendimento: {g.date}</span>
+            <span style={{ marginTop: "1.5rem", fontWeight: "500" }}>
+              {g.doctor}
+            </span>
+            <span>{g.hospital}</span>
+            <div className="guide-actions">
+              <StatusTag status={g.status} />
+              <Button variant="secondary" onClick={() => setSelected(g)}>
+                Ver detalhes
+              </Button>
+            </div>
           </div>
-          <h4>Guia {g.number}</h4>
-          <span>Data de atendimento: {g.date}</span>
-          <span style={{ marginTop: "1.5rem", fontWeight: "500" }}>
-            {g.doctor}
-          </span>
-          <span>{g.hospital}</span>
-          <div className="guide-actions">
-            <StatusTag status={g.status} />
-            <Button variant="secondary" onClick={() => setSelected(g)}>
-              Ver detalhes
-            </Button>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
       {selected && (
         <DetailsModal guide={selected} onClose={() => setSelected(null)} />
       )}

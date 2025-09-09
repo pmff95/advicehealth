@@ -18,7 +18,20 @@ export default function MobileHeader({
   return (
     <header className="mobile-header">
       <div className="mobile-header-top">
-        {!open && <h3>Portal do Beneficiário</h3>}
+        {!open && (
+          <div
+            className="titulo"
+            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+          >
+            <img
+              src="/svg/coracao.svg"
+              alt="Avatar"
+              style={{ width: "24px", height: "24px" }}
+            />
+            <h3>Portal do Beneficiário</h3>
+          </div>
+        )}
+
         <button
           className="menu-button"
           onClick={onToggle}
@@ -30,7 +43,7 @@ export default function MobileHeader({
 
       {!open && (
         <div className="mobile-user-data">
-          <div className="avatar">👤</div>
+          <img src="../../public/svg/avatar.svg" alt="" />
           <div className="mobile-user-text">
             <span className="user-greeting">Olá, {userName}!</span>
             <span>N° da carteirinha: {cardNumber}</span>
@@ -41,13 +54,39 @@ export default function MobileHeader({
 
       <nav className={`mobile-menu ${open ? "open" : ""}`}>
         <ul>
-          <li>
+          <li
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <img src="../../public/svg/guia-medica.svg" alt="" />
             <button>Consultar Guias</button>
           </li>
-          <li>
+          <li
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <img src="../../public/svg/paciente.svg" alt="" />
+
             <button>Meus Dados</button>
           </li>
-          <li>
+          <li
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <img src="../../public/svg/paciente.svg" alt="" />
+
             <button>Sair</button>
           </li>
         </ul>

@@ -1,13 +1,31 @@
 .guides {
   flex: 1;
-  background: #fff;
+  background: #f7f7f7;
   border-radius: 16px 16px 12px 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* só a lista rola */
+.guides-list {
+  flex: 1;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+.guides-list::-webkit-scrollbar {
+  width: 8px;
+}
+.guides-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
 }
 
 .guide {
-  border: 1px solid #e0e0e0;
   border-radius: 12px;
+  background-color: white;
   margin: 1.5rem;
   padding: 1rem;
   margin-top: 1rem;
@@ -47,15 +65,22 @@
 .header-guide {
   background-color: #1e5d96;
   text-align: center;
-  padding: 1rem 6rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 2rem;
   font-weight: 600;
   font-size: 0.9rem;
   color: white;
   border-radius: 12px 12px 0 0;
 }
 
-@media (min-width: 1000px) {
+@media (max-width: 1000px) {
   .header-guide {
-    display: none;
+    flex-direction: column;
+  }
+  .guides {
+    height: 75vh;
   }
 }
