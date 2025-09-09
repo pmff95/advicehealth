@@ -101,14 +101,23 @@
 }
 
 @media (max-width: 1000px) {
+  .header {
+    padding: 1rem 2rem;
+  }
   .login-teste {
     width: 100vw;
     flex-direction: column-reverse;
+    justify-content: end;
     padding: 2rem;
+  }
+  .body-card_login {
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
   }
 
   .login-card {
-    max-width: 75vw;
+    max-width: 90vw;
   }
 
   .portal-header {
@@ -117,6 +126,7 @@
   }
   .portal-header h1 {
     text-align: center;
+    font-size: 1.5rem;
   }
 
   .signup {
