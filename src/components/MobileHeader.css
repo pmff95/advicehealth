@@ -1,9 +1,7 @@
 .mobile-header {
   display: none;
-  background-color: #1e5d96;
   color: #fff;
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
+  padding: 1rem 0 1rem 1.5rem;
   margin-bottom: 2rem;
   position: relative;
 }
@@ -15,8 +13,10 @@
 }
 
 .menu-button {
-  background: none;
+  background: #1e5d96;
   border: none;
+  padding: 0.3rem 1.5rem 0.3rem 1rem;
+  border-radius: 50px 0 0 50px;
   color: #fff;
   font-size: 1.5rem;
 }
@@ -34,13 +34,12 @@
 .mobile-user-text {
   display: flex;
   flex-direction: column;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
 }
 
 .mobile-menu {
   position: absolute;
   inset: 0;
-  background-color: #1e5d96;
   display: flex;
   flex-direction: column;
   justify-content: center;

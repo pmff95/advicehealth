@@ -19,7 +19,7 @@ export default function MobileHeader({
   return (
     <header className={`mobile-header ${className}`} {...rest}>
       <div className="mobile-header-top">
-        <h2>Portal do Beneficiário</h2>
+        <h3>Portal do Beneficiário</h3>
         <button
           className="menu-button"
           onClick={() => setOpen(true)}

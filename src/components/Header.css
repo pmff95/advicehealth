@@ -14,3 +14,7 @@
   font-size: 0.7rem;
   flex-direction: column;
 }
+.user-greeting {
+  font-weight: 600;
+  font-size: 0.9rem;
+}

@@ -19,9 +19,13 @@
 
 /* 🔽 Responsividade: até 768px */
 @media (max-width: 1000px) {
+  .default {
+    padding: 0rem;
+  }
   .dashboard-content {
     flex-direction: column;
     gap: 0;
+    margin: 0 1rem;
   }
 
   .main-content {
