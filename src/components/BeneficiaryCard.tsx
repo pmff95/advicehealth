@@ -42,6 +42,7 @@ export default function BeneficiaryCard({
           <label>E-MAIL</label>
           <p>{email}</p>
         </div>
+        {/* Aqui nesse de baixo */}
         <div className="button-group">
           <Button variant="tertiary">E-mail adicional</Button>
         </div>

@@ -12,6 +12,15 @@
     width: 30%;
   }
 }
+@media (max-width: 1000px) {
+  .beneficiary-card {
+    width: 100%;
+  }
+
+  .body_card_dashboard .button-group:nth-last-of-type(1) {
+    margin-bottom: 2rem;
+  }
+}
 
 .body_card_dashboard {
   padding: 1rem;
