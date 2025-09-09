@@ -1,29 +1,38 @@
 .mobile-header {
   display: none;
   color: #fff;
-  padding: 1rem 0 1rem 1.5rem;
+  padding: 1rem 0 2rem 2rem;
   margin-bottom: 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.mobile-header-top {
+  display: flex;
+  justify-content: flex-end; /* sempre joga o botão pra direita */
+  align-items: center;
   position: relative;
 }
 
-.mobile-header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.mobile-header-top h3 {
+  margin: 0;
+  font-size: 1rem;
+  flex: 1; /* ocupa o espaço da esquerda, empurrando o botão pra direita */
 }
 
 .menu-button {
   background: #1e5d96;
   border: none;
-  padding: 0.3rem 1.5rem 0.3rem 1rem;
+  padding: 0.3rem 1.2rem;
   border-radius: 50px 0 0 50px;
   color: #fff;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .mobile-user-data {
   display: flex;
   margin-top: 1rem;
+  transition: opacity 0.3s ease;
 }
 
 .avatar {
@@ -34,17 +43,21 @@
 .mobile-user-text {
   display: flex;
   flex-direction: column;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 
+/* ====== MENU ====== */
 .mobile-menu {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu.open {
+  max-height: 200px; /* espaço suficiente pros itens */
+  opacity: 1;
+  margin-top: 1rem;
 }
 
 .mobile-menu ul {
@@ -52,28 +65,15 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 2rem;
+  justify-content: space-around;
 }
 
-.mobile-menu li {
-  text-align: center;
-}
-
-.mobile-menu button {
+.mobile-menu li button {
   background: none;
   border: none;
   color: #fff;
   font-size: 0.9rem;
-}
-
-.close-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 @media (max-width: 1000px) {
