@@ -1,7 +1,8 @@
+import type { ReactNode } from "react";
 import "./Tag.css";
 
 interface TagProps {
-  value: string;
+  value: ReactNode;
   severity?: "success" | "info" | "warning" | "danger"; // opcional
   rounded?: boolean; // opcional para deixar estilo "pill"
 }
