@@ -6,9 +6,11 @@
   border-radius: 8px;
   overflow: hidden;
 }
+
+/* ===== TOPO ===== */
 .mobile-header-top {
   display: flex;
-  justify-content: flex-end; /* sempre joga o botão pra direita */
+  justify-content: flex-end; /* botão sempre à direita */
   align-items: center;
   position: relative;
 }
@@ -16,7 +18,10 @@
 .mobile-header-top .titulo {
   margin: 0;
   font-size: 1rem;
-  flex: 1; /* ocupa o espaço da esquerda, empurrando o botão pra direita */
+  flex: 1; /* ocupa espaço e empurra o botão */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .menu-button {
@@ -29,6 +34,7 @@
   cursor: pointer;
 }
 
+/* ===== USUÁRIO ===== */
 .mobile-user-data {
   display: flex;
   gap: 1rem;
@@ -47,7 +53,7 @@
   font-size: 0.8rem;
 }
 
-/* ====== MENU ====== */
+/* ===== MENU ===== */
 .mobile-menu {
   max-height: 0;
   opacity: 0;
@@ -56,7 +62,7 @@
 }
 
 .mobile-menu.open {
-  max-height: 200px; /* espaço suficiente pros itens */
+  max-height: 200px; /* altura suficiente */
   opacity: 1;
   margin-top: 1rem;
 }
@@ -66,7 +72,21 @@
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-around;
+  width: 100%;
+}
+
+.mobile-menu li {
+  flex: 1; /* 🔥 cada item ocupa o mesmo espaço */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-menu li:last-child {
+  border-right: none; /* remove a borda do último */
 }
 
 .mobile-menu li button {
