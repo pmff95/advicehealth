@@ -1,7 +1,7 @@
 import "./BeneficiaryCard.css";
 import Button from "./Button";
 
-interface BeneficiaryCardProps {
+interface BeneficiaryCardProps extends React.HTMLAttributes<HTMLElement> {
   name: string;
   birthDate: string;
   phone: string;
@@ -13,18 +13,20 @@ export default function BeneficiaryCard({
   birthDate,
   phone,
   email,
+  className = "",
+  ...rest
 }: BeneficiaryCardProps) {
   return (
-    <aside className="beneficiary-card">
+    <aside className={`beneficiary-card ${className}`} {...rest}>
       <div className="header_card">
         <h3>Dados do Beneficiário</h3>
       </div>
       <div className="body_card_dashboard">
-        <div className="input-group" style={{ marginBottom: "1.5rem" }}>
+        <div className="input-group with-spacing">
           <label>NOME</label>
           <p>{name}</p>
         </div>
-        <div className="input-group" style={{ marginBottom: "1.5rem" }}>
+        <div className="input-group with-spacing">
           <label>DATA DE NASCIMENTO</label>
           <p>{birthDate}</p>
         </div>
@@ -33,9 +35,7 @@ export default function BeneficiaryCard({
           <p>{phone}</p>
         </div>
         <div className="button-group">
-          <Button variant="tertiary" style={{ marginBottom: "1rem" }}>
-            Telefone adicional
-          </Button>
+          <Button variant="tertiary">Telefone adicional</Button>
         </div>
         <div className="input-group">
           <label>E-MAIL</label>

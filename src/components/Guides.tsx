@@ -1,9 +1,8 @@
-import Guides from "../components/Guides";
-import "./Dashboard.css";
-import Tag from "../components/Tag";
-import StatusTag from "../components/StatusTag";
-import { STATUS } from "../enums/status";
-import type { Status } from "../enums/status";
+import { useState } from "react";
+import DetailsModal from "./DetailsModal";
+import Tag from "./Tag";
+import Button from "./Button";
+import "./Guides.css";
 
 interface Step {
   title: string;
@@ -18,7 +17,7 @@ interface Guide {
   date: string;
   doctor: string;
   hospital: string;
-  status: Status;
+  status: string;
   steps: Step[];
 }
 
@@ -30,7 +29,7 @@ const guides: Guide[] = [
     date: "28/09/2025",
     doctor: "Dr. Carlos Eduardo Silva",
     hospital: "Hospital Albert Einstein",
-    status: STATUS.EM_ANDAMENTO,
+    status: "Concluído",
     steps: [
       {
         title: "Finalizado",
@@ -68,7 +67,7 @@ const guides: Guide[] = [
     date: "28/09/2025",
     doctor: "Dr. Carlos Eduardo Silva",
     hospital: "Hospital Albert Einstein",
-    status: STATUS.CONCLUIDO,
+    status: "Concluído",
     steps: [
       {
         title: "Finalizado",
@@ -99,16 +98,35 @@ const guides: Guide[] = [
       },
     ],
   },
-]; 
+];
 
-export default function Dashboard() {
+export default function Guides() {
+  const [selected, setSelected] = useState<Guide | null>(null);
+
   return (
-    <div className="dashboard">
-      <div className="dashboard-content">
- 
-        <Guides />
- 
-      </div>
-    </div>
+    <main className="guides">
+      {guides.map((g) => (
+        <div key={g.id} className="guide">
+          <div>
+            <Tag value={g.type} severity="info" />
+          </div>
+          <h4>Guia {g.number}</h4>
+          <span>Data de atendimento: {g.date}</span>
+          <span style={{ marginTop: "1.5rem", fontWeight: "500" }}>
+            {g.doctor}
+          </span>
+          <span>{g.hospital}</span>
+          <div className="guide-actions">
+            <span className="status">{g.status}</span>
+            <Button variant="secondary" onClick={() => setSelected(g)}>
+              Ver detalhes
+            </Button>
+          </div>
+        </div>
+      ))}
+      {selected && (
+        <DetailsModal guide={selected} onClose={() => setSelected(null)} />
+      )}
+    </main>
   );
 }

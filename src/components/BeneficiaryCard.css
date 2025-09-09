@@ -1,10 +1,16 @@
 .beneficiary-card {
-  width: 300px;
+  width: 20%;
   background: #fff;
   border-radius: 16px 16px 8px 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 1300px) {
+  .beneficiary-card {
+    width: 30%;
+  }
 }
 
 .body_card_dashboard {
@@ -16,6 +22,8 @@
 
 .beneficiary-card p {
   margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 .header_card {
   border-radius: 12px 12px 0 0;
@@ -33,6 +41,7 @@
 
 .input-group label {
   font-size: 0.7rem;
+  color: rgb(74, 74, 74);
   margin-bottom: 0.45rem;
 }
 

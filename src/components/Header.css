@@ -1,11 +1,16 @@
 .dashboard-header {
   background-color: #1e5d96;
   color: #fff;
-  margin: 0rem 4rem 2rem;
+  margin-bottom: 2rem;
   border-radius: 12px;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
+.user-info {
+  display: flex;
+  text-align: end;
+  font-size: 0.7rem;
+  flex-direction: column;
+}
