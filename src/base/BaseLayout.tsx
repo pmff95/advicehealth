@@ -19,6 +19,7 @@ export default function BaseLayout({ children }: BaseLayoutProps) {
   const beneficiaryData = {
     name: "Maria Oliveira Santos",
     birthDate: "01/08/1995",
+    cpf: "609.291.063-26",
     phone: "(99) 99999-0450",
     email: "teste@email.com",
   };

@@ -229,10 +229,10 @@ export default function Guides() {
       {/* Novo header no estilo do protótipo */}
       <div className="guides-header-text">
         <h2>Olá, Maria</h2>
-        <p>
+        <small>
           Acompanhe o status de autorização das guias médicas solicitadas para o
           seu plano de saúde.
-        </p>
+        </small>
       </div>
 
       {/* lista de guias */}

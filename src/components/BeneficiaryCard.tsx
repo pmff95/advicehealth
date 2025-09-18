@@ -1,49 +1,174 @@
 import "./BeneficiaryCard.css";
 import Button from "./Button";
+import { useState } from "react";
 
 interface BeneficiaryCardProps extends React.HTMLAttributes<HTMLElement> {
+  cpf: string;
   name: string;
   birthDate: string;
-  phone: string;
-  email: string;
   isMobileMenuOpen?: boolean;
+  phones?: string[];
+  emails?: string[];
 }
 
 export default function BeneficiaryCard({
   name,
   birthDate,
-  phone,
-  email,
+  cpf,
+  phones = [],
+  emails = [],
   className = "",
-  ...rest
 }: BeneficiaryCardProps) {
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name,
+    birthDate,
+    cpf,
+    phones: phones.length ? phones : [""],
+    emails: emails.length ? emails : [""],
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: string,
+    index?: number
+  ) => {
+    const { value } = e.target;
+
+    if (field === "phones" && typeof index === "number") {
+      const updated = [...formData.phones];
+      updated[index] = value;
+      setFormData((prev) => ({ ...prev, phones: updated }));
+      return;
+    }
+
+    if (field === "emails" && typeof index === "number") {
+      const updated = [...formData.emails];
+      updated[index] = value;
+      setFormData((prev) => ({ ...prev, emails: updated }));
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+  const formatCPF = (value: string) => {
+    if (!value) return "";
+    return value
+      .replace(/\D/g, "") // só números
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  };
+  const addPhone = () =>
+    setFormData((prev) => ({ ...prev, phones: [...prev.phones, ""] }));
+  const addEmail = () =>
+    setFormData((prev) => ({ ...prev, emails: [...prev.emails, ""] }));
+
+  const handleSave = () => {
+    console.log("Salvando alterações:", formData);
+    // TODO: enviar pro backend
+    setIsEditing(false);
+  };
+
   return (
-    <aside className={`beneficiary-card ${className}`} {...rest}>
+    <aside className={`beneficiary-card ${className}`}>
       <div className="body_card_dashboard">
+        {/* CPF */}
         <div className="input-group with-spacing">
-          <label>NOME</label>
-          <p>{name}</p>
+          <label>CPF</label>
+          {isEditing ? (
+            <input
+              type="text"
+              value={formData.cpf}
+              onChange={(e) => handleChange(e, "cpf")}
+              placeholder="000.000.000-00"
+            />
+          ) : (
+            <p>{formatCPF(formData.cpf)}</p>
+          )}
         </div>
+
+        {/* Data de nascimento */}
         <div className="input-group with-spacing">
           <label>DATA DE NASCIMENTO</label>
-          <p>{birthDate}</p>
+          <p>{formData.birthDate}</p>
         </div>
+
+        {/* Nome */}
+        <div className="input-group with-spacing">
+          <label>NOME</label>
+          {isEditing ? (
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) => handleChange(e, "name")}
+            />
+          ) : (
+            <p>{formData.name}</p>
+          )}
+        </div>
+
+        {/* Telefones */}
         <div className="input-group">
           <label>TELEFONE/CELULAR</label>
-          <p>{phone}</p>
+          {formData.phones.map((phone, idx) =>
+            isEditing ? (
+              <input
+                key={`phone-${idx}`} // ✅ chave única
+                type="text"
+                value={phone}
+                onChange={(e) => handleChange(e, "phones", idx)}
+                placeholder="(11) 99999-9999"
+              />
+            ) : (
+              <p key={`phone-${idx}`}>{phone}</p>
+            )
+          )}
+          {isEditing && (
+            <div className="button-group">
+              <Button variant="tertiary" onClick={addPhone}>
+                + Adicionar contato
+              </Button>
+            </div>
+          )}
         </div>
-        <div className="button-group">
-          <Button variant="tertiary">Telefone adicional</Button>
-        </div>
+
+        {/* Emails */}
         <div className="input-group">
           <label>E-MAIL</label>
-          <p>{email}</p>
+          {formData.emails.map((email, idx) =>
+            isEditing ? (
+              <input
+                key={`email-${idx}`} // ✅ chave única
+                type="email"
+                value={email}
+                onChange={(e) => handleChange(e, "emails", idx)}
+                placeholder="email@email.com"
+              />
+            ) : (
+              <p key={`email-${idx}`}>{email}</p>
+            )
+          )}
+          {isEditing && (
+            <div className="button-group">
+              <Button variant="tertiary" onClick={addEmail}>
+                + Adicionar contato
+              </Button>
+            </div>
+          )}
         </div>
-        {/* Aqui nesse de baixo */}
-        <div className="button-group">
-          <Button variant="tertiary">E-mail adicional</Button>
-        </div>
-        <Button variant="secondary">Atualizar dados do titular</Button>
+
+        {/* Botão final */}
+        {isEditing ? (
+          <Button variant="secondary" onClick={handleSave}>
+            Salvar
+          </Button>
+        ) : (
+          <Button variant="secondary" onClick={() => setIsEditing(true)}>
+            Atualizar dados do titular
+          </Button>
+        )}
       </div>
     </aside>
   );
