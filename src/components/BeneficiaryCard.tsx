@@ -103,12 +103,13 @@ export default function BeneficiaryCard({
         </div>
 
         {/* Telefones */}
+        {/* Telefones */}
         <div className="input-group">
           <label>TELEFONE/CELULAR</label>
           {formData.phones.map((phone, idx) =>
             isEditing ? (
               <input
-                key={`phone-${idx}`} // ✅ chave única
+                key={`phone-${idx}`}
                 type="text"
                 value={phone}
                 onChange={(e) => handleChange(e, "phones", idx)}
@@ -118,9 +119,26 @@ export default function BeneficiaryCard({
               <p key={`phone-${idx}`}>{formatPhone(phone)}</p>
             )
           )}
-          {isEditing && (
+
+          {isEditing ? (
+            // se está editando, deixa adicionar mais inputs
             <div className="button-group">
               <Button variant="tertiary" onClick={addPhone}>
+                + Adicionar contato
+              </Button>
+            </div>
+          ) : (
+            // se não está editando, só mostra botão pra adicionar um input novo
+            <div className="button-group">
+              <Button
+                variant="tertiary"
+                onClick={() =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    phones: [...prev.phones, ""], // adiciona nova linha
+                  }))
+                }
+              >
                 + Adicionar contato
               </Button>
             </div>
@@ -133,7 +151,7 @@ export default function BeneficiaryCard({
           {formData.emails.map((email, idx) =>
             isEditing ? (
               <input
-                key={`email-${idx}`} // ✅ chave única
+                key={`email-${idx}`}
                 type="email"
                 value={email}
                 onChange={(e) => handleChange(e, "emails", idx)}
@@ -143,9 +161,24 @@ export default function BeneficiaryCard({
               <p key={`email-${idx}`}>{email}</p>
             )
           )}
-          {isEditing && (
+
+          {isEditing ? (
             <div className="button-group">
               <Button variant="tertiary" onClick={addEmail}>
+                + Adicionar contato
+              </Button>
+            </div>
+          ) : (
+            <div className="button-group">
+              <Button
+                variant="tertiary"
+                onClick={() =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    emails: [...prev.emails, ""],
+                  }))
+                }
+              >
                 + Adicionar contato
               </Button>
             </div>

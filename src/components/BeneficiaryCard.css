@@ -50,13 +50,13 @@
 
 .input-group {
   display: flex;
+  margin-bottom: 1.2rem;
   flex-direction: column;
 }
 
 .input-group label {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   color: rgb(74, 74, 74);
-  margin-bottom: 0.45rem;
 }
 
 .button-group {

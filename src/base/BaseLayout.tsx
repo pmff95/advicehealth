@@ -20,8 +20,8 @@ export default function BaseLayout({ children }: BaseLayoutProps) {
     name: "Maria Oliveira Santos",
     birthDate: "01/08/1995",
     cpf: "609.291.063-26",
-    phone: "(99) 99999-0450",
-    email: "teste@email.com",
+    phones: ["(99) 99999-0450"],
+    emails: ["teste@email.com"],
   };
 
   return (
