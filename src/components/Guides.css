@@ -1,8 +1,6 @@
 .guides {
   flex: 1;
-  background: #f7f7f7;
   border-radius: 16px 16px 12px 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
 }
@@ -26,7 +24,6 @@
 .guide {
   border-radius: 12px;
   background-color: white;
-  margin: 1.5rem;
   padding: 1rem;
   margin-top: 1rem;
   display: flex;

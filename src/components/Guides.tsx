@@ -5,6 +5,7 @@ import Button from "./Button";
 import "./Guides.css";
 import StatusTag from "./StatusTag";
 import { STATUS, type Status } from "../enums/status";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 interface Step {
   title: string;
@@ -225,12 +226,16 @@ export default function Guides() {
 
   return (
     <main className="guides">
-      <div className="header-guide">
-        <img src="../../public/svg/guia-medica.svg" alt="" />
-        <h4>Acompanhe suas solicitações</h4>
+      {/* Novo header no estilo do protótipo */}
+      <div className="guides-header-text">
+        <h2>Olá, Maria</h2>
+        <p>
+          Acompanhe o status de autorização das guias médicas solicitadas para o
+          seu plano de saúde.
+        </p>
       </div>
 
-      {/* área rolável */}
+      {/* lista de guias */}
       <div className="guides-list">
         {guides.map((g) => (
           <div key={g.id} className="guide">
@@ -244,7 +249,12 @@ export default function Guides() {
             </span>
             <span>{g.hospital}</span>
             <div className="guide-actions">
-              <StatusTag status={g.status} />
+              <StatusTag
+                label="Concluído"
+                icon={faCheck}
+                severity="success"
+                variant="icon"
+              />
               <Button variant="secondary" onClick={() => setSelected(g)}>
                 Ver detalhes
               </Button>

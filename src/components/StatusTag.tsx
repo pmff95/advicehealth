@@ -1,41 +1,41 @@
 import Tag from "./Tag";
-import { STATUS } from "../enums/status";
-import type { Status } from "../enums/status";
-
-const statusConfig: Record<Status, { label: string; icon: string; severity: "success" | "info" | "warning" }> = {
-  [STATUS.CONCLUIDO]: {
-    label: "Concluído",
-    icon: "fa-solid fa-check",
-    severity: "success",
-  },
-  [STATUS.FINALIZADO]: {
-    label: "Finalizado",
-    icon: "fa-solid fa-flag-checkered",
-    severity: "info",
-  },
-  [STATUS.EM_ANDAMENTO]: {
-    label: "Em andamento",
-    icon: "fa-solid fa-spinner fa-spin",
-    severity: "warning",
-  },
-};
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 interface StatusTagProps {
-  status: Status;
+  label: string;
+  icon?: string | IconDefinition; // aceita string OU icone do pacote react-fontawesome
+  severity?: "success" | "info" | "warning" | "danger" | "neutro";
+  variant?: "background" | "icon";
+  rounded?: boolean;
 }
 
-export default function StatusTag({ status }: StatusTagProps) {
-  const { label, icon, severity } = statusConfig[status];
+export default function StatusTag({
+  label,
+  icon,
+  severity = "info",
+  variant = "background",
+  rounded = false,
+}: StatusTagProps) {
   return (
     <Tag
       value={
-        <>
-          <i className={icon} style={{ marginRight: "0.25rem" }}></i>
-          {label}
-        </>
+        icon ? (
+          <>
+            {typeof icon === "string" ? (
+              <i className={icon} style={{ marginRight: "0.25rem" }} />
+            ) : (
+              <FontAwesomeIcon icon={icon} style={{ marginRight: "0.25rem" }} />
+            )}
+            {label}
+          </>
+        ) : (
+          label
+        )
       }
       severity={severity}
-      rounded
+      variant={variant}
+      rounded={rounded}
     />
   );
 }

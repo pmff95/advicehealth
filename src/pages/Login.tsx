@@ -11,49 +11,36 @@ export default function Login({ onLogin }: LoginProps) {
   const [cpfOrDate, setCpfOrDate] = useState("");
 
   return (
-    <div className="login-page">
-      <div className="login-teste">
-        <div className="portal-header">
-          <h1>Portal do Beneficiário</h1>
-        </div>
-        <div className="login-card">
-          <div className="header">
-            <h2>Login</h2>
-            <small>
-              Entre com seus dados corretamente para acessar nossa plataforma.
-            </small>
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className="login-left">
+        <div className="login-page">
+          <div className="portal-header">
+            <h1>Portal do Beneficiário</h1>
+            <span>
+              Acesse e acompanhe o status das guias solicitadas para o seu
+              <strong> plano de saúde</strong>.
+            </span>
           </div>
-          <div className="body-card_login">
-            <label>Data de Nascimento / CPF</label>
+          <div className="login-card">
+            <h2>Login</h2>
+            <label className="label-input">E-mail</label>
             <IMaskInput
               style={{ marginBottom: "1.5rem" }}
               className="login-input"
-              mask={[
-                { mask: "00/00/0000" }, // Data
-                { mask: "000.000.000-00" }, // CPF
-              ]}
+              // mask={[
+              //   { mask: "00/00/0000" }, // Data
+              //   { mask: "000.000.000-00" }, // CPF
+              // ]}
               value={cpfOrDate}
               onAccept={(value: string) => setCpfOrDate(value)}
-              placeholder="Data de nascimento ou CPF"
-              dispatch={(appended, dynamicMasked) => {
-                const value = (dynamicMasked.value + appended).replace(
-                  /\D/g,
-                  ""
-                );
-                // até 8 dígitos → Data
-                if (value.length <= 8) {
-                  return dynamicMasked.compiledMasks[0];
-                }
-                // mais que 8 → CPF
-                return dynamicMasked.compiledMasks[1];
-              }}
+              placeholder="email@mail.com"
             />
 
-            <label>Senha</label>
+            <label className="label-input">Senha</label>
             <input
               style={{ marginBottom: "1.5rem" }}
               type="password"
-              placeholder="********"
+              placeholder="Digite sua senha"
             />
 
             <div className="login-options">
@@ -64,7 +51,7 @@ export default function Login({ onLogin }: LoginProps) {
             </div>
 
             <Button variant="primary" onClick={onLogin}>
-              Login
+              Entrar
             </Button>
 
             <div className="signup">
@@ -72,6 +59,9 @@ export default function Login({ onLogin }: LoginProps) {
             </div>
           </div>
         </div>
+      </div>
+      <div className="login-right">
+        <img src="/images/login-background.jpg" alt="Login" />
       </div>
     </div>
   );

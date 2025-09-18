@@ -8,7 +8,7 @@
   letter-spacing: 0.5px;
 }
 
-/* ===== Severities ===== */
+/* ===== Severities com background ===== */
 .tag-success {
   background: #d4edda;
   color: #155724;
@@ -37,4 +37,31 @@
 /* ===== Rounded option ===== */
 .tag-rounded {
   border-radius: 999px;
+}
+
+/* ===== Variant sem background (apenas texto/ícone colorido) ===== */
+.tag-icon {
+  background: transparent !important;
+  padding: 0; /* remove espaçamento extra */
+  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Herdando apenas a cor do severity */
+.tag-icon.tag-success {
+  color: #155724;
+}
+.tag-icon.tag-info {
+  color: #004085;
+}
+.tag-icon.tag-warning {
+  color: #856404;
+}
+.tag-icon.tag-danger {
+  color: #721c24;
+}
+.tag-icon.tag-neutro {
+  color: #676767;
 }

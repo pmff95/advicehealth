@@ -19,10 +19,6 @@ export default function BeneficiaryCard({
 }: BeneficiaryCardProps) {
   return (
     <aside className={`beneficiary-card ${className}`} {...rest}>
-      <div className="header_card">
-        <img src="/svg/paciente.svg" alt="" />
-        <h4>Dados do Beneficiário</h4>
-      </div>
       <div className="body_card_dashboard">
         <div className="input-group with-spacing">
           <label>NOME</label>

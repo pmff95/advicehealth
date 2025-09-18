@@ -12,7 +12,9 @@ import MobileHeader from "../components/MobileHeader";
 
 export default function BaseLayout({ children }: BaseLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [mobileView, setMobileView] = useState<"dashboard" | "profile">("dashboard");
+  const [mobileView, setMobileView] = useState<"dashboard" | "profile">(
+    "dashboard"
+  );
 
   const beneficiaryData = {
     name: "Maria Oliveira Santos",
@@ -23,12 +25,7 @@ export default function BaseLayout({ children }: BaseLayoutProps) {
 
   return (
     <div className="default">
-      <Header
-        userName="Ana Paula"
-        cardNumber="123456789"
-        operator="FESUL"
-        className="layout-header"
-      />
+      <Header />
       <MobileHeader
         userName="Ana Paula"
         cardNumber="123456789"

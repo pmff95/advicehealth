@@ -1,6 +1,5 @@
 .dashboard-header {
-  background-color: #1e5d96;
-  color: #fff;
+  color: #0c4171;
   margin-bottom: 2rem;
   border-radius: 12px;
   padding: 1rem 2rem;
@@ -8,14 +7,9 @@
   justify-content: space-between;
   align-items: center;
 }
-.user-info {
-  display: flex;
-  text-align: end;
-  font-size: 0.7rem;
-  flex-direction: column;
-}
+
 .dashboard-header a {
-  color: white;
+  color: #0c4171;
   font-size: 0.8rem;
   text-align: center;
 }

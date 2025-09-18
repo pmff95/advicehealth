@@ -1,6 +1,5 @@
 .default {
   min-height: 100vh;
-  background: url("/images/background.jpg") no-repeat center center;
   display: flex;
   background-size: cover;
   padding: 2rem;
