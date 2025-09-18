@@ -1,6 +1,7 @@
 import "./BeneficiaryCard.css";
 import Button from "./Button";
 import { useState } from "react";
+import { formatCPF, formatPhone } from "../utils/formatters";
 
 interface BeneficiaryCardProps extends React.HTMLAttributes<HTMLElement> {
   cpf: string;
@@ -51,14 +52,6 @@ export default function BeneficiaryCard({
     }
 
     setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-  const formatCPF = (value: string) => {
-    if (!value) return "";
-    return value
-      .replace(/\D/g, "") // só números
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
   };
   const addPhone = () =>
     setFormData((prev) => ({ ...prev, phones: [...prev.phones, ""] }));
@@ -122,7 +115,7 @@ export default function BeneficiaryCard({
                 placeholder="(11) 99999-9999"
               />
             ) : (
-              <p key={`phone-${idx}`}>{phone}</p>
+              <p key={`phone-${idx}`}>{formatPhone(phone)}</p>
             )
           )}
           {isEditing && (
