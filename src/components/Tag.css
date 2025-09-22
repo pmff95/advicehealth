@@ -3,6 +3,7 @@
   font-size: 0.6rem;
   font-weight: 600;
   padding: 0.35rem 0.75rem;
+  width: fit-content;
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -31,6 +32,10 @@
 
 .tag-neutro {
   background: #f4f4f4;
+  color: #676767;
+}
+
+.tag-default {
   color: #676767;
 }
 

@@ -47,47 +47,6 @@
 .details-panel.closing {
   animation: slideOut 0.4s ease forwards;
 }
-@media (max-width: 768px) {
-  .guide-info {
-    display: flex;
-    flex-direction: column;
-    align-items: start !important;
-    gap: 8px;
-  }
-  .details-overlay {
-    justify-content: center;
-    align-items: flex-end;
-  }
-
-  .details-panel {
-    width: 100%;
-    height: 90vh;
-    border-radius: 12px 12px 0 0;
-    animation: slideUp 0.4s ease forwards;
-  }
-
-  .details-panel.closing {
-    animation: slideDown 0.4s ease forwards;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(100%);
-  }
-}
 .close {
   background: none;
   border: none;
@@ -98,7 +57,32 @@
   font-weight: 600;
   display: inline-block;
 }
-
+.actions-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  max-width: 25rem;
+  gap: 0.6rem;
+}
+.actions-container span {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.actions-container button {
+  background-color: #e7eefa;
+  font-size: 0.7rem;
+  color: #125495;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem;
+}
+.actions-container button:hover {
+  background-color: #cad7ee;
+  transition: 0.6s;
+}
+.actions-container a {
+  text-align: center;
+}
 .header-top {
   margin-bottom: 0.5rem; /* espaço antes da Tag */
 }
@@ -139,7 +123,7 @@
 .timeline-connector {
   flex: 1 1 auto;
   width: 1px;
-  background: rgb(212, 212, 212);
+  background: rgb(228, 34, 34);
 }
 
 .timeline-content {
@@ -147,12 +131,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-}
-
-.timeline-content-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
 }
 
 .timeline-item:last-child .timeline-connector {
@@ -174,13 +152,57 @@
 }
 
 .card-info {
-  background-color: rgb(243, 243, 243);
-  padding: 0.3rem 0.8rem;
-  border-radius: 8px;
+  padding: 0.3rem 0 0.9rem;
+  border-bottom: 1px solid rgb(227, 227, 227);
 }
 
 .info-timeline {
   display: flex;
   gap: 5px;
   flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .actions-container span {
+    margin-top: 2rem;
+  }
+  .guide-info {
+    display: flex;
+    flex-direction: column;
+    align-items: start !important;
+    gap: 8px;
+  }
+  .details-overlay {
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .details-panel {
+    width: 100%;
+    height: 90vh;
+    border-radius: 12px 12px 0 0;
+    animation: slideUp 0.4s ease forwards;
+  }
+
+  .details-panel.closing {
+    animation: slideDown 0.4s ease forwards;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }

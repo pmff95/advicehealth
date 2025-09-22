@@ -9,7 +9,6 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 interface Step {
   title: string;
-  description: string;
   date: string;
   info: string;
 }
@@ -39,33 +38,26 @@ const guides: Guide[] = [
         date: "10/10/2010 às 18:00",
         title: "Finalizado",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Processo finalizado.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Aguardando profissional desempactador",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description:
-          "Aguardando análise do profissional desempactador das últimas solicitações.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Encaminhada para junta médica",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Sua solicitação foi encaminhada para junta médica.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Tentativa de consenso",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description:
-          "Tentativa de consenso com os profissionais médicos sobre as últimas solicitações.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Análise de pertinência dos itens solicitados",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Análise de pertinência dos itens solicitados.",
       },
     ],
   },
@@ -79,36 +71,29 @@ const guides: Guide[] = [
     status: STATUS.CONCLUIDO,
     steps: [
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Finalizado",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Processo finalizado.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Aguardando profissional desempactador",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description:
-          "Aguardando análise do profissional desempactador das últimas solicitações.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Encaminhada para junta médica",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Sua solicitação foi encaminhada para junta médica.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Tentativa de consenso",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description:
-          "Tentativa de consenso com os profissionais médicos sobre as últimas solicitações.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Análise de pertinência dos itens solicitados",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Análise de pertinência dos itens solicitados.",
       },
     ],
   },
@@ -122,36 +107,29 @@ const guides: Guide[] = [
     status: STATUS.CONCLUIDO,
     steps: [
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Finalizado",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Processo finalizado.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Aguardando profissional desempactador",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description:
-          "Aguardando análise do profissional desempactador das últimas solicitações.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Encaminhada para junta médica",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Sua solicitação foi encaminhada para junta médica.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Tentativa de consenso",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description:
-          "Tentativa de consenso com os profissionais médicos sobre as últimas solicitações.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Análise de pertinência dos itens solicitados",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Análise de pertinência dos itens solicitados.",
       },
     ],
   },
@@ -165,36 +143,29 @@ const guides: Guide[] = [
     status: STATUS.CONCLUIDO,
     steps: [
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Finalizado",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Processo finalizado.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Aguardando profissional desempactador",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description:
-          "Aguardando análise do profissional desempactador das últimas solicitações.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Encaminhada para junta médica",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Sua solicitação foi encaminhada para junta médica.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Tentativa de consenso",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description:
-          "Tentativa de consenso com os profissionais médicos sobre as últimas solicitações.",
       },
       {
-        date: "",
+        date: "10/10/2010 às 18:00",
         title: "Análise de pertinência dos itens solicitados",
         info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere velit leo, accumsan imperdiet metus eleifend at. Vivamus id convallis sapien",
-        description: "Análise de pertinência dos itens solicitados.",
       },
     ],
   },
@@ -243,7 +214,6 @@ export default function Guides() {
           </div>
         </>
       ) : (
-        // ⬇️ detalhe substitui a lista
         <DetailsModal guide={selected} onClose={() => setSelected(null)} />
       )}
     </main>

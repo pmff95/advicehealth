@@ -3,7 +3,7 @@ import "./Tag.css";
 
 interface TagProps {
   value: ReactNode;
-  severity?: "success" | "info" | "warning" | "danger" | "neutro";
+  severity?: "success" | "info" | "warning" | "danger" | "neutro" | "default";
   rounded?: boolean;
   variant?: "background" | "icon";
 }

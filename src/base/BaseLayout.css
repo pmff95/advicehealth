@@ -1,10 +1,10 @@
 .default {
   min-height: 100vh;
   display: flex;
-  background-size: cover;
-  padding: 2rem;
-
   flex-direction: column;
+  padding: 2rem;
+  background-size: cover;
+  background-position: center;
 }
 
 .bck-img img {
@@ -21,10 +21,13 @@
   width: 78%;
 }
 
-/* 🔽 Responsividade: até 768px */
 @media (max-width: 1024px) {
   .default {
     padding: 0rem;
+    background-image: url("../../public/images/image2.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto; /* ⬅️ mesma proporção da sua <img> */
+    background-position: top;
   }
   .dashboard-content {
     flex-direction: column;
@@ -40,6 +43,13 @@
   .layout-beneficiary {
     display: none;
   }
+  .mobile-beneficiary {
+    display: block;
+  }
+
+  .hidden-on-mobile {
+    display: none;
+  }
 }
 
 .mobile-beneficiary {
@@ -48,24 +58,4 @@
 
 .hidden-on-mobile {
   display: block;
-}
-
-@media (max-width: 1024px) {
-  .mobile-beneficiary {
-    display: block;
-  }
-
-  .hidden-on-mobile {
-    display: none;
-  }
-  .bck-img {
-    display: flex;
-    position: absolute;
-    width: 100vw;
-  }
-  .bck-img img {
-    z-index: -1;
-    width: 100%;
-    display: block;
-  }
 }

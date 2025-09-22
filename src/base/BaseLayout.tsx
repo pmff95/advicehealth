@@ -26,9 +26,6 @@ export default function BaseLayout({ children }: BaseLayoutProps) {
 
   return (
     <div className="default">
-      <div className="bck-img">
-        <img src="../../public/images/image2.png" alt="" />
-      </div>
       <Header />
       <MobileHeader
         userName="Ana Paula"

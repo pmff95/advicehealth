@@ -18,7 +18,7 @@ export default function Login({ onLogin }: LoginProps) {
           </div>
           <div className="login-card">
             <h2>Login</h2>
-            <span>
+            <span style={{ marginBottom: "2rem" }}>
               Acesse e acompanhe o status das guias solicitadas para o seu
               <strong> plano de saúde</strong>.
             </span>
@@ -31,11 +31,7 @@ export default function Login({ onLogin }: LoginProps) {
             />
 
             <label className="label-input">Senha</label>
-            <input
-              style={{ marginBottom: "1.5rem" }}
-              type="password"
-              placeholder="Digite sua senha"
-            />
+            <input type="password" placeholder="Digite sua senha" />
 
             <div className="login-options">
               <label className="remember">
