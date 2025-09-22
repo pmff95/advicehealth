@@ -6,7 +6,6 @@ interface Step {
   title: string;
   description: string;
   info: string;
-  color: string;
   date: string;
 }
 
@@ -47,9 +46,10 @@ export default function DetailsModal({ guide, onClose }: DetailsModalProps) {
       </div>
 
       <div className="timeline">
+        <h4 style={{ fontWeight: "500" }}>Histórico</h4>
         {guide.steps.map((s) => (
           <div key={s.title} className="timeline-item">
-            <span className="dot" style={{ background: s.color }} />
+            <span className="dot" />
             <div
               style={{
                 width: "100%",

@@ -138,10 +138,10 @@
 .timeline-item::after {
   content: "";
   position: absolute;
-  top: 31px; /* começa abaixo do dot */
+  top: 15px; /* começa abaixo do dot */
   left: 5px; /* centralizado com o dot */
-  width: 2px;
-  height: calc(100% - 31px);
+  width: 1px;
+  height: 100%;
   background: rgb(212, 212, 212);
 }
 
