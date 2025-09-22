@@ -226,44 +226,45 @@ export default function Guides() {
 
   return (
     <main className="guides">
-      {/* Novo header no estilo do protótipo */}
-      <div className="guides-header-text">
-        <h2>Olá, Maria!</h2>
-        <small>
-          Acompanhe o status de autorização das guias médicas solicitadas para o
-          seu plano de saúde.
-        </small>
-      </div>
-
-      {/* lista de guias */}
-      <div className="guides-list">
-        {guides.map((g) => (
-          <div key={g.id} className="guide">
-            <div>
-              <Tag value={g.type} severity="info" />
-            </div>
-            <h4>Guia {g.number}</h4>
-            <span>Data de atendimento: {g.date}</span>
-            <span style={{ marginTop: "1.5rem", fontWeight: "500" }}>
-              {g.doctor}
-            </span>
-            <span>{g.hospital}</span>
-            <div className="guide-actions">
-              <StatusTag
-                label="Concluído"
-                icon={faCheck}
-                severity="success"
-                variant="icon"
-              />
-              <Button variant="secondary" onClick={() => setSelected(g)}>
-                Ver detalhes
-              </Button>
-            </div>
+      {!selected ? (
+        <>
+          <div className="guides-header-text">
+            <h2>Olá, Maria!</h2>
+            <small>
+              Acompanhe o status de autorização das guias médicas solicitadas
+              para o seu plano de saúde.
+            </small>
           </div>
-        ))}
-      </div>
 
-      {selected && (
+          <div className="guides-list">
+            {guides.map((g) => (
+              <div key={g.id} className="guide">
+                <div>
+                  <Tag value={g.type} severity="info" />
+                </div>
+                <h4>Guia {g.number}</h4>
+                <span>Data de atendimento: {g.date}</span>
+                <span style={{ marginTop: "1.5rem", fontWeight: "500" }}>
+                  {g.doctor}
+                </span>
+                <span>{g.hospital}</span>
+                <div className="guide-actions">
+                  <StatusTag
+                    label="Concluído"
+                    icon={faCheck}
+                    severity="success"
+                    variant="icon"
+                  />
+                  <Button variant="secondary" onClick={() => setSelected(g)}>
+                    Ver detalhes
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        // ⬇️ detalhe substitui a lista
         <DetailsModal guide={selected} onClose={() => setSelected(null)} />
       )}
     </main>

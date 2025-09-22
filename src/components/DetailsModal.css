@@ -9,6 +9,11 @@
   justify-content: flex-end;
   z-index: 1000;
 }
+.details-view {
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+}
 
 .details-panel {
   width: 35vw;
