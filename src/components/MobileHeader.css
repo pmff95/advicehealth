@@ -2,15 +2,13 @@
   display: none;
   color: #fff;
   padding: 2rem 0 2rem 2rem;
-  margin-bottom: 2rem;
   border-radius: 8px;
   overflow: hidden;
 }
 
-/* ===== TOPO ===== */
 .mobile-header-top {
   display: flex;
-  justify-content: space-between; /* botão sempre à direita */
+  justify-content: space-between;
   align-items: center;
   position: relative;
 }
@@ -25,12 +23,12 @@
 }
 
 .menu-button {
-  background: #1e5d96;
+  background: #9cc4ec;
   border: none;
   margin-left: auto;
   padding: 0.3rem 1.2rem;
   border-radius: 50px 0 0 50px;
-  color: #fff;
+  color: #0c4171;
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -98,8 +96,44 @@
   cursor: pointer;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .mobile-header {
     display: block;
   }
+}
+
+/* container dos botões do topo */
+.mobile-header-top .actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* botão sair */
+.logout-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.logout-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: end;
+}
+
+.logout-button {
+  border: none;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding-right: 0.8rem;
+  transition: background 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #f1f1f1;
 }

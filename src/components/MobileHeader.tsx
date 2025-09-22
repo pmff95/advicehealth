@@ -11,9 +11,6 @@ export interface MobileHeaderProps {
 }
 
 export default function MobileHeader({
-  userName,
-  cardNumber,
-  // operator,
   open,
   onToggle,
   onSelectDashboard,
@@ -33,56 +30,29 @@ export default function MobileHeader({
         </button>
       </div>
 
-      {!open && (
-        <div className="mobile-user-data">
-          <img src="../../public/svg/avatar.svg" alt="" />
-          <div className="mobile-user-text">
-            <span className="user-greeting">Olá, {userName}!</span>
-            <span>N° da carteirinha: {cardNumber}</span>
-            {/* <span>Operadora: {operator}</span> */}
-          </div>
-        </div>
-      )}
-
       <nav className={`mobile-menu ${open ? "open" : ""}`}>
         <ul>
-          <li
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
+          <li>
             <img src="../../public/svg/guia-medica.svg" alt="" />
             <button onClick={onSelectDashboard}>Consultar Guias</button>
           </li>
-          <li
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
+          <li>
             <img src="../../public/svg/paciente.svg" alt="" />
-
             <button onClick={onSelectProfile}>Meus Dados</button>
-          </li>
-          <li
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
-            <img src="../../public/svg/paciente.svg" alt="" />
-
-            <button>Sair</button>
           </li>
         </ul>
       </nav>
+
+      {!open && (
+        <div className="logout-container">
+          <button
+            className="logout-button"
+            onClick={() => (window.location.href = "/")}
+          >
+            Sair
+          </button>
+        </div>
+      )}
     </header>
   );
 }

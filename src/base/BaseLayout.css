@@ -3,7 +3,12 @@
   display: flex;
   background-size: cover;
   padding: 2rem;
+
   flex-direction: column;
+}
+
+.bck-img img {
+  display: none;
 }
 
 .dashboard-content {
@@ -17,7 +22,7 @@
 }
 
 /* 🔽 Responsividade: até 768px */
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .default {
     padding: 0rem;
   }
@@ -45,12 +50,22 @@
   display: block;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .mobile-beneficiary {
     display: block;
   }
 
   .hidden-on-mobile {
     display: none;
+  }
+  .bck-img {
+    display: flex;
+    position: absolute;
+    width: 100vw;
+  }
+  .bck-img img {
+    z-index: -1;
+    width: 100%;
+    display: block;
   }
 }

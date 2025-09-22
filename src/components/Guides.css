@@ -73,11 +73,15 @@
   border-radius: 12px 12px 0 0;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .header-guide {
     flex-direction: column;
   }
   .guides {
     height: 75vh;
+  }
+
+  .guides-header-text {
+    color: rgb(255, 255, 255);
   }
 }

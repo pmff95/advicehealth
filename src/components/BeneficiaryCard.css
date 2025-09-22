@@ -12,7 +12,7 @@
     width: 30%;
   }
 }
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .beneficiary-card {
     width: 100%;
   }

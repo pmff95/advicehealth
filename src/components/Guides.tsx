@@ -228,7 +228,7 @@ export default function Guides() {
     <main className="guides">
       {/* Novo header no estilo do protótipo */}
       <div className="guides-header-text">
-        <h2>Olá, Maria</h2>
+        <h2>Olá, Maria!</h2>
         <small>
           Acompanhe o status de autorização das guias médicas solicitadas para o
           seu plano de saúde.

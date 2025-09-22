@@ -1,6 +1,5 @@
 import "./Login.css";
 import Button from "../components/Button";
-import { IMaskInput } from "react-imask";
 import { useState } from "react";
 
 interface LoginProps {
@@ -8,7 +7,7 @@ interface LoginProps {
 }
 
 export default function Login({ onLogin }: LoginProps) {
-  const [cpfOrDate, setCpfOrDate] = useState("");
+  const [cpfOrDate] = useState("");
 
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -16,23 +15,18 @@ export default function Login({ onLogin }: LoginProps) {
         <div className="login-page">
           <div className="portal-header">
             <h1>Portal do Beneficiário</h1>
+          </div>
+          <div className="login-card">
+            <h2>Login</h2>
             <span>
               Acesse e acompanhe o status das guias solicitadas para o seu
               <strong> plano de saúde</strong>.
             </span>
-          </div>
-          <div className="login-card">
-            <h2>Login</h2>
             <label className="label-input">E-mail</label>
-            <IMaskInput
+            <input
               style={{ marginBottom: "1.5rem" }}
               className="login-input"
-              // mask={[
-              //   { mask: "00/00/0000" }, // Data
-              //   { mask: "000.000.000-00" }, // CPF
-              // ]}
               value={cpfOrDate}
-              onAccept={(value: string) => setCpfOrDate(value)}
               placeholder="email@mail.com"
             />
 

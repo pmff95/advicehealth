@@ -30,6 +30,12 @@ export default function BeneficiaryCard({
     emails: emails.length ? emails : [""],
   });
 
+  // novos contatos
+  const [newPhone, setNewPhone] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [showNewPhone, setShowNewPhone] = useState(false);
+  const [showNewEmail, setShowNewEmail] = useState(false);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     field: string,
@@ -53,10 +59,28 @@ export default function BeneficiaryCard({
 
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
-  const addPhone = () =>
-    setFormData((prev) => ({ ...prev, phones: [...prev.phones, ""] }));
-  const addEmail = () =>
-    setFormData((prev) => ({ ...prev, emails: [...prev.emails, ""] }));
+
+  const handleAddPhone = () => {
+    if (newPhone.trim()) {
+      setFormData((prev) => ({
+        ...prev,
+        phones: [...prev.phones, newPhone],
+      }));
+      setNewPhone("");
+      setShowNewPhone(false);
+    }
+  };
+
+  const handleAddEmail = () => {
+    if (newEmail.trim()) {
+      setFormData((prev) => ({
+        ...prev,
+        emails: [...prev.emails, newEmail],
+      }));
+      setNewEmail("");
+      setShowNewEmail(false);
+    }
+  };
 
   const handleSave = () => {
     console.log("Salvando alterações:", formData);
@@ -103,7 +127,6 @@ export default function BeneficiaryCard({
         </div>
 
         {/* Telefones */}
-        {/* Telefones */}
         <div className="input-group">
           <label>TELEFONE/CELULAR</label>
           {formData.phones.map((phone, idx) =>
@@ -111,6 +134,7 @@ export default function BeneficiaryCard({
               <input
                 key={`phone-${idx}`}
                 type="text"
+                className="login-input"
                 value={phone}
                 onChange={(e) => handleChange(e, "phones", idx)}
                 placeholder="(11) 99999-9999"
@@ -120,28 +144,32 @@ export default function BeneficiaryCard({
             )
           )}
 
-          {isEditing ? (
-            // se está editando, deixa adicionar mais inputs
-            <div className="button-group">
-              <Button variant="tertiary" onClick={addPhone}>
-                + Adicionar contato
-              </Button>
-            </div>
-          ) : (
-            // se não está editando, só mostra botão pra adicionar um input novo
-            <div className="button-group">
-              <Button
-                variant="tertiary"
-                onClick={() =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    phones: [...prev.phones, ""], // adiciona nova linha
-                  }))
-                }
-              >
-                + Adicionar contato
-              </Button>
-            </div>
+          {/* Toggle para adicionar telefone */}
+          {!isEditing && (
+            <>
+              {showNewPhone ? (
+                <div className="add-contact">
+                  <input
+                    className="login-input"
+                    type="text"
+                    style={{ marginTop: ".6rem" }}
+                    placeholder="(11) 99999-9999"
+                    value={newPhone}
+                    onChange={(e) => setNewPhone(e.target.value)}
+                  />
+                  <Button variant="secondary" onClick={handleAddPhone}>
+                    Confirmar telefone
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  variant="tertiary"
+                  onClick={() => setShowNewPhone(true)}
+                >
+                  + Adicionar telefone
+                </Button>
+              )}
+            </>
           )}
         </div>
 
@@ -152,6 +180,7 @@ export default function BeneficiaryCard({
             isEditing ? (
               <input
                 key={`email-${idx}`}
+                className="login-input"
                 type="email"
                 value={email}
                 onChange={(e) => handleChange(e, "emails", idx)}
@@ -162,26 +191,32 @@ export default function BeneficiaryCard({
             )
           )}
 
-          {isEditing ? (
-            <div className="button-group">
-              <Button variant="tertiary" onClick={addEmail}>
-                + Adicionar contato
-              </Button>
-            </div>
-          ) : (
-            <div className="button-group">
-              <Button
-                variant="tertiary"
-                onClick={() =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    emails: [...prev.emails, ""],
-                  }))
-                }
-              >
-                + Adicionar contato
-              </Button>
-            </div>
+          {/* Toggle para adicionar email */}
+          {!isEditing && (
+            <>
+              {showNewEmail ? (
+                <div className="add-contact">
+                  <input
+                    style={{ marginTop: ".6rem" }}
+                    type="email"
+                    className="login-input"
+                    placeholder="email@email.com"
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                  />
+                  <Button variant="secondary" onClick={handleAddEmail}>
+                    Confirmar email
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  variant="tertiary"
+                  onClick={() => setShowNewEmail(true)}
+                >
+                  + Adicionar email
+                </Button>
+              )}
+            </>
           )}
         </div>
 
