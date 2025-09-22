@@ -24,6 +24,28 @@ interface DetailsModalProps {
 }
 
 export default function DetailsModal({ guide, onClose }: DetailsModalProps) {
+  const firstPendingIndex = guide.steps.findIndex(
+    (step) => !step.date?.trim(),
+  );
+
+  const getDotVariant = (index: number) => {
+    if (firstPendingIndex === -1 || index < firstPendingIndex) {
+      return "completed";
+    }
+
+    if (index === firstPendingIndex) {
+      return "current";
+    }
+
+    return "upcoming";
+  };
+
+  const dotConfig = {
+    completed: { src: "/images/dot1.png", size: 32 },
+    current: { src: "/images/dot2.png", size: 24 },
+    upcoming: { src: "/images/dot3.png", size: 24 },
+  } as const;
+
   return (
     <div className="details-view">
       <div className="header-top">
@@ -47,28 +69,35 @@ export default function DetailsModal({ guide, onClose }: DetailsModalProps) {
 
       <div className="timeline">
         <h4 style={{ fontWeight: "500" }}>Histórico</h4>
-        {guide.steps.map((s) => (
-          <div key={s.title} className="timeline-item">
-            <span className="dot" />
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.2rem",
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h4>{s.title}</h4>
-                {s.date && <Tag severity="neutro" value={s.date} />}
+        {guide.steps.map((s, index) => {
+          const variant = getDotVariant(index);
+          const isLast = index === guide.steps.length - 1;
+          const { src, size } = dotConfig[variant];
+
+          return (
+            <div key={s.title} className="timeline-item">
+              <div className="timeline-marker">
+                <img
+                  className="timeline-dot"
+                  src={src}
+                  alt=""
+                  style={{ width: size, height: size }}
+                />
+                {!isLast && <span className="timeline-connector" />}
               </div>
-              <div className="info-timeline">
-                <span className="info-span">{s.description}</span>
-                <span className="info-span card-info">{s.info}</span>
+              <div className="timeline-content">
+                <div className="timeline-content-header">
+                  <h4>{s.title}</h4>
+                  {s.date && <Tag severity="neutro" value={s.date} />}
+                </div>
+                <div className="info-timeline">
+                  <span className="info-span">{s.description}</span>
+                  <span className="info-span card-info">{s.info}</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
