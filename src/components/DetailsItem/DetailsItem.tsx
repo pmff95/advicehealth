@@ -2,7 +2,7 @@ import "./DetailsItem.css";
 import Button from "../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faDownload } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GuideHistory from "../Guides/GuideHistory";
 import GuideItems from "../Guides/GuideItems";
 import type { Guide } from "../../types/guide";
@@ -15,6 +15,20 @@ interface DetailsItemProps {
 
 export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
   const [showItens, setShowItens] = useState(false);
+  const guideItems = guide.itens ?? guide.items ?? [];
+  const hasItems = guideItems.length > 0;
+
+  const handleToggleItems = () => {
+    if (!hasItems) {
+      return;
+    }
+
+    setShowItens((prev) => !prev);
+  };
+
+  useEffect(() => {
+    setShowItens(false);
+  }, [guide.id]);
 
   return (
     <div className="details-view">
@@ -53,19 +67,24 @@ export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
           </button>
 
           {/* Botão para abrir itens */}
-          <a
-            onClick={() => setShowItens((prev) => !prev)}
-            style={{ cursor: "pointer" }}
-          >
-            {showItens ? "Ocultar itens da guia" : "Exibir itens da guia"}
-          </a>
+          {hasItems ? (
+            <a onClick={handleToggleItems} style={{ cursor: "pointer" }}>
+              {showItens
+                ? "Ocultar itens da guia"
+                : "Exibir itens da guia"}
+            </a>
+          ) : (
+            <span className="no-items-available">
+              Itens da guia indisponíveis no momento.
+            </span>
+          )}
         </div>
       </div>
 
       {!showItens ? (
         <GuideHistory steps={guide.steps} />
       ) : (
-        <GuideItems items={guide.itens} />
+        <GuideItems items={guideItems} />
       )}
     </div>
   );

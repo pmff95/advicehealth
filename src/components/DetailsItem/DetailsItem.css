@@ -73,6 +73,20 @@
   text-align: center;
 }
 
+.no-items-available {
+  display: block;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.no-guide-items {
+  margin-top: 0.75rem;
+  color: #555;
+  font-size: 0.85rem;
+}
+
 .header-top {
   margin-bottom: 0.5rem; /* espaço antes da Tag */
 }
