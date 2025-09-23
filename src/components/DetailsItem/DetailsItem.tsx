@@ -17,7 +17,13 @@ export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
   const [showItens, setShowItens] = useState(false);
   const guideItems = guide.itens ?? guide.items ?? [];
 
+  const hasItems = guideItems.length > 0;
+
   const handleToggleItems = () => {
+    if (!hasItems) {
+      return;
+    }
+
     setShowItens((prev) => !prev);
   };
 
@@ -65,6 +71,7 @@ export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
           <a onClick={handleToggleItems} style={{ cursor: "pointer" }}>
             {showItens ? "Ocultar itens da guia" : "Exibir itens da guia"}
           </a>
+
         </div>
       </div>
 
