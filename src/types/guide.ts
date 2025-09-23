@@ -17,6 +17,7 @@ export interface GuideItem {
   status: GuideItemStatus;
   qtdSolicitada: number;
   qtdAutorizada: number;
+  tipo: "PROCEDIMENTOS" | "MATERIAIS" | "MEDICAMENTOS";
 }
 
 export interface Guide {
@@ -28,11 +29,6 @@ export interface Guide {
   hospital: string;
   status: Status;
   steps: GuideStep[];
-  /**
-   * Alguns payloads utilizam o atributo "items" enquanto outros
-   * mantêm a grafia original "itens". Mantemos ambos para garantir
-   * compatibilidade com as diferentes estruturas de dados.
-   */
   items?: GuideItem[];
   itens?: GuideItem[];
 }

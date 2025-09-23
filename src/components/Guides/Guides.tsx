@@ -15,6 +15,7 @@ const mockGuideItems: GuideItem[] = [
     status: "Aprovado",
     qtdSolicitada: 1,
     qtdAutorizada: 1,
+    tipo: "PROCEDIMENTOS",
   },
   {
     codigo: "04.06.02.013-4",
@@ -22,6 +23,7 @@ const mockGuideItems: GuideItem[] = [
     status: "Parcialmente favorável",
     qtdSolicitada: 2,
     qtdAutorizada: 1,
+    tipo: "MATERIAIS",
   },
   {
     codigo: "02.09.01.003-1",
@@ -29,6 +31,7 @@ const mockGuideItems: GuideItem[] = [
     status: "Parcialmente favorável",
     qtdSolicitada: 10,
     qtdAutorizada: 6,
+    tipo: "PROCEDIMENTOS",
   },
   {
     codigo: "02.01.01.015-0",
@@ -36,6 +39,7 @@ const mockGuideItems: GuideItem[] = [
     status: "Aprovado",
     qtdSolicitada: 3,
     qtdAutorizada: 3,
+    tipo: "MEDICAMENTOS",
   },
   {
     codigo: "03.16.04.002-7",
@@ -43,6 +47,7 @@ const mockGuideItems: GuideItem[] = [
     status: "Desfavorável",
     qtdSolicitada: 5,
     qtdAutorizada: 0,
+    tipo: "PROCEDIMENTOS",
   },
   {
     codigo: "04.03.01.001-9",
@@ -50,6 +55,7 @@ const mockGuideItems: GuideItem[] = [
     status: "Aprovado",
     qtdSolicitada: 1,
     qtdAutorizada: 1,
+    tipo: "PROCEDIMENTOS",
   },
 ];
 

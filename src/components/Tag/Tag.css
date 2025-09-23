@@ -1,18 +1,17 @@
 .tag {
   display: inline-block;
   font-size: 0.6rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 0.35rem 0.75rem;
   width: fit-content;
   border-radius: 4px;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 /* ===== Severities com background ===== */
 .tag-success {
   background: #d4edda;
-  color: #155724;
+  color: #258357;
 }
 
 .tag-info {
@@ -22,12 +21,12 @@
 
 .tag-warning {
   background: #fff3cd;
-  color: #856404;
+  color: #916a0e;
 }
 
 .tag-danger {
   background: #f8d7da;
-  color: #721c24;
+  color: #9c2c2f;
 }
 
 .tag-neutro {

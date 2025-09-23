@@ -73,7 +73,6 @@
   text-align: center;
 }
 
-
 .no-guide-items {
   margin-top: 0.75rem;
   color: #555;
@@ -230,12 +229,11 @@
   border: 1px solid #e1e1e1;
   border-radius: 8px;
   padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
   background: #fff;
-}
-
-.item-card strong {
-  display: block;
-  margin-bottom: 0.25rem;
 }
 
 .status {

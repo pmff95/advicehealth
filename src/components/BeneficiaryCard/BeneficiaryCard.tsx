@@ -166,7 +166,7 @@ export default function BeneficiaryCard({
                   variant="tertiary"
                   onClick={() => setShowNewPhone(true)}
                 >
-                  + Adicionar telefone
+                  + Adicionar contato
                 </Button>
               )}
             </>
@@ -213,7 +213,7 @@ export default function BeneficiaryCard({
                   variant="tertiary"
                   onClick={() => setShowNewEmail(true)}
                 >
-                  + Adicionar email
+                  + Adicionar contato
                 </Button>
               )}
             </>
