@@ -1,4 +1,4 @@
-import "./TimeLine.css";
+import "./DetailsItem.css";
 import Button from "./Button";
 import Tag from "./Tag";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,12 +29,12 @@ interface Guide {
   itens?: ItemGuia[]; // <- itens da guia
 }
 
-interface TimeLineProps {
+interface DetailsItemProps {
   guide: Guide;
   onClose: () => void;
 }
 
-export default function TimeLine({ guide, onClose }: TimeLineProps) {
+export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
   const [showItens, setShowItens] = useState(false);
 
   const firstPendingIndex = guide.steps.findIndex((step) => !step.date?.trim());
