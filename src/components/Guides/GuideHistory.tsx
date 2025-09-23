@@ -1,4 +1,4 @@
-import type { GuideStep } from "../types/guide";
+import type { GuideStep } from "../../types/guide";
 
 const dotConfig = {
   completed: { src: "/images/dot1.png", size: 32 },
@@ -48,7 +48,9 @@ const GuideHistory = ({ steps }: GuideHistoryProps) => {
                 />
               </div>
               <div className="timeline-content">
-                {step.date && <span className="timeline-date">{step.date}</span>}
+                {step.date && (
+                  <span className="timeline-date">{step.date}</span>
+                )}
                 <h4 className="timeline-title">{step.title}</h4>
                 <p className="timeline-info">{step.info}</p>
               </div>

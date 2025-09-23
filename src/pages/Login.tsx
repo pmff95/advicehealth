@@ -1,5 +1,5 @@
 import "./Login.css";
-import Button from "../components/Button";
+import Button from "../components/Button/Button";
 import { useState } from "react";
 
 interface LoginProps {

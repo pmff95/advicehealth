@@ -1,12 +1,12 @@
 import { useState } from "react";
-import DetailsItem from "./DetailsItem";
-import Tag from "./Tag";
-import Button from "./Button";
+import Button from "../Button/Button";
 import "./Guides.css";
-import StatusTag from "./StatusTag";
-import { STATUS } from "../enums/status";
+import { STATUS } from "../../enums/status";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import type { Guide } from "../types/guide";
+import type { Guide } from "../../types/guide";
+import DetailsItem from "../DetailsItem/DetailsItem";
+import StatusTag from "../Tag/StatusTag";
+import Tag from "../Tag/Tag";
 
 const guides: Guide[] = [
   {

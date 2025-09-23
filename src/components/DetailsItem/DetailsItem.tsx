@@ -1,12 +1,12 @@
 import "./DetailsItem.css";
-import Button from "./Button";
-import Tag from "./Tag";
+import Button from "../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import GuideHistory from "./GuideHistory";
-import GuideItems from "./GuideItems";
-import type { Guide } from "../types/guide";
+import GuideHistory from "../Guides/GuideHistory";
+import GuideItems from "../Guides/GuideItems";
+import type { Guide } from "../../types/guide";
+import Tag from "../Tag/Tag";
 
 interface DetailsItemProps {
   guide: Guide;

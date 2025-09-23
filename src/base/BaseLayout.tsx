@@ -1,5 +1,4 @@
-import Header from "../components/Header";
-import BeneficiaryCard from "../components/BeneficiaryCard";
+import Header from "../components/Header/Header";
 import "./BaseLayout.css";
 import type { ReactNode } from "react";
 
@@ -8,7 +7,8 @@ interface BaseLayoutProps {
 }
 
 import { useState } from "react";
-import MobileHeader from "../components/MobileHeader";
+import MobileHeader from "../components/MobileHeader/MobileHeader";
+import BeneficiaryCard from "../components/BeneficiaryCard/BeneficiaryCard";
 
 export default function BaseLayout({ children }: BaseLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

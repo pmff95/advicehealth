@@ -1,4 +1,4 @@
-import Guides from "../components/Guides";
+import Guides from "../components/Guides/Guides";
 import "./Dashboard.css";
 
 export default function Dashboard() {

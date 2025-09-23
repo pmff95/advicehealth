@@ -1,7 +1,7 @@
+import { formatCPF, formatPhone } from "../../utils/formatters";
+import Button from "../Button/Button";
 import "./BeneficiaryCard.css";
-import Button from "./Button";
 import { useState } from "react";
-import { formatCPF, formatPhone } from "../utils/formatters";
 
 interface BeneficiaryCardProps extends React.HTMLAttributes<HTMLElement> {
   cpf: string;

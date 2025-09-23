@@ -1,4 +1,4 @@
-import type { GuideItem } from "../types/guide";
+import type { GuideItem } from "../../types/guide";
 
 interface GuideItemsProps {
   items?: GuideItem[];
@@ -23,7 +23,7 @@ const GuideItems = ({ items }: GuideItemsProps) => {
                 {item.codigo} - {item.descricao}
               </strong>
               <p>
-                Qtd. solicitada: {item.qtdSolicitada} | Qtd. autorizada: {" "}
+                Qtd. solicitada: {item.qtdSolicitada} | Qtd. autorizada:{" "}
                 {item.qtdAutorizada}
               </p>
               <span className={`status ${statusClass}`}>{item.status}</span>
