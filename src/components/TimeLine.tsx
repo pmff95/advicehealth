@@ -2,12 +2,21 @@ import "./TimeLine.css";
 import Button from "./Button";
 import Tag from "./Tag";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faDownload } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 interface Step {
   title: string;
   info: string;
   date: string;
+}
+
+interface ItemGuia {
+  codigo: string;
+  descricao: string;
+  status: "Aprovado" | "Parcialmente favorável" | "Desfavorável";
+  qtdSolicitada: number;
+  qtdAutorizada: number;
 }
 
 interface Guide {
@@ -17,6 +26,7 @@ interface Guide {
   doctor: string;
   hospital: string;
   steps: Step[];
+  itens?: ItemGuia[]; // <- itens da guia
 }
 
 interface TimeLineProps {
@@ -25,17 +35,17 @@ interface TimeLineProps {
 }
 
 export default function TimeLine({ guide, onClose }: TimeLineProps) {
+  const [showItens, setShowItens] = useState(false);
+
   const firstPendingIndex = guide.steps.findIndex((step) => !step.date?.trim());
 
   const getDotVariant = (index: number) => {
     if (firstPendingIndex === -1 || index < firstPendingIndex) {
       return "completed";
     }
-
     if (index === firstPendingIndex) {
       return "current";
     }
-
     return "upcoming";
   };
 
@@ -51,6 +61,10 @@ export default function TimeLine({ guide, onClose }: TimeLineProps) {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div className="header-top">
             <Button variant="tertiary" className="close" onClick={onClose}>
+              <FontAwesomeIcon
+                icon={faChevronLeft}
+                style={{ marginRight: "0.25rem" }}
+              />{" "}
               Voltar
             </Button>
           </div>
@@ -87,44 +101,76 @@ export default function TimeLine({ guide, onClose }: TimeLineProps) {
             />
             Baixar notificação de Abertura
           </button>
-          <a>Exibir itens da guia</a>
+
+          {/* Botão para abrir itens */}
+          <a
+            onClick={() => setShowItens((prev) => !prev)}
+            style={{ cursor: "pointer" }}
+          >
+            {showItens ? "Ocultar itens da guia" : "Exibir itens da guia"}
+          </a>
         </div>
       </div>
 
-      <div className="timeline">
-        <h4 style={{ fontWeight: "500" }}>Histórico</h4>
-        <div className="timeline-container">
-          {guide.steps.map((s, index) => {
-            const variant = getDotVariant(index);
-            const isLast = index === guide.steps.length - 1;
-            const { src, size } = dotConfig[variant];
+      {!showItens ? (
+        <div className="timeline">
+          <h4 style={{ fontWeight: "500" }}>Histórico</h4>
+          <div className="timeline-container">
+            {guide.steps.map((s, index) => {
+              const variant = getDotVariant(index);
+              const isLast = index === guide.steps.length - 1;
+              const { src, size } = dotConfig[variant];
 
-            return (
-              <div key={s.title} className="timeline-item">
-                {/* Linha contínua */}
-                {!isLast && <span className="timeline-connector" />}
-
-                {/* Dot alinhado com o título */}
-                <div className="timeline-marker">
-                  <img
-                    className="timeline-dot"
-                    src={src}
-                    alt=""
-                    style={{ width: size, height: size }}
-                  />
+              return (
+                <div key={s.title} className="timeline-item">
+                  {!isLast && <span className="timeline-connector" />}
+                  <div className="timeline-marker">
+                    <img
+                      className="timeline-dot"
+                      src={src}
+                      alt=""
+                      style={{ width: size, height: size }}
+                    />
+                  </div>
+                  <div className="timeline-content">
+                    {s.date && <span className="timeline-date">{s.date}</span>}
+                    <h4 className="timeline-title">{s.title}</h4>
+                    <p className="timeline-info">{s.info}</p>
+                  </div>
                 </div>
-
-                {/* Conteúdo */}
-                <div className="timeline-content">
-                  {s.date && <span className="timeline-date">{s.date}</span>}
-                  <h4 className="timeline-title">{s.title}</h4>
-                  <p className="timeline-info">{s.info}</p>
-                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div className="itens-guia">
+          <h4 style={{ fontWeight: "500" }}>Itens da guia</h4>
+          <div className="itens-container">
+            {guide.itens?.map((item) => (
+              <div key={item.codigo} className="item-card">
+                <strong>
+                  {item.codigo} - {item.descricao}
+                </strong>
+                <p>
+                  Qtd. solicitada: {item.qtdSolicitada} | Qtd. autorizada:{" "}
+                  {item.qtdAutorizada}
+                </p>
+                <span
+                  className={`status ${
+                    item.status === "Aprovado"
+                      ? "status-aprovado"
+                      : item.status === "Parcialmente favorável"
+                      ? "status-parcial"
+                      : "status-reprovado"
+                  }`}
+                >
+                  {item.status}
+                </span>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
