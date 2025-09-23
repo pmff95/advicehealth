@@ -16,6 +16,7 @@ interface DetailsItemProps {
 export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
   const [showItens, setShowItens] = useState(false);
   const guideItems = guide.itens ?? guide.items ?? [];
+
   const hasItems = guideItems.length > 0;
 
   const handleToggleItems = () => {
@@ -67,17 +68,10 @@ export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
           </button>
 
           {/* Botão para abrir itens */}
-          {hasItems ? (
-            <a onClick={handleToggleItems} style={{ cursor: "pointer" }}>
-              {showItens
-                ? "Ocultar itens da guia"
-                : "Exibir itens da guia"}
-            </a>
-          ) : (
-            <span className="no-items-available">
-              Itens da guia indisponíveis no momento.
-            </span>
-          )}
+          <a onClick={handleToggleItems} style={{ cursor: "pointer" }}>
+            {showItens ? "Ocultar itens da guia" : "Exibir itens da guia"}
+          </a>
+
         </div>
       </div>
 
