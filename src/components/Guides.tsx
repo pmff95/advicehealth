@@ -4,25 +4,9 @@ import Tag from "./Tag";
 import Button from "./Button";
 import "./Guides.css";
 import StatusTag from "./StatusTag";
-import { STATUS, type Status } from "../enums/status";
+import { STATUS } from "../enums/status";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-
-interface Step {
-  title: string;
-  date: string;
-  info: string;
-}
-
-interface Guide {
-  id: number;
-  type: string;
-  number: string;
-  date: string;
-  doctor: string;
-  hospital: string;
-  status: Status;
-  steps: Step[];
-}
+import type { Guide } from "../types/guide";
 
 const guides: Guide[] = [
   {
