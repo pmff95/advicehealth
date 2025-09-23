@@ -3,10 +3,55 @@ import Button from "../Button/Button";
 import "./Guides.css";
 import { STATUS } from "../../enums/status";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import type { Guide } from "../../types/guide";
-import DetailsItem from "../DetailsItem/DetailsItem";
-import StatusTag from "../Tag/StatusTag";
+import type { Guide, GuideItem } from "../../types/guide";
 import Tag from "../Tag/Tag";
+import StatusTag from "../Tag/StatusTag";
+import DetailsItem from "../DetailsItem/DetailsItem";
+
+const mockGuideItems: GuideItem[] = [
+  {
+    codigo: "03.03.01.001-2",
+    descricao: "Consulta médica com cirurgião geral",
+    status: "Aprovado",
+    qtdSolicitada: 1,
+    qtdAutorizada: 1,
+  },
+  {
+    codigo: "04.06.02.013-4",
+    descricao: "Tomografia computadorizada de tórax",
+    status: "Parcialmente favorável",
+    qtdSolicitada: 2,
+    qtdAutorizada: 1,
+  },
+  {
+    codigo: "02.09.01.003-1",
+    descricao: "Sessão de fisioterapia motora",
+    status: "Parcialmente favorável",
+    qtdSolicitada: 10,
+    qtdAutorizada: 6,
+  },
+  {
+    codigo: "02.01.01.015-0",
+    descricao: "Diária de enfermagem em apartamento",
+    status: "Aprovado",
+    qtdSolicitada: 3,
+    qtdAutorizada: 3,
+  },
+  {
+    codigo: "03.16.04.002-7",
+    descricao: "Materiais cirúrgicos descartáveis",
+    status: "Desfavorável",
+    qtdSolicitada: 5,
+    qtdAutorizada: 0,
+  },
+  {
+    codigo: "04.03.01.001-9",
+    descricao: "Ressonância magnética de coluna lombar",
+    status: "Aprovado",
+    qtdSolicitada: 1,
+    qtdAutorizada: 1,
+  },
+];
 
 const guides: Guide[] = [
   {
@@ -17,6 +62,7 @@ const guides: Guide[] = [
     doctor: "Dr. Carlos Eduardo Silva",
     hospital: "Hospital Albert Einstein",
     status: STATUS.CONCLUIDO,
+    itens: mockGuideItems,
     steps: [
       {
         date: "10/10/2010 às 18:00",
@@ -53,6 +99,7 @@ const guides: Guide[] = [
     doctor: "Dr. Carlos Eduardo Silva",
     hospital: "Hospital Albert Einstein",
     status: STATUS.CONCLUIDO,
+    itens: mockGuideItems,
     steps: [
       {
         date: "10/10/2010 às 18:00",
@@ -89,6 +136,7 @@ const guides: Guide[] = [
     doctor: "Dr. Carlos Eduardo Silva",
     hospital: "Hospital Albert Einstein",
     status: STATUS.CONCLUIDO,
+    itens: mockGuideItems,
     steps: [
       {
         date: "10/10/2010 às 18:00",
@@ -125,6 +173,7 @@ const guides: Guide[] = [
     doctor: "Dr. Carlos Eduardo Silva",
     hospital: "Hospital Albert Einstein",
     status: STATUS.CONCLUIDO,
+    itens: mockGuideItems,
     steps: [
       {
         date: "10/10/2010 às 18:00",

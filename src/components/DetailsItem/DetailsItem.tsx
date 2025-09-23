@@ -6,7 +6,7 @@ import { useState } from "react";
 import GuideHistory from "../Guides/GuideHistory";
 import GuideItems from "../Guides/GuideItems";
 import type { Guide } from "../../types/guide";
-import Tag from "../Tag/Tag";
+import GuideHeader from "../GuideHeader";
 
 interface DetailsItemProps {
   guide: Guide;
@@ -30,18 +30,7 @@ export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
             </Button>
           </div>
 
-          <Tag value={guide.type} severity="info" />
-          <p className="guide-number">Guia {guide.number}</p>
-
-          <span className="info-span">Operadora: {guide.date}</span>
-          <span className="info-span">Data de atendimento: {guide.date}</span>
-          <span
-            className="info-span"
-            style={{ fontWeight: "500", marginTop: "2.5rem" }}
-          >
-            {guide.doctor}
-          </span>
-          <span className="info-span">{guide.hospital}</span>
+          <GuideHeader guide={guide} />
         </div>
         <div className="actions-container">
           <span>
