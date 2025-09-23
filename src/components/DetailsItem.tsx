@@ -4,30 +4,9 @@ import Tag from "./Tag";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-
-interface Step {
-  title: string;
-  info: string;
-  date: string;
-}
-
-interface ItemGuia {
-  codigo: string;
-  descricao: string;
-  status: "Aprovado" | "Parcialmente favorável" | "Desfavorável";
-  qtdSolicitada: number;
-  qtdAutorizada: number;
-}
-
-interface Guide {
-  type: string;
-  number: string;
-  date: string;
-  doctor: string;
-  hospital: string;
-  steps: Step[];
-  itens?: ItemGuia[]; // <- itens da guia
-}
+import GuideHistory from "./GuideHistory";
+import GuideItems from "./GuideItems";
+import type { Guide } from "../types/guide";
 
 interface DetailsItemProps {
   guide: Guide;
@@ -36,24 +15,6 @@ interface DetailsItemProps {
 
 export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
   const [showItens, setShowItens] = useState(false);
-
-  const firstPendingIndex = guide.steps.findIndex((step) => !step.date?.trim());
-
-  const getDotVariant = (index: number) => {
-    if (firstPendingIndex === -1 || index < firstPendingIndex) {
-      return "completed";
-    }
-    if (index === firstPendingIndex) {
-      return "current";
-    }
-    return "upcoming";
-  };
-
-  const dotConfig = {
-    completed: { src: "/images/dot1.png", size: 32 },
-    current: { src: "/images/dot2.png", size: 24 },
-    upcoming: { src: "/images/dot3.png", size: 24 },
-  } as const;
 
   return (
     <div className="details-view">
@@ -113,63 +74,9 @@ export default function DetailsItem({ guide, onClose }: DetailsItemProps) {
       </div>
 
       {!showItens ? (
-        <div className="timeline">
-          <h4 style={{ fontWeight: "500" }}>Histórico</h4>
-          <div className="timeline-container">
-            {guide.steps.map((s, index) => {
-              const variant = getDotVariant(index);
-              const isLast = index === guide.steps.length - 1;
-              const { src, size } = dotConfig[variant];
-
-              return (
-                <div key={s.title} className="timeline-item">
-                  {!isLast && <span className="timeline-connector" />}
-                  <div className="timeline-marker">
-                    <img
-                      className="timeline-dot"
-                      src={src}
-                      alt=""
-                      style={{ width: size, height: size }}
-                    />
-                  </div>
-                  <div className="timeline-content">
-                    {s.date && <span className="timeline-date">{s.date}</span>}
-                    <h4 className="timeline-title">{s.title}</h4>
-                    <p className="timeline-info">{s.info}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <GuideHistory steps={guide.steps} />
       ) : (
-        <div className="itens-guia">
-          <h4 style={{ fontWeight: "500" }}>Itens da guia</h4>
-          <div className="itens-container">
-            {guide.itens?.map((item) => (
-              <div key={item.codigo} className="item-card">
-                <strong>
-                  {item.codigo} - {item.descricao}
-                </strong>
-                <p>
-                  Qtd. solicitada: {item.qtdSolicitada} | Qtd. autorizada:{" "}
-                  {item.qtdAutorizada}
-                </p>
-                <span
-                  className={`status ${
-                    item.status === "Aprovado"
-                      ? "status-aprovado"
-                      : item.status === "Parcialmente favorável"
-                      ? "status-parcial"
-                      : "status-reprovado"
-                  }`}
-                >
-                  {item.status}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <GuideItems items={guide.itens} />
       )}
     </div>
   );
