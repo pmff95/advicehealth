@@ -73,6 +73,12 @@
   text-align: center;
 }
 
+.no-guide-items {
+  margin-top: 0.75rem;
+  color: #555;
+  font-size: 0.85rem;
+}
+
 .header-top {
   margin-bottom: 0.5rem; /* espaço antes da Tag */
 }
