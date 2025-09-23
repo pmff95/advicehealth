@@ -1,5 +1,5 @@
 import { useState } from "react";
-import DetailsModal from "./DetailsModal";
+import TimeLine from "./TimeLine";
 import Tag from "./Tag";
 import Button from "./Button";
 import "./Guides.css";
@@ -214,7 +214,7 @@ export default function Guides() {
           </div>
         </>
       ) : (
-        <DetailsModal guide={selected} onClose={() => setSelected(null)} />
+        <TimeLine guide={selected} onClose={() => setSelected(null)} />
       )}
     </main>
   );

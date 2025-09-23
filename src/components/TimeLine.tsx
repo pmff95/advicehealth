@@ -1,4 +1,4 @@
-import "./DetailsModal.css";
+import "./TimeLine.css";
 import Button from "./Button";
 import Tag from "./Tag";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,12 +19,12 @@ interface Guide {
   steps: Step[];
 }
 
-interface DetailsModalProps {
+interface TimeLineProps {
   guide: Guide;
   onClose: () => void;
 }
 
-export default function DetailsModal({ guide, onClose }: DetailsModalProps) {
+export default function TimeLine({ guide, onClose }: TimeLineProps) {
   const firstPendingIndex = guide.steps.findIndex((step) => !step.date?.trim());
 
   const getDotVariant = (index: number) => {
