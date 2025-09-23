@@ -93,40 +93,32 @@ export default function DetailsModal({ guide, onClose }: DetailsModalProps) {
 
       <div className="timeline">
         <h4 style={{ fontWeight: "500" }}>Histórico</h4>
-        <div
-          style={{
-            backgroundColor: "#F5F5F5",
-            padding: "1rem",
-            marginTop: ".5rem",
-            borderRadius: "12px",
-          }}
-        >
+        <div className="timeline-container">
           {guide.steps.map((s, index) => {
             const variant = getDotVariant(index);
             const isLast = index === guide.steps.length - 1;
             const { src, size } = dotConfig[variant];
 
             return (
-              <div>
-                <div style={{ marginLeft: "2.5rem" }}>
-                  {s.date && <Tag severity="default" value={s.date} />}
+              <div key={s.title} className="timeline-item">
+                {/* Linha contínua */}
+                {!isLast && <span className="timeline-connector" />}
+
+                {/* Dot alinhado com o título */}
+                <div className="timeline-marker">
+                  <img
+                    className="timeline-dot"
+                    src={src}
+                    alt=""
+                    style={{ width: size, height: size }}
+                  />
                 </div>
-                <div key={s.title} className="timeline-item">
-                  <div className="timeline-marker">
-                    <img
-                      className="timeline-dot"
-                      src={src}
-                      alt=""
-                      style={{ width: size, height: size }}
-                    />
-                    {!isLast && <span className="timeline-connector" />}
-                  </div>
-                  <div className="timeline-content">
-                    <h4>{s.title}</h4>
-                    <div className="info-timeline">
-                      <span className="info-span card-info">{s.info}</span>
-                    </div>
-                  </div>
+
+                {/* Conteúdo */}
+                <div className="timeline-content">
+                  {s.date && <span className="timeline-date">{s.date}</span>}
+                  <h4 className="timeline-title">{s.title}</h4>
+                  <p className="timeline-info">{s.info}</p>
                 </div>
               </div>
             );
