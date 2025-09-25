@@ -1,8 +1,15 @@
+import type { HTMLAttributes } from "react";
 import "./Header.css";
 
-type HeaderProps = React.HTMLAttributes<HTMLElement>;
+type HeaderProps = HTMLAttributes<HTMLElement> & {
+  onLogout: () => void;
+};
 
-export default function Header({ className = "", ...rest }: HeaderProps) {
+export default function Header({
+  className = "",
+  onLogout,
+  ...rest
+}: HeaderProps) {
   return (
     <header className={`dashboard-header ${className}`} {...rest}>
       <h2>Portal do Beneficiário</h2>
@@ -14,7 +21,9 @@ export default function Header({ className = "", ...rest }: HeaderProps) {
           gap: "1rem",
         }}
       >
-        <a href="/">Sair</a>
+        <button type="button" onClick={onLogout} className="logout-button">
+          Sair
+        </button>
       </div>
     </header>
   );

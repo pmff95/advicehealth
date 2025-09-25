@@ -8,10 +8,13 @@
   align-items: center;
 }
 
-.dashboard-header a {
+.dashboard-header .logout-button {
   color: #0c4171;
   font-size: 0.8rem;
   text-align: center;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 .user-greeting {
   font-weight: 600;
