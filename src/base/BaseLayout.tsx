@@ -4,13 +4,14 @@ import type { ReactNode } from "react";
 
 interface BaseLayoutProps {
   children: ReactNode;
+  onLogout: () => void;
 }
 
 import { useState } from "react";
 import MobileHeader from "../components/MobileHeader/MobileHeader";
 import BeneficiaryCard from "../components/BeneficiaryCard/BeneficiaryCard";
 
-export default function BaseLayout({ children }: BaseLayoutProps) {
+export default function BaseLayout({ children, onLogout }: BaseLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileView, setMobileView] = useState<"dashboard" | "profile">(
     "dashboard"
@@ -26,7 +27,7 @@ export default function BaseLayout({ children }: BaseLayoutProps) {
 
   return (
     <div className="default">
-      <Header />
+      <Header onLogout={onLogout} />
       <MobileHeader
         userName="Ana Paula"
         cardNumber="123456789"
@@ -41,6 +42,7 @@ export default function BaseLayout({ children }: BaseLayoutProps) {
           setMobileView("profile");
           setIsMobileMenuOpen(false);
         }}
+        onLogout={onLogout}
       />
       <div className="dashboard-content">
         <BeneficiaryCard

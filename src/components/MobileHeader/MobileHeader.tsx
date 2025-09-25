@@ -8,6 +8,7 @@ export interface MobileHeaderProps {
   onToggle: () => void;
   onSelectDashboard: () => void;
   onSelectProfile: () => void;
+  onLogout: () => void;
 }
 
 export default function MobileHeader({
@@ -15,6 +16,7 @@ export default function MobileHeader({
   onToggle,
   onSelectDashboard,
   onSelectProfile,
+  onLogout,
 }: MobileHeaderProps) {
   return (
     <header className="mobile-header">
@@ -45,10 +47,7 @@ export default function MobileHeader({
 
       {!open && (
         <div className="logout-container">
-          <button
-            className="logout-button"
-            onClick={() => (window.location.href = "/")}
-          >
+          <button className="logout-button" onClick={onLogout}>
             Sair
           </button>
         </div>
