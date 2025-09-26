@@ -1,11 +1,13 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
 import "./Login.css";
 import Button from "../components/Button/Button";
-import { authenticate } from "../utils/api";
+import { authenticate, fetchCurrentUser } from "../utils/api";
 import { storeToken } from "../utils/auth";
+import type { UserProfile } from "../types/user";
 
 interface LoginProps {
-  onLogin: () => void;
+  onLogin: (user: UserProfile) => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
@@ -26,9 +28,11 @@ export default function Login({ onLogin }: LoginProps) {
     try {
       setIsSubmitting(true);
       const token = await authenticate(email, password);
+      const user = await fetchCurrentUser(token);
       storeToken(token);
-      onLogin();
-    } catch {
+      onLogin(user);
+    } catch (error) {
+      console.error(error);
       setErrorMessage(
         "Não foi possível realizar login. Verifique suas credenciais.",
       );
