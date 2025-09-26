@@ -46,7 +46,10 @@ function normalizeBirthDate(response: CurrentUserResponse): string | undefined {
   return `${day}/${month}/${year}`;
 }
 
-export async function authenticate(email: string, password: string): Promise<string> {
+export async function authenticate(
+  email: string,
+  password: string
+): Promise<string> {
   const response = await fetch(getEndpoint("/auth/login"), {
     method: "POST",
     headers: {
@@ -58,13 +61,25 @@ export async function authenticate(email: string, password: string): Promise<str
     }),
   });
 
+  const data = await response.json().catch(() => ({}));
+
   if (!response.ok) {
-    throw new Error("Falha ao autenticar");
+    const message =
+      typeof data.detail === "string"
+        ? data.detail
+        : data.detail?.message ?? "Falha ao autenticar";
+
+    const attempts =
+      typeof data.detail === "object" &&
+      "attempts_remaining" in data.detail &&
+      data.detail.attempts_remaining > 0
+        ? ` (Tentativas restantes: ${data.detail.attempts_remaining})`
+        : "";
+
+    throw new Error(`${message}${attempts}`);
   }
 
-  const data = (await response.json()) as AuthResponse;
-  const token = data.access_token ?? data.token;
-
+  const token = (data as AuthResponse).access_token ?? data.token;
   if (!token) {
     throw new Error("Token não encontrado na resposta");
   }
@@ -93,7 +108,8 @@ export async function fetchCurrentUser(token: string): Promise<UserProfile> {
     cpf: data.cpf,
     birthDate: normalizeBirthDate(data),
     phones: normalizeStringArray(data.phones),
-    emails: normalizeStringArray(data.emails) ?? normalizeStringArray(data.email),
+    emails:
+      normalizeStringArray(data.emails) ?? normalizeStringArray(data.email),
     cardNumber: data.cardNumber ?? data.card_number,
     operator: data.operator,
   };

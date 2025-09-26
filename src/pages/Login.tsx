@@ -1,5 +1,6 @@
-import { useState } from "react";
+/* eslint-disable no-debugger */
 import type { FormEvent } from "react";
+import { useState } from "react";
 import "./Login.css";
 import Button from "../components/Button/Button";
 import { authenticate, fetchCurrentUser } from "../utils/api";
@@ -32,10 +33,12 @@ export default function Login({ onLogin }: LoginProps) {
       storeToken(token);
       onLogin(user);
     } catch (error) {
-      console.error(error);
-      setErrorMessage(
-        "Não foi possível realizar login. Verifique suas credenciais.",
-      );
+      if (error instanceof Error) {
+        debugger;
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage("Erro ao autenticar. Tente novamente.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -82,20 +85,15 @@ export default function Login({ onLogin }: LoginProps) {
                 <a href="#">Esqueci minha senha</a>
               </div>
 
-              {errorMessage ? (
-                <p style={{ color: "#dc3545", marginTop: "1rem" }}>
-                  {errorMessage}
-                </p>
-              ) : null}
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {errorMessage ? (
+                  <small style={{ color: "#dc3545" }}>{errorMessage}</small>
+                ) : null}
 
-              <Button
-                variant="primary"
-                type="submit"
-                disabled={isSubmitting}
-                style={{ marginTop: "1.5rem" }}
-              >
-                {isSubmitting ? "Entrando..." : "Entrar"}
-              </Button>
+                <Button variant="primary" type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Entrando..." : "Entrar"}
+                </Button>
+              </div>
             </form>
 
             <div className="signup">
