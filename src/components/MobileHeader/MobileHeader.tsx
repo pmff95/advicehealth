@@ -12,6 +12,9 @@ export interface MobileHeaderProps {
 }
 
 export default function MobileHeader({
+  userName,
+  cardNumber,
+  operator,
   open,
   onToggle,
   onSelectDashboard,
@@ -31,6 +34,14 @@ export default function MobileHeader({
           {open ? "✕" : "☰"}
         </button>
       </div>
+
+      {!open && (
+        <div className="mobile-user-info">
+          <p>{userName}</p>
+          {cardNumber && <span>Cartão: {cardNumber}</span>}
+          {operator && <span>Operadora: {operator}</span>}
+        </div>
+      )}
 
       <nav className={`mobile-menu ${open ? "open" : ""}`}>
         <ul>

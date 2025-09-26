@@ -1,37 +1,47 @@
 import Header from "../components/Header/Header";
 import "./BaseLayout.css";
-import type { ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
+import MobileHeader from "../components/MobileHeader/MobileHeader";
+import BeneficiaryCard from "../components/BeneficiaryCard/BeneficiaryCard";
+import type { UserProfile } from "../types/user";
 
 interface BaseLayoutProps {
   children: ReactNode;
   onLogout: () => void;
+  user: UserProfile;
 }
 
-import { useState } from "react";
-import MobileHeader from "../components/MobileHeader/MobileHeader";
-import BeneficiaryCard from "../components/BeneficiaryCard/BeneficiaryCard";
+function formatPhones(phones?: string[]) {
+  if (!phones || phones.length === 0) {
+    return [];
+  }
 
-export default function BaseLayout({ children, onLogout }: BaseLayoutProps) {
+  return phones.filter((phone) => Boolean(phone));
+}
+
+export default function BaseLayout({ children, onLogout, user }: BaseLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileView, setMobileView] = useState<"dashboard" | "profile">(
-    "dashboard"
+    "dashboard",
   );
 
-  const beneficiaryData = {
-    name: "Maria Oliveira Santos",
-    birthDate: "01/08/1995",
-    cpf: "609.291.063-26",
-    phones: ["(99) 99999-0450"],
-    emails: ["teste@email.com"],
-  };
+  const beneficiaryData = useMemo(() => {
+    return {
+      name: user.name || "",
+      birthDate: user.birthDate ?? "",
+      cpf: user.cpf ?? "",
+      phones: formatPhones(user.phones),
+      emails: user.emails && user.emails.length > 0 ? user.emails : [user.email],
+    };
+  }, [user]);
 
   return (
     <div className="default">
       <Header onLogout={onLogout} />
       <MobileHeader
-        userName="Ana Paula"
-        cardNumber="123456789"
-        operator="FESUL"
+        userName={user.name}
+        cardNumber={user.cardNumber ?? ""}
+        operator={user.operator ?? ""}
         open={isMobileMenuOpen}
         onToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         onSelectDashboard={() => {
