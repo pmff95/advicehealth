@@ -3,6 +3,7 @@ export interface UserProfile {
   name: string;
   email: string;
   cpf?: string;
+  phone?: string;
   birthDate?: string;
   phones?: string[];
   emails?: string[];
@@ -15,6 +16,7 @@ export type CurrentUserResponse = {
   name?: string;
   email?: string;
   cpf?: string;
+  phone?: string;
   birthDate?: string;
   birth_date?: string;
   date_of_birth?: string;

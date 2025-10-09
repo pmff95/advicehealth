@@ -2,8 +2,8 @@ import type { GuideStep } from "../../types/guide";
 
 const dotConfig = {
   completed: { src: "/images/dot1.png", size: 32 },
-  current: { src: "/images/dot2.png", size: 24 },
-  upcoming: { src: "/images/dot3.png", size: 24 },
+  current: { src: "/images/dot2.png", size: 32 },
+  upcoming: { src: "/images/dot3.png", size: 32 },
 } as const;
 
 type DotVariant = keyof typeof dotConfig;

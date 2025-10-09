@@ -10,7 +10,7 @@ export default function GuideHeader({ guide }: GuideHeaderProps) {
     <>
       <Tag value={guide.type} severity="info" />
       <p className="guide-number">Guia {guide.number}</p>
-      <span className="info-span">Operadora: {guide.date}</span>
+      <span className="info-span">Operadora: {guide.hospital}</span>
       <span className="info-span">Data de atendimento: {guide.date}</span>
       <span
         className="info-span"

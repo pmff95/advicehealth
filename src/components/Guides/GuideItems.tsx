@@ -52,13 +52,13 @@ const GuideItems = ({ items = [] }: GuideItemsProps) => {
             </h5>
             {itens.map((item) => {
               const statusClass =
-                item.status === "Aprovado"
+                item.status === "FAVORAVEL AO PARECER DA OPERADORA"
                   ? "success"
                   : item.status === "Parcialmente favorável"
                   ? "warning"
                   : "danger";
               const iconStatus =
-                item.status === "Aprovado"
+                item.status === "FAVORAVEL AO PARECER DA OPERADORA"
                   ? faCircleCheck
                   : item.status === "Parcialmente favorável"
                   ? faCircleExclamation

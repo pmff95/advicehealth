@@ -1,4 +1,5 @@
 import type { CurrentUserResponse, UserProfile } from "../types/user";
+import type { Guide } from "../types/guide";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -105,6 +106,7 @@ export async function fetchCurrentUser(token: string): Promise<UserProfile> {
     id: String(data.id ?? ""),
     name: data.name ?? "",
     email: data.email ?? "",
+    phone: data.phone ?? "",
     cpf: data.cpf,
     birthDate: normalizeBirthDate(data),
     phones: normalizeStringArray(data.phones),
@@ -113,4 +115,123 @@ export async function fetchCurrentUser(token: string): Promise<UserProfile> {
     cardNumber: data.cardNumber ?? data.card_number,
     operator: data.operator,
   };
+}
+
+interface RegisterUserRequest {
+  name: string;
+  email: string;
+  phone?: string;
+  cpf?: string;
+  guide_number?: string;
+  birth_date?: string;
+  password: string;
+  additional_emails?: { email: string; is_active: boolean }[];
+  phones?: { number: string; is_active: boolean }[];
+}
+
+interface ApiErrorResponse {
+  detail?:
+    | string
+    | {
+        message?: string;
+        [key: string]: unknown;
+      };
+  message?: string;
+  [key: string]: unknown;
+}
+
+export async function registerUser(
+  payload: RegisterUserRequest
+): Promise<void> {
+  const response = await fetch(getEndpoint("/users/"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (response.ok) {
+    return;
+  }
+
+  const data = (await response.json().catch(() => ({}))) as ApiErrorResponse;
+
+  const detail = data.detail;
+  if (typeof detail === "string" && detail.trim()) {
+    throw new Error(detail);
+  }
+
+  if (detail && typeof detail === "object" && "message" in detail) {
+    const message = detail.message;
+    if (typeof message === "string" && message.trim()) {
+      throw new Error(message);
+    }
+  }
+
+  if (typeof data.message === "string" && data.message.trim()) {
+    throw new Error(data.message);
+  }
+
+  throw new Error("Falha ao realizar cadastro. Tente novamente.");
+}
+
+export async function fetchGuidesByBeneficiary(token: string, beneficiaryId: number): Promise<Guide[]> {
+  const response = await fetch(getEndpoint(`/process/beneficiary/${beneficiaryId}`), {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error("Falha ao buscar guias do beneficiário");
+  }
+
+  return await response.json();
+}
+
+export async function fetchGuideDetail(token: string, numeroGuia: string): Promise<Guide> {
+  const response = await fetch(getEndpoint(`/process/${numeroGuia}`), {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!response.ok) {
+    throw new Error("Falha ao buscar detalhes da guia");
+  }
+
+  return await response.json();
+}
+
+export interface BeneficiaryResponse {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  cpf?: string;
+  birth_date?: string;
+}
+
+export async function fetchBeneficiaryId(
+  token: string,
+  payload: { cpf: string; birth_date: string }
+): Promise<BeneficiaryResponse> {
+  const response = await fetch(getEndpoint("/beneficiary/"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const message =
+      typeof data.detail === "string"
+        ? data.detail
+        : "Informação do Beneficiário não encontrada";
+    throw new Error(message);
+  }
+
+  return await response.json();
 }

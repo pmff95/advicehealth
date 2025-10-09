@@ -51,3 +51,17 @@ export const formatPhone = (value: string | null | undefined): string => {
 
 export const digitsOnly = (value: string | null | undefined): string =>
   normalizeDigits(value);
+
+/**
+ * Converte uma data do formato dd/mm/yyyy para yyyy-mm-dd (ISO).
+ * Retorna string vazia caso o input seja inválido.
+ */
+export const formatDateToISO = (value: string | null | undefined): string => {
+  if (!value) return "";
+
+  const [day, month, year] = value.split("/");
+  if (!day || !month || !year) return "";
+
+  // Retorna no formato ISO
+  return `${year}-${month}-${day}`;
+};

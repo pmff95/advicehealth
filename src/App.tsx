@@ -5,10 +5,12 @@ import BaseLayout from "./base/BaseLayout";
 import { clearStoredToken, getStoredToken } from "./utils/auth";
 import { fetchCurrentUser } from "./utils/api";
 import type { UserProfile } from "./types/user";
+import Signup from "./pages/Signup";
 
 export default function App() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [isSignupVisible, setIsSignupVisible] = useState(false);
 
   useEffect(() => {
     const token = getStoredToken();
@@ -45,7 +47,16 @@ export default function App() {
   }
 
   if (!user) {
-    return <Login onLogin={handleLogin} />;
+    if (isSignupVisible) {
+      return <Signup onBackToLogin={() => setIsSignupVisible(false)} />;
+    }
+
+    return (
+      <Login
+        onLogin={handleLogin}
+        onNavigateToSignup={() => setIsSignupVisible(true)}
+      />
+    );
   }
 
   return (

@@ -7,7 +7,7 @@ export interface GuideStep {
 }
 
 export type GuideItemStatus =
-  | "Aprovado"
+  | "FAVORAVEL AO PARECER DA OPERADORA"
   | "Parcialmente favorável"
   | "Desfavorável";
 
