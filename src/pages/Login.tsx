@@ -11,6 +11,7 @@ import type { UserProfile } from "../types/user";
 
 interface LoginProps {
   onLogin: (user: UserProfile) => void;
+  onNavigateToSignup?: () => void;
 }
 
 type AuthScreen = "login" | "verifyBeneficiary" | "signup";

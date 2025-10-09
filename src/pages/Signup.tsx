@@ -3,10 +3,17 @@ import Button from "../components/Button/Button";
 import { registerUser } from "../utils/api";
 import { useMemo, useState, type ChangeEvent, type FormEvent, useEffect } from "react";
 import SignupSuccess from "./SignupSuccess";
+import {
+  digitsOnly,
+  formatBirthDateForApi,
+  maskBirthDate,
+  maskCpf,
+  maskPhone,
+} from "../utils/formatters";
 
 interface SignupProps {
   onBackToLogin: () => void;
-  beneficiaryData: {
+  beneficiaryData?: {
     cpf: string;
     birthDate: string;
     fullName: string;
@@ -14,30 +21,6 @@ interface SignupProps {
     phone?: string;
   };
 }
-
-const digitsOnly = (value: string) => value.replace(/\D/g, "");
-
-const maskCpf = (value: string) => {
-  const digits = digitsOnly(value).slice(0, 11);
-  let masked = digits.slice(0, 3);
-  if (digits.length > 3) masked += "." + digits.slice(3, 6);
-  if (digits.length > 6) masked += "." + digits.slice(6, 9);
-  if (digits.length > 9) masked += "-" + digits.slice(9, 11);
-  return masked;
-};
-
-const maskPhone = (value: string) => {
-  const digits = digitsOnly(value).slice(0, 11);
-  const hasNineDigit = digits.length > 10;
-  const ddd = digits.slice(0, 2);
-  const prefix = hasNineDigit ? digits.slice(2, 7) : digits.slice(2, 6);
-  const suffix = hasNineDigit ? digits.slice(7, 11) : digits.slice(6, 10);
-
-  let masked = ddd ? `(${ddd})` : "";
-  if (prefix) masked += ` ${prefix}`;
-  if (suffix) masked += `-${suffix}`;
-  return masked.trim();
-};
 
 export default function Signup({ onBackToLogin, beneficiaryData }: SignupProps) {
   const [formValues, setFormValues] = useState({
@@ -52,13 +35,15 @@ export default function Signup({ onBackToLogin, beneficiaryData }: SignupProps) 
   });
 
   useEffect(() => {
+    if (!beneficiaryData) return;
+
     setFormValues((prev) => ({
       ...prev,
       cpf: maskCpf(beneficiaryData.cpf),
-      birthDate: beneficiaryData.birthDate,
+      birthDate: maskBirthDate(beneficiaryData.birthDate),
       fullName: beneficiaryData.fullName,
       email: beneficiaryData.email ?? "",
-      phone: beneficiaryData.phone ?? "",
+      phone: maskPhone(beneficiaryData.phone ?? ""),
     }));
   }, [beneficiaryData]);
 
@@ -108,6 +93,7 @@ export default function Signup({ onBackToLogin, beneficiaryData }: SignupProps) 
     let maskedValue = value;
     if (name === "cpf") maskedValue = maskCpf(value);
     if (name === "phone") maskedValue = maskPhone(value);
+    if (name === "birthDate") maskedValue = maskBirthDate(value);
 
     setHasInteracted(true);
     setFormValues((prev) => ({ ...prev, [name]: maskedValue }));
@@ -123,10 +109,7 @@ export default function Signup({ onBackToLogin, beneficiaryData }: SignupProps) 
 
     try {
       setIsSubmitting(true);
-      const birthDateMatches = trimmedFormValues.birthDate.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-      const formattedBirthDate = birthDateMatches
-        ? `${birthDateMatches[3]}-${birthDateMatches[2]}-${birthDateMatches[1]}`
-        : trimmedFormValues.birthDate || undefined;
+      const formattedBirthDate = formatBirthDateForApi(trimmedFormValues.birthDate);
 
       await registerUser({
         name: trimmedFormValues.fullName,

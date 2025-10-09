@@ -1,67 +1,87 @@
-const NON_DIGIT_REGEX = /\D+/g;
+export const digitsOnly = (value: string): string => value.replace(/\D/g, "");
 
-const normalizeDigits = (value: string | null | undefined) =>
-  (value ?? "").replace(NON_DIGIT_REGEX, "");
-
-/**
- * Formata um CPF para o padrão 000.000.000-00.
- * Aceita valores já formatados ou somente com dígitos.
- */
-export const formatCPF = (value: string | null | undefined): string => {
-  const digits = normalizeDigits(value).slice(0, 11);
-
-  if (!digits) {
-    return "";
-  }
-
-  return digits
-    .replace(/(\d{3})(\d)/, "$1.$2")
-    .replace(/(\d{3})(\d)/, "$1.$2")
-    .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+const formatCpfDigits = (value: string): string => {
+  const digits = value.slice(0, 11);
+  let masked = digits.slice(0, 3);
+  if (digits.length > 3) masked += "." + digits.slice(3, 6);
+  if (digits.length > 6) masked += "." + digits.slice(6, 9);
+  if (digits.length > 9) masked += "-" + digits.slice(9, 11);
+  return masked;
 };
 
-/**
- * Formata telefones nacionais considerando DDD e números de 8 ou 9 dígitos.
- */
-export const formatPhone = (value: string | null | undefined): string => {
-  const digits = normalizeDigits(value).slice(0, 11);
+export const maskCpf = (value: string): string => formatCpfDigits(digitsOnly(value));
 
-  if (!digits) {
-    return "";
-  }
+export const formatCPF = (value: string): string => {
+  const digits = digitsOnly(value);
+  if (!digits) return "";
+  return formatCpfDigits(digits);
+};
 
-  if (digits.length <= 2) {
-    return `(${digits}`;
-  }
-
+const formatPhoneDigits = (value: string): string => {
+  const digits = value.slice(0, 11);
+  const hasNineDigit = digits.length > 10;
   const ddd = digits.slice(0, 2);
-  const remaining = digits.slice(2);
+  const prefix = hasNineDigit ? digits.slice(2, 7) : digits.slice(2, 6);
+  const suffix = hasNineDigit ? digits.slice(7, 11) : digits.slice(6, 10);
 
-  if (remaining.length <= 4) {
-    return `(${ddd}) ${remaining}`;
-  }
-
-  const middle = remaining.length === 8
-    ? remaining.slice(0, 4)
-    : remaining.slice(0, remaining.length - 4);
-  const suffix = remaining.slice(remaining.length - 4);
-
-  return `(${ddd}) ${middle}-${suffix}`;
+  let masked = ddd ? `(${ddd})` : "";
+  if (prefix) masked += ` ${prefix}`;
+  if (suffix) masked += `-${suffix}`;
+  return masked.trim();
 };
 
-export const digitsOnly = (value: string | null | undefined): string =>
-  normalizeDigits(value);
+export const maskPhone = (value: string): string => formatPhoneDigits(digitsOnly(value));
 
-/**
- * Converte uma data do formato dd/mm/yyyy para yyyy-mm-dd (ISO).
- * Retorna string vazia caso o input seja inválido.
- */
-export const formatDateToISO = (value: string | null | undefined): string => {
-  if (!value) return "";
+export const formatPhone = (value: string): string => {
+  const digits = digitsOnly(value);
+  if (!digits) return "";
+  return formatPhoneDigits(digits);
+};
 
-  const [day, month, year] = value.split("/");
-  if (!day || !month || !year) return "";
+export const maskBirthDate = (value: string): string => {
+  const digits = digitsOnly(value);
 
-  // Retorna no formato ISO
-  return `${year}-${month}-${day}`;
+  const normalizedDigits = value.includes("-")
+    ? `${digits.slice(6, 8)}${digits.slice(4, 6)}${digits.slice(0, 4)}`
+    : digits;
+
+  const limitedDigits = normalizedDigits.slice(0, 8);
+
+  if (!limitedDigits) return "";
+
+  if (limitedDigits.length <= 2) return limitedDigits;
+
+  if (limitedDigits.length <= 4) {
+    return `${limitedDigits.slice(0, 2)}/${limitedDigits.slice(2)}`;
+  }
+
+  return `${limitedDigits.slice(0, 2)}/${limitedDigits.slice(2, 4)}/${limitedDigits.slice(4)}`;
+};
+
+const extractBirthDateDigits = (value: string): string => {
+  const digits = digitsOnly(value);
+
+  return value.includes("-")
+    ? `${digits.slice(6, 8)}${digits.slice(4, 6)}${digits.slice(0, 4)}`
+    : digits;
+};
+
+export const formatBirthDateForApi = (value: string): string | undefined => {
+  const birthDateMatches = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+
+  if (!birthDateMatches) {
+    return value || undefined;
+  }
+
+  return `${birthDateMatches[3]}-${birthDateMatches[2]}-${birthDateMatches[1]}`;
+};
+
+export const formatDateToISO = (value: string): string => {
+  const formatted = formatBirthDateForApi(value);
+  if (formatted) return formatted;
+  const digits = extractBirthDateDigits(value);
+  if (digits.length === 8) {
+    return `${digits.slice(4)}-${digits.slice(2, 4)}-${digits.slice(0, 2)}`;
+  }
+  return value;
 };
