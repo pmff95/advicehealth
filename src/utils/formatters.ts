@@ -11,6 +11,12 @@ const formatCpfDigits = (value: string): string => {
 
 export const maskCpf = (value: string): string => formatCpfDigits(digitsOnly(value));
 
+export const formatDate = (dateStr: string) => {
+  const [day, month, year] = dateStr.split("/");
+  if (!day || !month || !year) return dateStr; 
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+};
+
 export const formatCPF = (value: string): string => {
   const digits = digitsOnly(value);
   if (!digits) return "";

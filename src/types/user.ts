@@ -9,6 +9,7 @@ export interface UserProfile {
   emails?: string[];
   cardNumber?: string;
   operator?: string;
+  guideNumber?: string;
 }
 
 export type CurrentUserResponse = {

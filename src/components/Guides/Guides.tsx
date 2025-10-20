@@ -10,7 +10,7 @@ import {
   fetchGuidesByBeneficiary,
   fetchGuideDetail,
   fetchCurrentUser,
-  fetchBeneficiaryId
+  fetchBeneficiaryId,
 } from "../../utils/api";
 import { getStoredToken } from "../../utils/auth";
 import type { UserProfile } from "../../types/user";
@@ -54,20 +54,25 @@ export default function Guides() {
       try {
         setLoadingBeneficiary(true);
 
-        if (!currentUser.cpf || !currentUser.birthDate) {
+        //if (!currentUser.guideNumber || !currentUser.birthDate) {
+        if (!currentUser.birthDate) {
           setError("Dados do usuário incompletos para buscar o beneficiário.");
           return;
         }
 
         const data = await fetchBeneficiaryId(token, {
-          cpf: currentUser.cpf,
-          birth_date: formatDateToISO(currentUser.birthDate)
+          guide_number: "",
+          birth_date: formatDateToISO(currentUser.birthDate),
         });
 
         setBeneficiaryId(data.id);
       } catch (err: unknown) {
         console.error(err);
-        setError(err instanceof Error ? err.message : "Informação do Beneficiário não encontrada.");
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Informação do Beneficiário não encontrada."
+        );
       } finally {
         setLoadingBeneficiary(false);
       }
@@ -108,7 +113,9 @@ export default function Guides() {
       setError(null);
     } catch (err: unknown) {
       console.error(err);
-      setError(err instanceof Error ? err.message : "Erro ao buscar detalhes da guia.");
+      setError(
+        err instanceof Error ? err.message : "Erro ao buscar detalhes da guia."
+      );
     } finally {
       setLoadingGuides(false);
     }
@@ -116,7 +123,9 @@ export default function Guides() {
 
   return (
     <main className="guides">
-      {(loadingUser || loadingBeneficiary || loadingGuides) && <p>Carregando...</p>}
+      {(loadingUser || loadingBeneficiary || loadingGuides) && (
+        <p>Carregando...</p>
+      )}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {!selected ? (
@@ -137,8 +146,7 @@ export default function Guides() {
                 </div>
                 <h4>Guia {g.number}</h4>
                 <span>
-                  Data de atendimento:{" "}
-                  {new Date(g.date).toLocaleDateString()}
+                  Data de atendimento: {new Date(g.date).toLocaleDateString()}
                 </span>
                 <span style={{ marginTop: "1.5rem", fontWeight: "500" }}>
                   {g.doctor}

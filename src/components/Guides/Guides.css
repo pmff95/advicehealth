@@ -82,6 +82,6 @@
   }
 
   .guides-header-text {
-    color: rgb(255, 255, 255);
+    display: none;
   }
 }

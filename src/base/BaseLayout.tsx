@@ -11,27 +11,25 @@ interface BaseLayoutProps {
   user: UserProfile;
 }
 
-function formatPhones(phones?: string[]) {
-  if (!phones || phones.length === 0) {
-    return [];
-  }
-
-  return phones.filter((phone) => Boolean(phone));
-}
-
-export default function BaseLayout({ children, onLogout, user }: BaseLayoutProps) {
+export default function BaseLayout({
+  children,
+  onLogout,
+  user,
+}: BaseLayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileView, setMobileView] = useState<"dashboard" | "profile">(
-    "dashboard",
+    "dashboard"
   );
 
   const beneficiaryData = useMemo(() => {
     return {
-      name: user.name || "",
+      name: user.name ?? "",
       birthDate: user.birthDate ?? "",
       cpf: user.cpf ?? "",
-      phones: formatPhones(user.phones),
-      emails: user.emails && user.emails.length > 0 ? user.emails : [user.email],
+      phone: user.phone ?? "",
+      phones: user.phones ?? [],
+      email: user.email ?? "",
+      emails: user.emails ?? [],
     };
   }, [user]);
 

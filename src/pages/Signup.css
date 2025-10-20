@@ -54,7 +54,7 @@
   margin-top: 1rem;
   width: 100%;
 }
-h2 {
+.signup-card h2 {
   font-size: 2.2rem;
   margin-top: 0;
   font-size: clamp(1.1rem, 2vw, 1.5rem);
@@ -108,4 +108,11 @@ h2 {
   .signup-right {
     display: none;
   }
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+.error_msg {
+  color: red;
 }

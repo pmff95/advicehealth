@@ -1,7 +1,7 @@
 .mobile-header {
   display: none;
   color: #fff;
-  padding: 2rem 0 2rem 2rem;
+  padding: 2rem 0 2rem 1.5rem;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -17,17 +17,17 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  margin-top: 1rem;
   font-size: 0.85rem;
 }
-
-.mobile-header-top .titulo {
-  margin: 0;
-  font-size: 1rem;
-  flex: 1; /* ocupa espaço e empurra o botão */
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.menu-stack {
+  margin-left: auto; /* empurra para a direita */
+  display: flex; /* empilha verticalmente */
+  flex-direction: column; /* botão em cima, "Sair" embaixo */
+  align-items: flex-end; /* alinhados à direita */
+  gap: 0.25rem;
+}
+.mobile-header-top h4 {
+  margin-bottom: 1rem;
 }
 
 .menu-button {

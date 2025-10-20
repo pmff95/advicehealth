@@ -13,8 +13,8 @@ export interface MobileHeaderProps {
 
 export default function MobileHeader({
   userName,
-  cardNumber,
-  operator,
+  // cardNumber,
+  // operator,
   open,
   onToggle,
   onSelectDashboard,
@@ -24,22 +24,31 @@ export default function MobileHeader({
   return (
     <header className="mobile-header">
       <div className="mobile-header-top">
-        {!open && <h3>Portal do Beneficiário</h3>}
+        {!open && <h4>Portal do Beneficiário</h4>}
 
-        <button
-          className="menu-button"
-          onClick={onToggle}
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-        >
-          {open ? "✕" : "☰"}
-        </button>
+        <div className="menu-stack">
+          <button
+            className="menu-button"
+            onClick={onToggle}
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+          >
+            {open ? "✕" : "☰"}
+          </button>
+
+          {!open && (
+            <button className="logout-button" onClick={onLogout}>
+              Sair
+            </button>
+          )}
+        </div>
       </div>
 
       {!open && (
         <div className="mobile-user-info">
-          <p>{userName}</p>
-          {cardNumber && <span>Cartão: {cardNumber}</span>}
-          {operator && <span>Operadora: {operator}</span>}
+          <h2 style={{ fontWeight: 500 }}>Olá, {userName}!</h2>
+          <span>
+            Consulte o status das autorizações <br /> do seu plano
+          </span>
         </div>
       )}
 
@@ -55,14 +64,6 @@ export default function MobileHeader({
           </li>
         </ul>
       </nav>
-
-      {!open && (
-        <div className="logout-container">
-          <button className="logout-button" onClick={onLogout}>
-            Sair
-          </button>
-        </div>
-      )}
     </header>
   );
 }

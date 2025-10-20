@@ -6,7 +6,8 @@ import "./VerifyBeneficiary.css";
 
 interface VerifyBeneficiaryProps {
   onBeneficiaryFound: (data: {
-    cpf: string;
+    cpf: string; 
+    guideNumber: string;
     birthDate: string;
     fullName: string;
     email?: string;
@@ -17,8 +18,12 @@ interface VerifyBeneficiaryProps {
 
 const digitsOnly = (value: string) => value.replace(/\D/g, "");
 
-export default function VerifyBeneficiary({ onBeneficiaryFound, onBack }: VerifyBeneficiaryProps) {
-  const [cpf, setCpf] = useState("");
+export default function VerifyBeneficiary({
+  onBeneficiaryFound,
+  onBack,
+}: VerifyBeneficiaryProps) {
+  const [, setCpf] = useState(""); 
+  const [numeroGuia, setNumeroGuia] = useState(""); 
   const [birthDate, setBirthDate] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,44 +31,44 @@ export default function VerifyBeneficiary({ onBeneficiaryFound, onBack }: Verify
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
-    if (name === "cpf") {
+    if (name === "numeroGuia") {
+      
       const digits = digitsOnly(value).slice(0, 11);
-      let masked = digits.slice(0, 3);
-      if (digits.length > 3) masked += "." + digits.slice(3, 6);
-      if (digits.length > 6) masked += "." + digits.slice(6, 9);
-      if (digits.length > 9) masked += "-" + digits.slice(9, 11);
-      setCpf(masked);
-
+      setNumeroGuia(digits);
+      setCpf(digits); 
     } else if (name === "birthDate") {
       const digits = digitsOnly(value).slice(0, 8);
       let masked = digits;
-      if (digits.length >= 3) masked = digits.slice(0,2) + "/" + digits.slice(2);
-      if (digits.length >= 5) masked = digits.slice(0,2) + "/" + digits.slice(2,4) + "/" + digits.slice(4);
+      if (digits.length >= 3) masked = digits.slice(0, 2) + "/" + digits.slice(2);
+      if (digits.length >= 5)
+        masked = digits.slice(0, 2) + "/" + digits.slice(2, 4) + "/" + digits.slice(4);
       setBirthDate(masked);
     }
   };
 
   const handleSubmit = async () => {
     setError(null);
-    if (!cpf || !birthDate) {
-      setError("Informe CPF e data de nascimento.");
+
+    if (!numeroGuia || !birthDate) {
+      setError("Informe o número da guia e a data de nascimento.");
       return;
     }
 
     setLoading(true);
     try {
       const data = await fetchBeneficiaryId("", {
-        cpf: digitsOnly(cpf),
-        birth_date: formatDateToISO(birthDate)
+        guide_number: numeroGuia,
+        birth_date: formatDateToISO(birthDate),
       });
 
-      if (!data || !data.cpf || !data.birth_date || !data.name) {
+      if (!data || !data.name || !data.birth_date) {
         setError("Beneficiário não encontrado.");
         return;
       }
 
       onBeneficiaryFound({
-        cpf: data.cpf,
+        cpf: data.cpf ?? "",
+        guideNumber: numeroGuia,
         birthDate: data.birth_date,
         fullName: data.name,
         email: data.email ?? "",
@@ -87,17 +92,21 @@ export default function VerifyBeneficiary({ onBeneficiaryFound, onBack }: Verify
           <div className="verify-card">
             <h2>Verifique seus dados</h2>
 
-            <label className="label-input" htmlFor="cpf">CPF</label>
+            <label className="label-input" htmlFor="numeroGuia">
+              Número da guia
+            </label>
             <input
-              id="cpf"
-              name="cpf"
+              id="numeroGuia"
+              name="numeroGuia"
               className="verify-input"
-              placeholder="000.000.000-00"
-              value={cpf}
+              placeholder="12321324673"
+              value={numeroGuia}
               onChange={handleChange}
             />
 
-            <label className="label-input" htmlFor="birthDate">Data de nascimento</label>
+            <label className="label-input" htmlFor="birthDate">
+              Data de nascimento
+            </label>
             <input
               id="birthDate"
               name="birthDate"
@@ -109,11 +118,19 @@ export default function VerifyBeneficiary({ onBeneficiaryFound, onBack }: Verify
 
             {error && <p style={{ color: "red" }}>{error}</p>}
 
-            <Button onClick={handleSubmit} className="verify-submit" disabled={loading}>
+            <Button
+              onClick={handleSubmit}
+              className="verify-submit"
+              disabled={loading}
+            >
               {loading ? "Verificando..." : "Verificar"}
             </Button>
 
-            <Button onClick={onBack} variant="secondary" className="verify-back">
+            <Button
+              onClick={onBack}
+              variant="secondary"
+              className="verify-back"
+            >
               Voltar ao login
             </Button>
           </div>

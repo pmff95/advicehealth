@@ -19,6 +19,7 @@ type AuthScreen = "login" | "verifyBeneficiary" | "signup";
 export default function Login({ onLogin }: LoginProps) {
   const [activeScreen, setActiveScreen] = useState<AuthScreen>("login");
   const [beneficiaryData, setBeneficiaryData] = useState<{
+    guideNumber?: string;
     cpf: string;
     birthDate: string;
     fullName: string;
@@ -59,6 +60,7 @@ export default function Login({ onLogin }: LoginProps) {
 
   const handleBeneficiaryFound = (data: {
     cpf: string;
+    guideNumber: string;
     birthDate: string;
     fullName: string;
     email?: string;

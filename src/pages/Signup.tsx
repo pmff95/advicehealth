@@ -1,7 +1,13 @@
 import "./Signup.css";
 import Button from "../components/Button/Button";
 import { registerUser } from "../utils/api";
-import { useMemo, useState, type ChangeEvent, type FormEvent, useEffect } from "react";
+import {
+  useMemo,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+  useEffect,
+} from "react";
 import SignupSuccess from "./SignupSuccess";
 import {
   digitsOnly,
@@ -15,6 +21,7 @@ interface SignupProps {
   onBackToLogin: () => void;
   beneficiaryData?: {
     cpf: string;
+    guideNumber?: string;
     birthDate: string;
     fullName: string;
     email?: string;
@@ -22,7 +29,10 @@ interface SignupProps {
   };
 }
 
-export default function Signup({ onBackToLogin, beneficiaryData }: SignupProps) {
+export default function Signup({
+  onBackToLogin,
+  beneficiaryData,
+}: SignupProps) {
   const [formValues, setFormValues] = useState({
     guideNumber: "",
     cpf: "",
@@ -40,6 +50,7 @@ export default function Signup({ onBackToLogin, beneficiaryData }: SignupProps) 
     setFormValues((prev) => ({
       ...prev,
       cpf: maskCpf(beneficiaryData.cpf),
+      guideNumber: maskCpf(beneficiaryData.guideNumber ?? ""),
       birthDate: maskBirthDate(beneficiaryData.birthDate),
       fullName: beneficiaryData.fullName,
       email: beneficiaryData.email ?? "",
@@ -62,25 +73,57 @@ export default function Signup({ onBackToLogin, beneficiaryData }: SignupProps) 
   }, [formValues]);
 
   const hasEmptyRequiredFields = useMemo(() => {
-    const required = ["guideNumber", "cpf", "birthDate", "fullName", "phone", "email", "password", "confirmPassword"];
-    return required.some((field) => !trimmedFormValues[field as keyof typeof trimmedFormValues]);
+    const required = [
+      "guideNumber",
+      "cpf",
+      "birthDate",
+      "fullName",
+      "phone",
+      "email",
+      "password",
+      "confirmPassword",
+    ];
+    return required.some(
+      (field) => !trimmedFormValues[field as keyof typeof trimmedFormValues]
+    );
   }, [trimmedFormValues]);
 
-  const passwordTooShort = trimmedFormValues.password.length > 0 && trimmedFormValues.password.length < 6;
-  const passwordsMismatch = trimmedFormValues.password && trimmedFormValues.confirmPassword && trimmedFormValues.password !== trimmedFormValues.confirmPassword;
+  const passwordTooShort =
+    trimmedFormValues.password.length > 0 &&
+    trimmedFormValues.password.length < 6;
+  const passwordsMismatch =
+    trimmedFormValues.password &&
+    trimmedFormValues.confirmPassword &&
+    trimmedFormValues.password !== trimmedFormValues.confirmPassword;
 
   const validationMessage = useMemo(() => {
-    if ((submitAttempted || trimmedFormValues.password || trimmedFormValues.confirmPassword) && passwordTooShort) {
+    if (
+      (submitAttempted ||
+        trimmedFormValues.password ||
+        trimmedFormValues.confirmPassword) &&
+      passwordTooShort
+    ) {
       return "A senha deve conter pelo menos 6 caracteres.";
     }
-    if ((submitAttempted || trimmedFormValues.confirmPassword) && passwordsMismatch) {
+    if (
+      (submitAttempted || trimmedFormValues.confirmPassword) &&
+      passwordsMismatch
+    ) {
       return "As senhas não conferem.";
     }
     if ((submitAttempted || hasInteracted) && hasEmptyRequiredFields) {
       return "Preencha todos os campos obrigatórios.";
     }
     return "";
-  }, [hasEmptyRequiredFields, hasInteracted, passwordTooShort, passwordsMismatch, submitAttempted, trimmedFormValues.password, trimmedFormValues.confirmPassword]);
+  }, [
+    hasEmptyRequiredFields,
+    hasInteracted,
+    passwordTooShort,
+    passwordsMismatch,
+    submitAttempted,
+    trimmedFormValues.password,
+    trimmedFormValues.confirmPassword,
+  ]);
 
   const isSubmitDisabled: boolean =
     Boolean(isSubmitting) ||
@@ -109,13 +152,19 @@ export default function Signup({ onBackToLogin, beneficiaryData }: SignupProps) 
 
     try {
       setIsSubmitting(true);
-      const formattedBirthDate = formatBirthDateForApi(trimmedFormValues.birthDate);
+      const formattedBirthDate = formatBirthDateForApi(
+        trimmedFormValues.birthDate
+      );
 
       await registerUser({
         name: trimmedFormValues.fullName,
         email: trimmedFormValues.email,
-        phone: trimmedFormValues.phone ? digitsOnly(trimmedFormValues.phone) : undefined,
-        cpf: trimmedFormValues.cpf ? digitsOnly(trimmedFormValues.cpf) : undefined,
+        phone: trimmedFormValues.phone
+          ? digitsOnly(trimmedFormValues.phone)
+          : undefined,
+        cpf: trimmedFormValues.cpf
+          ? digitsOnly(trimmedFormValues.cpf)
+          : undefined,
         guide_number: trimmedFormValues.guideNumber || undefined,
         birth_date: formattedBirthDate,
         password: trimmedFormValues.password,
@@ -131,15 +180,11 @@ export default function Signup({ onBackToLogin, beneficiaryData }: SignupProps) 
     }
   };
 
-
-if (signupCompleted) {
-  return (
-    <SignupSuccess
-      email={registeredEmail}
-      onGoToLogin={onBackToLogin}
-    />
-  );
-}
+  if (signupCompleted) {
+    return (
+      <SignupSuccess email={registeredEmail} onGoToLogin={onBackToLogin} />
+    );
+  }
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <div className="signup-left">
@@ -148,36 +193,140 @@ if (signupCompleted) {
             <h1>Portal do Beneficiário</h1>
           </div>
           <div className="signup-card">
-            <h2>Dados do <br /> Beneficiário</h2>
+            <h2>
+              Dados do <br /> Beneficiário
+            </h2>
             <form onSubmit={handleSubmit}>
-              <label className="label-input" htmlFor="guideNumber">Número da guia</label>
-              <input id="guideNumber" name="guideNumber" className="signup-input" placeholder="12321324673" value={formValues.guideNumber} onChange={handleChange} required />
+              <label className="label-input" htmlFor="guideNumber">
+                Número da guia
+              </label>
+              <input
+                id="guideNumber"
+                name="guideNumber"
+                className="signup-input"
+                placeholder="12321324673"
+                value={formValues.guideNumber}
+                onChange={handleChange}
+                required
+              />
 
-              <label className="label-input" htmlFor="cpf">CPF</label>
-              <input id="cpf" name="cpf" className="signup-input" placeholder="000.000.000-00" value={formValues.cpf} onChange={handleChange} required />
+              <label className="label-input" htmlFor="cpf">
+                CPF
+              </label>
+              <input
+                id="cpf"
+                name="cpf"
+                className="signup-input"
+                placeholder="000.000.000-00"
+                value={formValues.cpf}
+                onChange={handleChange}
+                required
+              />
 
-              <label className="label-input" htmlFor="birthDate">Data de nascimento</label>
-              <input id="birthDate" name="birthDate" className="signup-input" placeholder="25/08/1990" value={formValues.birthDate} onChange={handleChange} required />
+              <label className="label-input" htmlFor="birthDate">
+                Data de nascimento
+              </label>
+              <input
+                id="birthDate"
+                name="birthDate"
+                className="signup-input"
+                placeholder="25/08/1990"
+                value={formValues.birthDate}
+                onChange={handleChange}
+                required
+              />
 
-              <label className="label-input" htmlFor="fullName">Nome</label>
-              <input id="fullName" name="fullName" className="signup-input" placeholder="Maria Oliveira Santos" value={formValues.fullName} onChange={handleChange} required />
+              <label className="label-input" htmlFor="fullName">
+                Nome
+              </label>
+              <input
+                id="fullName"
+                name="fullName"
+                className="signup-input"
+                placeholder="Maria Oliveira Santos"
+                value={formValues.fullName}
+                onChange={handleChange}
+                required
+              />
 
-              <label className="label-input" htmlFor="phone">Telefone/Celular</label>
-              <input id="phone" name="phone" className="signup-input" placeholder="(11) 99859-0459" value={formValues.phone} onChange={handleChange} required />
+              <label className="label-input" htmlFor="phone">
+                Telefone/Celular
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                className="signup-input"
+                placeholder="(11) 99859-0459"
+                value={formValues.phone}
+                onChange={handleChange}
+                required
+              />
 
-              <label className="label-input" htmlFor="email">E-mail</label>
-              <input id="email" name="email" type="email" className="signup-input" placeholder="email@email.com" value={formValues.email} onChange={handleChange} required />
+              <label className="label-input" htmlFor="email">
+                E-mail
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                className="signup-input"
+                placeholder="email@email.com"
+                value={formValues.email}
+                onChange={handleChange}
+                required
+              />
 
-              <label className="label-input" htmlFor="password">Senha</label>
-              <input id="password" name="password" type="password" className="signup-input" value={formValues.password} onChange={handleChange} required />
+              <label className="label-input" htmlFor="password">
+                Senha
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                className="signup-input"
+                value={formValues.password}
+                onChange={handleChange}
+                required
+              />
 
-              <label className="label-input" htmlFor="confirmPassword">Confirmar senha</label>
-              <input id="confirmPassword" name="confirmPassword" type="password" className="signup-input" value={formValues.confirmPassword} onChange={handleChange} required />
+              <label className="label-input" htmlFor="confirmPassword">
+                Confirmar senha
+              </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                className="signup-input"
+                value={formValues.confirmPassword}
+                onChange={handleChange}
+                required
+              />
 
-              {validationMessage && <small className="signup-feedback signup-feedback--validation">{validationMessage}</small>}
-              {errorMessage && <small className="signup-feedback signup-feedback--error">{errorMessage}</small>}
+              {validationMessage && (
+                <small
+                  style={{
+                    color: "red",
+                  }}
+                >
+                  {validationMessage}
+                </small>
+              )}
+              {errorMessage && (
+                <small
+                  style={{
+                    color: "red",
+                  }}
+                >
+                  {errorMessage}
+                </small>
+              )}
 
-              <Button type="submit" variant="primary" disabled={isSubmitDisabled}>
+              <Button
+                type="submit"
+                variant="primary"
+                style={{ marginTop: "1rem" }}
+                disabled={isSubmitDisabled}
+              >
                 {isSubmitting ? "Cadastrando..." : "Cadastrar"}
               </Button>
             </form>

@@ -213,7 +213,7 @@ export interface BeneficiaryResponse {
 
 export async function fetchBeneficiaryId(
   token: string,
-  payload: { cpf: string; birth_date: string }
+  payload: { guide_number: string; birth_date: string }
 ): Promise<BeneficiaryResponse> {
   const response = await fetch(getEndpoint("/beneficiary/"), {
     method: "POST",
@@ -234,4 +234,34 @@ export async function fetchBeneficiaryId(
   }
 
   return await response.json();
+}
+
+interface UpdateUserRequest {
+  name?: string;
+  birth_date?: string;
+  additional_emails?: { email: string; is_active: boolean; uuid?: string }[];
+  phones?: { number: string; is_active: boolean; uuid?: string }[];
+}
+
+export async function updateCurrentUser(
+  token: string,
+  payload: UpdateUserRequest
+): Promise<void> {
+  const response = await fetch(getEndpoint("/users/current"), {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const data = (await response.json().catch(() => ({}))) as ApiErrorResponse;
+    const message =
+      typeof data.detail === "string"
+        ? data.detail
+        : data.detail?.message ?? "Falha ao atualizar usuário";
+    throw new Error(message);
+  }
 }

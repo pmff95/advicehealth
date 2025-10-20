@@ -73,3 +73,61 @@
   width: 100%;
   font-weight: bold;
 }
+/* Estilo do interruptor (toggle) */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 28px;
+  height: 14px;
+  margin-right: 0.5rem;
+}
+.switch-line {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Fundo do switch */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+/* Bolinha do switch */
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  left: 3px;
+  border-radius: 50%;
+}
+
+/* Toggle ativado */
+input:checked + .slider {
+  background-color: #007bff; /* azul padrão */
+}
+
+input:checked + .slider::before {
+  transform: translateX(13px);
+}
+
+/* Bordas mais suaves */
+.slider.round {
+  border-radius: 24px;
+}

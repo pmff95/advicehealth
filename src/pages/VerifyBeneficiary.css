@@ -55,7 +55,7 @@
   width: 100%;
 }
 
-h2 {
+.verify-card h2 {
   font-size: clamp(1.1rem, 2vw, 1.5rem);
   color: #0c4171;
   margin-top: 0;
