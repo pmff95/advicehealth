@@ -38,7 +38,7 @@
   color: #333;
   border-radius: 16px 16px 12px 12px;
   width: 100%;
-  max-width: 35vw;
+  max-width: 28vw;
   padding: 2rem 3rem;
   display: flex;
   flex-direction: column;
@@ -98,6 +98,10 @@
 .login-options a {
   color: #1e5d96;
   text-decoration: underline;
+}
+
+.login-options input {
+  font-size: 0.6rem;
 }
 
 .login-options a:hover {
@@ -161,7 +165,7 @@
     flex-direction: column;
   }
   .portal-header {
-    max-width: 100vw;
+    max-width: 100vw !important;
     display: flex;
   }
 
@@ -194,5 +198,5 @@
 .login-card .signup,
 .login-options,
 .login-card input {
-  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  font-size: clamp(0.7rem, 1vw, 0.9rem);
 }

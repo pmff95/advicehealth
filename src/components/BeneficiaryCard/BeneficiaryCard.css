@@ -131,3 +131,12 @@ input:checked + .slider::before {
 .slider.round {
   border-radius: 24px;
 }
+.add-contact input {
+  padding: 0.5rem;
+  border: 1px solid rgb(197, 197, 197);
+  width: 100%;
+  border-radius: 6px;
+}
+.add-contact .button-add-contact {
+  width: 100%;
+}

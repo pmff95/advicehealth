@@ -160,7 +160,7 @@ export default function Guides() {
                     variant="icon"
                   />
                   <Button
-                    variant="secondary"
+                    severity="secondary"
                     onClick={() => handleSelect(g.number)}
                   >
                     Ver detalhes

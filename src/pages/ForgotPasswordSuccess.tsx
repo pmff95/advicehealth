@@ -1,28 +1,20 @@
 import { useState } from "react";
-import "./SignupSuccess.css";
+import "./ForgotPasswordSuccess.css";
+import { sendPasswordResetEmail } from "../utils/api";
 
-interface SignupSuccessProps {
+interface ForgotPasswordSuccessProps {
   email: string;
-  onResend?: () => Promise<void>; 
   onGoToLogin: () => void;
 }
 
-export default function SignupSuccess({
-  email,
-  onResend,
-  onGoToLogin,
-}: SignupSuccessProps) {
-  const isResendAvailable = typeof onResend === "function";
-
+export default function ForgotPasswordSuccess({ email, onGoToLogin }: ForgotPasswordSuccessProps) {
   const [isSending, setIsSending] = useState(false);
   const [sentMessage, setSentMessage] = useState("");
 
   const handleResendClick = async () => {
-    if (!onResend) return;
-
     setIsSending(true);
     try {
-      await onResend();
+      await sendPasswordResetEmail(email);
       setSentMessage("E-mail reenviado com sucesso!");
       setTimeout(() => setSentMessage(""), 5000);
     } catch {
@@ -39,7 +31,7 @@ export default function SignupSuccess({
         <h1>Portal do Beneficiário</h1>
       </header>
 
-      <main className="success-card" aria-labelledby="signup-success-title">
+      <main className="success-card" aria-labelledby="forgot-success-title">
         <div className="success-card__icon" aria-hidden>
           <svg
             width="40"
@@ -56,35 +48,26 @@ export default function SignupSuccess({
             <polyline points="22 5 12 13 2 5" />
           </svg>
         </div>
-
-        <h2 id="signup-success-title">Cadastro realizado com sucesso!</h2>
-        <p>
-          Para continuar, clique no link enviado para <strong>{email}</strong>.
-        </p>
+        <h2 id="forgot-success-title">E-mail enviado com sucesso!</h2>
+        <p>Para continuar, clique no link enviado para <strong>{email}</strong>.</p>
       </main>
 
       <footer className="success-footer">
         <p>
           Não está vendo o e-mail na sua caixa de entrada?{" "}
-          {isResendAvailable ? (
-            <button
-              type="button"
-              className="success-footer__link"
-              onClick={handleResendClick}
-              disabled={isSending}
-            >
-              {isSending ? "Enviando..." : "Tentar enviar novamente"}
-            </button>
-          ) : (
-            <span className="success-footer__placeholder">
-              Tentar enviar novamente
-            </span>
-          )}
+          <button
+            type="button"
+            className="success-footer__link"
+            onClick={handleResendClick}
+            disabled={isSending}
+          >
+            {isSending ? "Enviando..." : "Tentar enviar novamente"}
+          </button>
         </p>
         {sentMessage && <p style={{ color: "green" }}>{sentMessage}</p>}
 
         <button className="success-login-button" onClick={onGoToLogin}>
-          Entrar no sistema
+          Voltar ao login
         </button>
       </footer>
     </div>

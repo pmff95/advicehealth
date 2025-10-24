@@ -9,11 +9,12 @@ const formatCpfDigits = (value: string): string => {
   return masked;
 };
 
-export const maskCpf = (value: string): string => formatCpfDigits(digitsOnly(value));
+export const maskCpf = (value: string): string =>
+  formatCpfDigits(digitsOnly(value));
 
 export const formatDate = (dateStr: string) => {
   const [day, month, year] = dateStr.split("/");
-  if (!day || !month || !year) return dateStr; 
+  if (!day || !month || !year) return dateStr;
   return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
 };
 
@@ -36,9 +37,11 @@ const formatPhoneDigits = (value: string): string => {
   return masked.trim();
 };
 
-export const maskPhone = (value: string): string => formatPhoneDigits(digitsOnly(value));
+export const maskPhone = (value: string): string =>
+  formatPhoneDigits(digitsOnly(value));
 
 export const formatPhone = (value: string): string => {
+  if (!value) return "";
   const digits = digitsOnly(value);
   if (!digits) return "";
   return formatPhoneDigits(digits);
@@ -61,7 +64,10 @@ export const maskBirthDate = (value: string): string => {
     return `${limitedDigits.slice(0, 2)}/${limitedDigits.slice(2)}`;
   }
 
-  return `${limitedDigits.slice(0, 2)}/${limitedDigits.slice(2, 4)}/${limitedDigits.slice(4)}`;
+  return `${limitedDigits.slice(0, 2)}/${limitedDigits.slice(
+    2,
+    4
+  )}/${limitedDigits.slice(4)}`;
 };
 
 const extractBirthDateDigits = (value: string): string => {

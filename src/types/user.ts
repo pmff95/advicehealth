@@ -5,8 +5,8 @@ export interface UserProfile {
   cpf?: string;
   phone?: string;
   birthDate?: string;
-  phones?: string[];
-  emails?: string[];
+  phones: { uuid?: string; number: string; is_active: boolean }[];
+  additional_emails: { uuid?: string; email: string; is_active: boolean }[];
   cardNumber?: string;
   operator?: string;
   guideNumber?: string;
@@ -21,8 +21,8 @@ export type CurrentUserResponse = {
   birthDate?: string;
   birth_date?: string;
   date_of_birth?: string;
-  phones?: unknown;
-  emails?: unknown;
+  phones?: { uuid?: string; number: string; is_active: boolean }[];
+  additional_emails?: { uuid?: string; email: string; is_active: boolean }[];
   cardNumber?: string;
   card_number?: string;
   operator?: string;

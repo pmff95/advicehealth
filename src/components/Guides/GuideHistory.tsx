@@ -49,7 +49,10 @@ const GuideHistory = ({ steps }: GuideHistoryProps) => {
               </div>
               <div className="timeline-content">
                 {step.date && (
-                  <span className="timeline-date">{step.date}</span>
+                  <span className="timeline-date">
+                    {" "}
+                    {new Date(step.date).toLocaleDateString("pt-BR")}
+                  </span>
                 )}
                 <h4 className="timeline-title">{step.title}</h4>
                 <p className="timeline-info">{step.info}</p>

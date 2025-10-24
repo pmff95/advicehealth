@@ -1,16 +1,17 @@
 import React from "react";
 import "./Button.css";
 
-type ButtonVariant = "primary" | "secondary" | "tertiary";
+type ButtonSeverity = "primary" | "secondary" | "tertiary" | "danger";
 
-interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  severity?: ButtonSeverity;
+  outlined?: boolean;
 }
 
 export default function Button({
   children,
-  variant = "primary",
+  severity = "primary",
+  outlined = false,
   className = "",
   type = "button",
   ...props
@@ -18,11 +19,12 @@ export default function Button({
   return (
     <button
       type={type}
-      className={`btn btn-${variant} ${className}`.trim()}
+      className={`btn btn-${severity} ${
+        outlined ? "btn-outlined" : ""
+      } ${className}`.trim()}
       {...props}
     >
       {children}
     </button>
   );
 }
-

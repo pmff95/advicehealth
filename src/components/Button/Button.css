@@ -5,9 +5,10 @@
   padding: 0.75rem 1rem;
   font-size: 0.8rem;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
+/* === VARIANTES DE COR === */
 .btn-primary {
   background-color: #1976d2;
   color: #fff;
@@ -15,7 +16,6 @@
 
 .btn-primary:hover {
   background-color: #1e5d96;
-  color: #fff;
 }
 
 .btn-secondary {
@@ -34,4 +34,55 @@
 
 .btn-tertiary:hover {
   background: rgb(231, 231, 231);
+}
+
+.btn-danger {
+  background-color: #e53935;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c62828;
+}
+
+/* === VARIAÇÃO OUTLINED === */
+.btn-outlined {
+  background: transparent;
+  border: 1px solid currentColor;
+}
+
+.btn-primary.btn-outlined {
+  color: #1976d2;
+  border-color: #1976d2;
+}
+
+.btn-primary.btn-outlined:hover {
+  background: rgba(25, 118, 210, 0.1);
+}
+
+.btn-secondary.btn-outlined {
+  color: #1e5d96;
+  border-color: #1e5d96;
+}
+
+.btn-secondary.btn-outlined:hover {
+  background: rgba(30, 93, 150, 0.1);
+}
+
+.btn-tertiary.btn-outlined {
+  color: #5f6368;
+  border-color: #5f6368;
+}
+
+.btn-tertiary.btn-outlined:hover {
+  background: rgba(95, 99, 104, 0.1);
+}
+
+.btn-danger.btn-outlined {
+  color: #e53935;
+  border-color: #e53935;
+}
+
+.btn-danger.btn-outlined:hover {
+  background: rgba(229, 57, 53, 0.1);
 }

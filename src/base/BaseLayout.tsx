@@ -4,6 +4,8 @@ import { useMemo, useState, type ReactNode } from "react";
 import MobileHeader from "../components/MobileHeader/MobileHeader";
 import BeneficiaryCard from "../components/BeneficiaryCard/BeneficiaryCard";
 import type { UserProfile } from "../types/user";
+import { fetchCurrentUser } from "../utils/api";
+import { getStoredToken } from "../utils/auth";
 
 interface BaseLayoutProps {
   children: ReactNode;
@@ -21,25 +23,46 @@ export default function BaseLayout({
     "dashboard"
   );
 
+  // ✅ Estado local do usuário — agora usado ativamente
+  const [userData, setUserData] = useState<UserProfile>(user);
+
+  // ✅ Atualiza quando o `user` vindo do App mudar (ex: login/logout)
+  // evita warning de variável não usada
+  useMemo(() => {
+    setUserData(user);
+  }, [user]);
+
+  // ✅ Função para atualizar os dados via API
+  const refreshUser = async () => {
+    try {
+      const token = getStoredToken();
+      if (!token) return;
+      const updated = await fetchCurrentUser(token);
+      setUserData(updated);
+    } catch (err) {
+      console.error("Erro ao atualizar usuário:", err);
+    }
+  };
+
   const beneficiaryData = useMemo(() => {
     return {
-      name: user.name ?? "",
-      birthDate: user.birthDate ?? "",
-      cpf: user.cpf ?? "",
-      phone: user.phone ?? "",
-      phones: user.phones ?? [],
-      email: user.email ?? "",
-      emails: user.emails ?? [],
+      name: userData.name ?? "",
+      birthDate: userData.birthDate ?? "",
+      cpf: userData.cpf ?? "",
+      phone: userData.phone ?? "",
+      email: userData.email ?? "",
+      emails: userData.additional_emails ?? [],
+      phones: userData.phones ?? [],
     };
-  }, [user]);
+  }, [userData]);
 
   return (
     <div className="default">
       <Header onLogout={onLogout} />
       <MobileHeader
-        userName={user.name}
-        cardNumber={user.cardNumber ?? ""}
-        operator={user.operator ?? ""}
+        userName={userData.name}
+        cardNumber={userData.cardNumber ?? ""}
+        operator={userData.operator ?? ""}
         open={isMobileMenuOpen}
         onToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         onSelectDashboard={() => {
@@ -57,11 +80,13 @@ export default function BaseLayout({
           {...beneficiaryData}
           className="layout-beneficiary"
           isMobileMenuOpen={isMobileMenuOpen}
+          onRefreshUser={refreshUser}
         />
         {mobileView === "profile" && (
           <BeneficiaryCard
             {...beneficiaryData}
             className="mobile-beneficiary"
+            onRefreshUser={refreshUser}
           />
         )}
         <main

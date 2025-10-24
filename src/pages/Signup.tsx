@@ -1,6 +1,6 @@
 import "./Signup.css";
 import Button from "../components/Button/Button";
-import { registerUser } from "../utils/api";
+import { registerUser, sendPreRegistrationToken } from "../utils/api";
 import {
   useMemo,
   useState,
@@ -44,6 +44,15 @@ export default function Signup({
     confirmPassword: "",
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [signupCompleted, setSignupCompleted] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState<string>("");
+  const [userUuid, setUserUuid] = useState<string>("");
+
   useEffect(() => {
     if (!beneficiaryData) return;
 
@@ -57,14 +66,6 @@ export default function Signup({
       phone: maskPhone(beneficiaryData.phone ?? ""),
     }));
   }, [beneficiaryData]);
-
-  const [errorMessage, setErrorMessage] = useState("");
-  const [hasInteracted, setHasInteracted] = useState(false);
-  const [submitAttempted, setSubmitAttempted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [signupCompleted, setSignupCompleted] = useState(false);
-  const [registeredEmail, setRegisteredEmail] = useState<string>("");
 
   const trimmedFormValues = useMemo(() => {
     return Object.fromEntries(
@@ -156,7 +157,7 @@ export default function Signup({
         trimmedFormValues.birthDate
       );
 
-      await registerUser({
+      const createdUser = await registerUser({
         name: trimmedFormValues.fullName,
         email: trimmedFormValues.email,
         phone: trimmedFormValues.phone
@@ -170,6 +171,14 @@ export default function Signup({
         password: trimmedFormValues.password,
       });
 
+      if (createdUser?.uuid) {
+        setUserUuid(createdUser.uuid); 
+        await sendPreRegistrationToken(createdUser.uuid, {
+          email: trimmedFormValues.email,
+          nome: trimmedFormValues.fullName,
+        });
+      }
+
       setRegisteredEmail(trimmedFormValues.email);
       setSignupCompleted(true);
     } catch (error) {
@@ -180,11 +189,31 @@ export default function Signup({
     }
   };
 
+  const handleResend = async () => {
+    if (!userUuid) return;
+    try {
+      setIsSubmitting(true);
+      await sendPreRegistrationToken(userUuid, {
+        email: registeredEmail,
+        nome: trimmedFormValues.fullName,
+      });
+    } catch {
+      setErrorMessage("Erro ao tentar reenviar o e-mail.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   if (signupCompleted) {
     return (
-      <SignupSuccess email={registeredEmail} onGoToLogin={onBackToLogin} />
+      <SignupSuccess
+        email={registeredEmail}
+        onGoToLogin={onBackToLogin}
+        onResend={handleResend}
+      />
     );
   }
+
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <div className="signup-left">
@@ -303,27 +332,15 @@ export default function Signup({
               />
 
               {validationMessage && (
-                <small
-                  style={{
-                    color: "red",
-                  }}
-                >
-                  {validationMessage}
-                </small>
+                <small style={{ color: "red" }}>{validationMessage}</small>
               )}
               {errorMessage && (
-                <small
-                  style={{
-                    color: "red",
-                  }}
-                >
-                  {errorMessage}
-                </small>
+                <small style={{ color: "red" }}>{errorMessage}</small>
               )}
 
               <Button
                 type="submit"
-                variant="primary"
+                severity="primary"
                 style={{ marginTop: "1rem" }}
                 disabled={isSubmitDisabled}
               >

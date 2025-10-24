@@ -10,24 +10,74 @@ function getEndpoint(path: string) {
 
   return new URL(path, API_BASE_URL).toString();
 }
+export interface BeneficiaryResponse {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  cpf?: string;
+  birth_date?: string;
+}
 
+interface UpdateUserRequest {
+  name?: string;
+  birth_date?: string;
+  additional_emails?: { email: string; is_active: boolean; uuid?: string }[];
+  phones?: { number: string; is_active: boolean; uuid?: string }[];
+}
+interface RegisterUserRequest {
+  name: string;
+  email: string;
+  phone?: string;
+  cpf?: string;
+  guide_number?: string;
+  birth_date?: string;
+  password: string;
+  additional_emails?: { email: string; is_active: boolean }[];
+  phones?: { number: string; is_active: boolean }[];
+}
+
+interface RegisterUserResponse {
+  uuid: string;
+  [key: string]: unknown;
+}
+
+interface ApiErrorResponse {
+  detail?:
+    | string
+    | {
+        message?: string;
+        [key: string]: unknown;
+      };
+  message?: string;
+  [key: string]: unknown;
+}
+
+interface RegistrationErrorResponse {
+  code: string;
+  message: string;
+}
+interface PreRegistrationTokenRequest {
+  email: string;
+  nome: string;
+}
 interface AuthResponse {
   access_token?: string;
   token?: string;
   [key: string]: unknown;
 }
 
-function normalizeStringArray(value: unknown): string[] | undefined {
-  if (Array.isArray(value)) {
-    return value.map((item) => String(item));
-  }
+// function normalizeStringArray(value: unknown): string[] | undefined {
+//   if (Array.isArray(value)) {
+//     return value.map((item) => String(item));
+//   }
 
-  if (typeof value === "string" && value.trim()) {
-    return [value];
-  }
+//   if (typeof value === "string" && value.trim()) {
+//     return [value];
+//   }
 
-  return undefined;
-}
+//   return undefined;
+// }
 
 function normalizeBirthDate(response: CurrentUserResponse): string | undefined {
   const { birthDate, birth_date, date_of_birth } = response;
@@ -109,40 +159,17 @@ export async function fetchCurrentUser(token: string): Promise<UserProfile> {
     phone: data.phone ?? "",
     cpf: data.cpf,
     birthDate: normalizeBirthDate(data),
-    phones: normalizeStringArray(data.phones),
-    emails:
-      normalizeStringArray(data.emails) ?? normalizeStringArray(data.email),
+    phones: data.phones ?? [],
+    additional_emails: data.additional_emails ?? [],
+
     cardNumber: data.cardNumber ?? data.card_number,
     operator: data.operator,
   };
 }
 
-interface RegisterUserRequest {
-  name: string;
-  email: string;
-  phone?: string;
-  cpf?: string;
-  guide_number?: string;
-  birth_date?: string;
-  password: string;
-  additional_emails?: { email: string; is_active: boolean }[];
-  phones?: { number: string; is_active: boolean }[];
-}
-
-interface ApiErrorResponse {
-  detail?:
-    | string
-    | {
-        message?: string;
-        [key: string]: unknown;
-      };
-  message?: string;
-  [key: string]: unknown;
-}
-
 export async function registerUser(
   payload: RegisterUserRequest
-): Promise<void> {
+): Promise<RegisterUserResponse> {
   const response = await fetch(getEndpoint("/users/"), {
     method: "POST",
     headers: {
@@ -152,7 +179,13 @@ export async function registerUser(
   });
 
   if (response.ok) {
-    return;
+    const data = (await response
+      .json()
+      .catch(() => ({}))) as RegisterUserResponse;
+    if (!data.uuid) {
+      throw new Error("Usuário cadastrado, mas UUID não retornado.");
+    }
+    return data;
   }
 
   const data = (await response.json().catch(() => ({}))) as ApiErrorResponse;
@@ -176,11 +209,17 @@ export async function registerUser(
   throw new Error("Falha ao realizar cadastro. Tente novamente.");
 }
 
-export async function fetchGuidesByBeneficiary(token: string, beneficiaryId: number): Promise<Guide[]> {
-  const response = await fetch(getEndpoint(`/process/beneficiary/${beneficiaryId}`), {
-    method: "GET",
-    headers: { Authorization: `Bearer ${token}` },
-  });
+export async function fetchGuidesByBeneficiary(
+  token: string,
+  beneficiaryId: number
+): Promise<Guide[]> {
+  const response = await fetch(
+    getEndpoint(`/process/beneficiary/${beneficiaryId}`),
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Falha ao buscar guias do beneficiário");
@@ -189,7 +228,10 @@ export async function fetchGuidesByBeneficiary(token: string, beneficiaryId: num
   return await response.json();
 }
 
-export async function fetchGuideDetail(token: string, numeroGuia: string): Promise<Guide> {
+export async function fetchGuideDetail(
+  token: string,
+  numeroGuia: string
+): Promise<Guide> {
   const response = await fetch(getEndpoint(`/process/${numeroGuia}`), {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
@@ -200,15 +242,6 @@ export async function fetchGuideDetail(token: string, numeroGuia: string): Promi
   }
 
   return await response.json();
-}
-
-export interface BeneficiaryResponse {
-  id: number;
-  name: string;
-  email: string;
-  phone?: string;
-  cpf?: string;
-  birth_date?: string;
 }
 
 export async function fetchBeneficiaryId(
@@ -236,13 +269,6 @@ export async function fetchBeneficiaryId(
   return await response.json();
 }
 
-interface UpdateUserRequest {
-  name?: string;
-  birth_date?: string;
-  additional_emails?: { email: string; is_active: boolean; uuid?: string }[];
-  phones?: { number: string; is_active: boolean; uuid?: string }[];
-}
-
 export async function updateCurrentUser(
   token: string,
   payload: UpdateUserRequest
@@ -264,4 +290,223 @@ export async function updateCurrentUser(
         : data.detail?.message ?? "Falha ao atualizar usuário";
     throw new Error(message);
   }
+}
+
+export async function addPhone(token: string, number: string): Promise<void> {
+  const response = await fetch(getEndpoint("/users/current/add-phone"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      number,
+      is_active: true,
+    }),
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const message =
+      typeof data.detail === "string"
+        ? data.detail
+        : data.detail?.message ?? "Falha ao adicionar telefone";
+    throw new Error(message);
+  }
+}
+
+export async function addEmail(token: string, email: string): Promise<void> {
+  const response = await fetch(getEndpoint("/users/current/add-email"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      email,
+      is_active: true,
+    }),
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const message =
+      typeof data.detail === "string"
+        ? data.detail
+        : data.detail?.message ?? "Falha ao adicionar e-mail";
+    throw new Error(message);
+  }
+}
+
+/* NOVO - Toggle telefone */
+export async function togglePhone(
+  token: string,
+  phoneUuid: string,
+  isActive: boolean
+): Promise<void> {
+  const response = await fetch(
+    getEndpoint(
+      `/users/current/change-status-phones/${phoneUuid}?is_active=${isActive}`
+    ),
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const message =
+      typeof data.detail === "string"
+        ? data.detail
+        : data.detail?.message ?? "Falha ao alterar status do telefone";
+    throw new Error(message);
+  }
+}
+
+export async function toggleEmail(
+  token: string,
+  emailUuid: string,
+  isActive: boolean
+): Promise<void> {
+  const response = await fetch(
+    getEndpoint(
+      `/users/current/change-status-email/${emailUuid}?is_active=${isActive}`
+    ),
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const message =
+      typeof data.detail === "string"
+        ? data.detail
+        : data.detail?.message ?? "Falha ao alterar status do e-mail";
+    throw new Error(message);
+  }
+}
+
+export async function sendPreRegistrationToken(
+  userId: string,
+  payload: PreRegistrationTokenRequest
+): Promise<void> {
+  const response = await fetch(
+    getEndpoint(`/registration/${userId}/pre-registration-token`),
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const message =
+      typeof data.detail === "string"
+        ? data.detail
+        : data.detail?.message ?? "Falha ao enviar e-mail de confirmação";
+    throw new Error(message);
+  }
+}
+
+export async function validateToken(
+  token: string,
+  endpoint: string
+): Promise<void> {
+  const response = await fetch(getEndpoint(endpoint), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: "",
+  });
+
+  if (!response.ok) {
+    let errorData: RegistrationErrorResponse | undefined;
+
+    try {
+      const data = await response.json();
+      errorData = data.detail as RegistrationErrorResponse;
+    } catch {
+      throw new Error("Falha ao validar token");
+    }
+
+    if (!errorData) {
+      throw new Error("Falha ao validar token");
+    }
+
+    switch (errorData.code) {
+      case "TOKEN_INVALID":
+        throw new Error("Link inválido");
+      case "TOKEN_EXPIRED":
+        throw new Error("Link expirou. Solicite um novo link.");
+      case "TOKEN_NOT_FOUND":
+        throw new Error("Token não encontrado");
+      case "USER_REGISTERED":
+        throw new Error("Usuário já finalizou o processo");
+      case "USER_NOT_FOUND":
+        throw new Error("Usuário não encontrado");
+      case "INTERNAL_ERROR":
+      default:
+        throw new Error(errorData.message ?? "Erro interno do servidor");
+    }
+  }
+}
+
+export async function sendPasswordResetEmail(email: string): Promise<void> {
+  const response = await fetch(getEndpoint("/forgot-password/reset-request"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    const message =
+      typeof data.detail === "string"
+        ? data.detail
+        : data.detail?.message ?? "Falha ao enviar e-mail de recuperação";
+    throw new Error(message);
+  }
+}
+
+export async function checkPasswordReset(token: string) {
+  const res = await fetch(
+    `/forgot-password/check-password-reset?token=${token}`
+  );
+  if (!res.ok) {
+    throw new Error(await res.text());
+  }
+  return res.json();
+}
+
+export async function confirmPasswordReset(token: string, newPassword: string) {
+  const res = await fetch(
+    getEndpoint(`/forgot-password/finalize-password-reset`),
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ new_password: newPassword }),
+    }
+  );
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Erro ao redefinir senha.");
+  }
+
+  return res.json();
 }

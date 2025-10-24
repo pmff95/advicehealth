@@ -6,7 +6,7 @@ import "./VerifyBeneficiary.css";
 
 interface VerifyBeneficiaryProps {
   onBeneficiaryFound: (data: {
-    cpf: string; 
+    cpf: string;
     guideNumber: string;
     birthDate: string;
     fullName: string;
@@ -22,8 +22,8 @@ export default function VerifyBeneficiary({
   onBeneficiaryFound,
   onBack,
 }: VerifyBeneficiaryProps) {
-  const [, setCpf] = useState(""); 
-  const [numeroGuia, setNumeroGuia] = useState(""); 
+  const [, setCpf] = useState("");
+  const [numeroGuia, setNumeroGuia] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,16 +32,17 @@ export default function VerifyBeneficiary({
     const { name, value } = event.target;
 
     if (name === "numeroGuia") {
-      
       const digits = digitsOnly(value).slice(0, 11);
       setNumeroGuia(digits);
-      setCpf(digits); 
+      setCpf(digits);
     } else if (name === "birthDate") {
       const digits = digitsOnly(value).slice(0, 8);
       let masked = digits;
-      if (digits.length >= 3) masked = digits.slice(0, 2) + "/" + digits.slice(2);
+      if (digits.length >= 3)
+        masked = digits.slice(0, 2) + "/" + digits.slice(2);
       if (digits.length >= 5)
-        masked = digits.slice(0, 2) + "/" + digits.slice(2, 4) + "/" + digits.slice(4);
+        masked =
+          digits.slice(0, 2) + "/" + digits.slice(2, 4) + "/" + digits.slice(4);
       setBirthDate(masked);
     }
   };
@@ -128,7 +129,7 @@ export default function VerifyBeneficiary({
 
             <Button
               onClick={onBack}
-              variant="secondary"
+              severity="secondary"
               className="verify-back"
             >
               Voltar ao login
