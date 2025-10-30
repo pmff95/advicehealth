@@ -54,13 +54,13 @@ export default function MobileHeader({
 
       <nav className={`mobile-menu ${open ? "open" : ""}`}>
         <ul>
-          <li>
+          <li onClick={onSelectDashboard}>
             <img src="../../public/svg/guia-medica.svg" alt="" />
-            <button onClick={onSelectDashboard}>Consultar Guias</button>
+            <button>Consultar Guias</button>
           </li>
-          <li>
+          <li onClick={onSelectProfile}>
             <img src="../../public/svg/paciente.svg" alt="" />
-            <button onClick={onSelectProfile}>Meus Dados</button>
+            <button>Meus Dados</button>
           </li>
         </ul>
       </nav>

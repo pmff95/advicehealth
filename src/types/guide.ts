@@ -25,6 +25,7 @@ export interface Guide {
   type: string;
   number: string;
   date: string;
+  date_process: string;
   doctor: string;
   hospital: string;
   status: Status;

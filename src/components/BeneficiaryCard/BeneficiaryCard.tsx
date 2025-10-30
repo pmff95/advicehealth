@@ -1,4 +1,4 @@
-import { formatCPF, formatPhone, maskPhone } from "../../utils/formatters";
+import { formatCPF, formatPhone } from "../../utils/formatters";
 import Button from "../Button/Button";
 import "./BeneficiaryCard.css";
 import { useMemo, useState } from "react";
@@ -162,7 +162,7 @@ export default function BeneficiaryCard({
               <input
                 type="text"
                 className="input-add-contact"
-                value={newPhone}  value={maskPhone(newPhone)}
+                value={newPhone}
                 onChange={(e) => setNewPhone(e.target.value)}
                 placeholder="(11) 99999-9999"
               />

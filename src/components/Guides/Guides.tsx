@@ -148,13 +148,20 @@ export default function Guides() {
                 <span>
                   Data de atendimento: {new Date(g.date).toLocaleDateString()}
                 </span>
-                <span style={{ marginTop: "1.5rem", fontWeight: "500" }}>
+                <span
+                  style={{
+                    marginTop: "2rem",
+                    paddingTop: ".7rem",
+                    borderTop: "1px solid #9CC4EC",
+                    fontWeight: "500",
+                  }}
+                >
                   {g.doctor}
                 </span>
                 <span>{g.hospital}</span>
                 <div className="guide-actions">
                   <StatusTag
-                    label={g.status}
+                    label={g.date_process ? "Concluído" : "Em andamento"}
                     icon={faCheck}
                     severity="success"
                     variant="icon"

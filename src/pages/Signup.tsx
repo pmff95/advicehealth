@@ -16,6 +16,8 @@ import {
   maskCpf,
   maskPhone,
 } from "../utils/formatters";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 interface SignupProps {
   onBackToLogin: () => void;
@@ -52,6 +54,12 @@ export default function Signup({
   const [signupCompleted, setSignupCompleted] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState<string>("");
   const [userUuid, setUserUuid] = useState<string>("");
+
+  // 🟢 Novos estados de erro de campo
+  const [cpfError, setCpfError] = useState<string | null>(null);
+  const [birthError, setBirthError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     if (!beneficiaryData) return;
@@ -91,7 +99,7 @@ export default function Signup({
 
   const passwordTooShort =
     trimmedFormValues.password.length > 0 &&
-    trimmedFormValues.password.length < 6;
+    trimmedFormValues.password.length < 8;
   const passwordsMismatch =
     trimmedFormValues.password &&
     trimmedFormValues.confirmPassword &&
@@ -104,7 +112,7 @@ export default function Signup({
         trimmedFormValues.confirmPassword) &&
       passwordTooShort
     ) {
-      return "A senha deve conter pelo menos 6 caracteres.";
+      return "A senha deve conter pelo menos 8 caracteres.";
     }
     if (
       (submitAttempted || trimmedFormValues.confirmPassword) &&
@@ -126,22 +134,71 @@ export default function Signup({
     trimmedFormValues.confirmPassword,
   ]);
 
-  const isSubmitDisabled: boolean =
-    Boolean(isSubmitting) ||
-    Boolean(hasEmptyRequiredFields) ||
-    Boolean(passwordTooShort) ||
-    Boolean(passwordsMismatch);
+  // 🟢 valida CPF com dígitos verificadores
+  const validarCpf = (cpf: string) => {
+    cpf = digitsOnly(cpf);
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+    let soma = 0;
+    for (let i = 0; i < 9; i++) soma += parseInt(cpf[i]) * (10 - i);
+    let resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf[9])) return false;
+    soma = 0;
+    for (let i = 0; i < 10; i++) soma += parseInt(cpf[i]) * (11 - i);
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    return resto === parseInt(cpf[10]);
+  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
     let maskedValue = value;
-    if (name === "cpf") maskedValue = maskCpf(value);
+    if (name === "cpf") {
+      maskedValue = maskCpf(value);
+      const digits = digitsOnly(maskedValue);
+      if (digits.length < 11) {
+        setCpfError("CPF incompleto.");
+      } else if (!validarCpf(digits)) {
+        setCpfError("CPF inválido.");
+      } else {
+        setCpfError(null);
+      }
+    }
+
     if (name === "phone") maskedValue = maskPhone(value);
-    if (name === "birthDate") maskedValue = maskBirthDate(value);
+
+    if (name === "birthDate") {
+      maskedValue = maskBirthDate(value);
+      const digits = digitsOnly(maskedValue);
+      if (digits.length === 8) {
+        const [day, month, year] = [
+          digits.slice(0, 2),
+          digits.slice(2, 4),
+          digits.slice(4),
+        ];
+        const birth = new Date(`${year}-${month}-${day}`);
+        const today = new Date();
+        if (birth > today) {
+          setBirthError("A data de nascimento não pode ser maior que hoje.");
+        } else {
+          setBirthError(null);
+        }
+      } else {
+        setBirthError("Informe a data completa (dd/mm/aaaa).");
+      }
+    }
 
     setHasInteracted(true);
     setFormValues((prev) => ({ ...prev, [name]: maskedValue }));
   };
+
+  const isSubmitDisabled: boolean =
+    Boolean(isSubmitting) ||
+    Boolean(hasEmptyRequiredFields) ||
+    Boolean(passwordTooShort) ||
+    Boolean(passwordsMismatch) ||
+    Boolean(cpfError) ||
+    Boolean(birthError);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -149,7 +206,14 @@ export default function Signup({
     setHasInteracted(true);
     setErrorMessage("");
 
-    if (hasEmptyRequiredFields || passwordTooShort || passwordsMismatch) return;
+    if (
+      hasEmptyRequiredFields ||
+      passwordTooShort ||
+      passwordsMismatch ||
+      cpfError ||
+      birthError
+    )
+      return;
 
     try {
       setIsSubmitting(true);
@@ -172,7 +236,7 @@ export default function Signup({
       });
 
       if (createdUser?.uuid) {
-        setUserUuid(createdUser.uuid); 
+        setUserUuid(createdUser.uuid);
         await sendPreRegistrationToken(createdUser.uuid, {
           email: trimmedFormValues.email,
           nome: trimmedFormValues.fullName,
@@ -226,110 +290,161 @@ export default function Signup({
               Dados do <br /> Beneficiário
             </h2>
             <form onSubmit={handleSubmit}>
-              <label className="label-input" htmlFor="guideNumber">
-                Número da guia
-              </label>
-              <input
-                id="guideNumber"
-                name="guideNumber"
-                className="signup-input"
-                placeholder="12321324673"
-                value={formValues.guideNumber}
-                onChange={handleChange}
-                required
-              />
+              <div style={{ marginBottom: "1rem" }}>
+                <label className="label-input" htmlFor="guideNumber">
+                  Número da guia
+                </label>
+                <input
+                  id="guideNumber"
+                  name="guideNumber"
+                  className="signup-input"
+                  placeholder="Número da Guia"
+                  value={formValues.guideNumber}
+                  onChange={handleChange}
+                  required
+                  disabled // 🔒 campo desativado
+                />
+              </div>
 
-              <label className="label-input" htmlFor="cpf">
-                CPF
-              </label>
-              <input
-                id="cpf"
-                name="cpf"
-                className="signup-input"
-                placeholder="000.000.000-00"
-                value={formValues.cpf}
-                onChange={handleChange}
-                required
-              />
+              <div style={{ marginBottom: "1rem" }}>
+                <label className="label-input" htmlFor="cpf">
+                  CPF
+                </label>
+                <input
+                  id="cpf"
+                  name="cpf"
+                  className="signup-input"
+                  placeholder="000.000.000-00"
+                  value={formValues.cpf}
+                  onChange={handleChange}
+                  required
+                  disabled // 🔒 campo desativado
+                />
+                {cpfError && <small style={{ color: "red" }}>{cpfError}</small>}
+              </div>
 
-              <label className="label-input" htmlFor="birthDate">
-                Data de nascimento
-              </label>
-              <input
-                id="birthDate"
-                name="birthDate"
-                className="signup-input"
-                placeholder="25/08/1990"
-                value={formValues.birthDate}
-                onChange={handleChange}
-                required
-              />
+              <div style={{ marginBottom: "1rem" }}>
+                <label className="label-input" htmlFor="birthDate">
+                  Data de nascimento
+                </label>
+                <input
+                  id="birthDate"
+                  name="birthDate"
+                  className="signup-input"
+                  placeholder="dd/mm/aaaa"
+                  value={formValues.birthDate}
+                  onChange={handleChange}
+                  required
+                  disabled // 🔒 campo desativado
+                />
+                {birthError && (
+                  <small style={{ color: "red" }}>{birthError}</small>
+                )}
+              </div>
 
-              <label className="label-input" htmlFor="fullName">
-                Nome
-              </label>
-              <input
-                id="fullName"
-                name="fullName"
-                className="signup-input"
-                placeholder="Maria Oliveira Santos"
-                value={formValues.fullName}
-                onChange={handleChange}
-                required
-              />
+              <div style={{ marginBottom: "1rem" }}>
+                <label className="label-input" htmlFor="fullName">
+                  Nome
+                </label>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  className="signup-input"
+                  placeholder="Digite seu nome..."
+                  value={formValues.fullName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-              <label className="label-input" htmlFor="phone">
-                Telefone/Celular
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                className="signup-input"
-                placeholder="(11) 99859-0459"
-                value={formValues.phone}
-                onChange={handleChange}
-                required
-              />
+              <div style={{ marginBottom: "1rem" }}>
+                <label className="label-input" htmlFor="phone">
+                  Telefone/Celular
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  className="signup-input"
+                  placeholder="(11) 0 0000-0000"
+                  value={formValues.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-              <label className="label-input" htmlFor="email">
-                E-mail
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                className="signup-input"
-                placeholder="email@email.com"
-                value={formValues.email}
-                onChange={handleChange}
-                required
-              />
+              <div style={{ marginBottom: "1rem" }}>
+                <label className="label-input" htmlFor="email">
+                  E-mail
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  className="signup-input"
+                  placeholder="email@email.com"
+                  value={formValues.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-              <label className="label-input" htmlFor="password">
-                Senha
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                className="signup-input"
-                value={formValues.password}
-                onChange={handleChange}
-                required
-              />
+              <div style={{ marginBottom: "1rem" }}>
+                <label className="label-input" htmlFor="password">
+                  Senha
+                </label>
+                {/* 🔹 wrapper com olho */}
+                <div className="password-wrapper">
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    className="signup-input"
+                    value={formValues.password}
+                    onChange={handleChange}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="toggle-password"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={
+                      showPassword ? "Ocultar senha" : "Mostrar senha"
+                    }
+                  >
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  </button>
+                </div>
+              </div>
 
-              <label className="label-input" htmlFor="confirmPassword">
-                Confirmar senha
-              </label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                className="signup-input"
-                value={formValues.confirmPassword}
-                onChange={handleChange}
-                required
-              />
+              <div style={{ marginBottom: "1rem" }}>
+                <label className="label-input" htmlFor="confirmPassword">
+                  Confirmar senha
+                </label>
+                {/* 🔹 wrapper com olho */}
+                <div className="password-wrapper">
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    className="signup-input"
+                    value={formValues.confirmPassword}
+                    onChange={handleChange}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="toggle-password"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    aria-label={
+                      showConfirmPassword ? "Ocultar senha" : "Mostrar senha"
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={showConfirmPassword ? faEyeSlash : faEye}
+                    />
+                  </button>
+                </div>
+              </div>
 
               {validationMessage && (
                 <small style={{ color: "red" }}>{validationMessage}</small>

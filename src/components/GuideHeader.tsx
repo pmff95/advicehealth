@@ -17,7 +17,7 @@ export default function GuideHeader({ guide }: GuideHeaderProps) {
       </span>
       <span
         className="info-span"
-        style={{ fontWeight: "500", marginTop: "2.5rem" }}
+        style={{ fontWeight: "500", fontSize: ".9rem", marginTop: "2.5rem" }}
       >
         {guide.doctor}
       </span>

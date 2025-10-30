@@ -86,3 +86,28 @@
 .btn-danger.btn-outlined:hover {
   background: rgba(229, 57, 53, 0.1);
 }
+/* === ESTILO PARA BOTÃO DESABILITADO === */
+.btn:disabled,
+.btn-disabled {
+  opacity: 0.6; /* Deixa o botão mais apagado visualmente */
+  cursor: not-allowed; /* Mostra o cursor bloqueado */
+  pointer-events: none; /* Impede cliques */
+  filter: grayscale(0.4); /* Dá um leve tom acinzentado */
+  transition: none; /* Remove efeitos de hover */
+}
+
+/* Caso queira personalizar cores por tipo */
+.btn-primary:disabled {
+  background-color: #a2c3e9;
+  color: #f0f0f0;
+}
+
+.btn-secondary:disabled {
+  background-color: #e0e8f2;
+  color: #7a8aa5;
+}
+
+.btn-danger:disabled {
+  background-color: #ef9a9a;
+  color: #fff;
+}

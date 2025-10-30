@@ -3,6 +3,8 @@ import Button from "../../components/Button/Button";
 import { authenticate, fetchCurrentUser } from "../../utils/api";
 import { storeToken } from "../../utils/auth";
 import type { UserProfile } from "../../types/user";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 interface FormLoginProps {
   onLogin: (user: UserProfile) => void;
@@ -19,6 +21,7 @@ export default function FormLogin({
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // 🔹 novo estado
 
   const handleLoginSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,7 +63,7 @@ export default function FormLogin({
           className="login-input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="email@mail.com"
+          placeholder="Digite seu email"
           type="email"
           autoComplete="username"
         />
@@ -68,13 +71,26 @@ export default function FormLogin({
         <label className="label-input" style={{ marginTop: "1.5rem" }}>
           Senha
         </label>
-        <input
-          type="password"
-          placeholder="Digite sua senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          autoComplete="current-password"
-        />
+
+        {/* 🔹 wrapper adicionado apenas para o olho */}
+        <div className="password-wrapper">
+          <input
+            type={showPassword ? "text" : "password"} // 🔹 alterna tipo
+            placeholder="Digite sua senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+          />
+          <button
+            type="button"
+            className="toggle-password" // 🔹 novo botão
+            onClick={() => setShowPassword(!showPassword)}
+            aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+          >
+            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />{" "}
+            {/* 🔹 */}
+          </button>
+        </div>
 
         <div className="login-options">
           <label className="remember">

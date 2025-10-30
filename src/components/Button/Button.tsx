@@ -14,13 +14,15 @@ export default function Button({
   outlined = false,
   className = "",
   type = "button",
+  disabled = false, // 🟢 garante que o estado chegue no HTML
   ...props
 }: ButtonProps) {
   return (
     <button
       type={type}
-      className={`btn btn-${severity} ${
-        outlined ? "btn-outlined" : ""
+      disabled={disabled} // 🟢 garante bloqueio real no botão
+      className={`btn btn-${severity} ${outlined ? "btn-outlined" : ""} ${
+        disabled ? "btn-disabled" : ""
       } ${className}`.trim()}
       {...props}
     >

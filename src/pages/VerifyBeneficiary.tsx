@@ -92,19 +92,19 @@ export default function VerifyBeneficiary({
           </div>
           <div className="verify-card">
             <h2>Verifique seus dados</h2>
-
-            <label className="label-input" htmlFor="numeroGuia">
-              Número da guia
-            </label>
-            <input
-              id="numeroGuia"
-              name="numeroGuia"
-              className="verify-input"
-              placeholder="12321324673"
-              value={numeroGuia}
-              onChange={handleChange}
-            />
-
+            <div style={{ marginBottom: "1rem" }}>
+              <label className="label-input" htmlFor="numeroGuia">
+                Número da guia
+              </label>
+              <input
+                id="numeroGuia"
+                name="numeroGuia"
+                className="verify-input"
+                placeholder="Digite o número da guia"
+                value={numeroGuia}
+                onChange={handleChange}
+              />
+            </div>
             <label className="label-input" htmlFor="birthDate">
               Data de nascimento
             </label>
@@ -112,12 +112,12 @@ export default function VerifyBeneficiary({
               id="birthDate"
               name="birthDate"
               className="verify-input"
-              placeholder="25/08/1990"
+              placeholder="dd/mm/aaaa"
               value={birthDate}
               onChange={handleChange}
             />
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {error && <small style={{ color: "red" }}>{error}</small>}
 
             <Button
               onClick={handleSubmit}

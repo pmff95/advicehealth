@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./ForgotPasswordSuccess.css";
 import { sendPasswordResetEmail } from "../utils/api";
 
@@ -7,15 +7,29 @@ interface ForgotPasswordSuccessProps {
   onGoToLogin: () => void;
 }
 
-export default function ForgotPasswordSuccess({ email, onGoToLogin }: ForgotPasswordSuccessProps) {
+export default function ForgotPasswordSuccess({
+  email,
+  onGoToLogin,
+}: ForgotPasswordSuccessProps) {
   const [isSending, setIsSending] = useState(false);
   const [sentMessage, setSentMessage] = useState("");
+  const [cooldown, setCooldown] = useState(0); // 🕒 tempo restante em segundos
+
+  // ⏳ Decrementa o contador a cada segundo enquanto estiver ativo
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const interval = setInterval(() => setCooldown((prev) => prev - 1), 1000);
+    return () => clearInterval(interval);
+  }, [cooldown]);
 
   const handleResendClick = async () => {
+    if (cooldown > 0 || isSending) return;
+
     setIsSending(true);
     try {
       await sendPasswordResetEmail(email);
       setSentMessage("E-mail reenviado com sucesso!");
+      setCooldown(60); // 🕒 bloqueia reenvio por 60 segundos
       setTimeout(() => setSentMessage(""), 5000);
     } catch {
       setSentMessage("Erro ao reenviar e-mail. Tente novamente mais tarde.");
@@ -49,7 +63,9 @@ export default function ForgotPasswordSuccess({ email, onGoToLogin }: ForgotPass
           </svg>
         </div>
         <h2 id="forgot-success-title">E-mail enviado com sucesso!</h2>
-        <p>Para continuar, clique no link enviado para <strong>{email}</strong>.</p>
+        <p>
+          Para continuar, clique no link enviado para <strong>{email}</strong>.
+        </p>
       </main>
 
       <footer className="success-footer">
@@ -59,12 +75,16 @@ export default function ForgotPasswordSuccess({ email, onGoToLogin }: ForgotPass
             type="button"
             className="success-footer__link"
             onClick={handleResendClick}
-            disabled={isSending}
+            disabled={isSending || cooldown > 0}
           >
-            {isSending ? "Enviando..." : "Tentar enviar novamente"}
+            {isSending
+              ? "Enviando..."
+              : cooldown > 0
+              ? `Aguarde ${cooldown}s`
+              : "Tentar enviar novamente"}
           </button>
         </p>
-        {sentMessage && <p style={{ color: "green" }}>{sentMessage}</p>}
+        {sentMessage && <p style={{ color: "white" }}>{sentMessage}</p>}
 
         <button className="success-login-button" onClick={onGoToLogin}>
           Voltar ao login
